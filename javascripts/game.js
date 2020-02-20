@@ -670,6 +670,9 @@ function updateDimensions() {
         document.getElementById("eter4").innerHTML = "Your achievement bonus affects Time Dimensions"+"<br>Cost: "+shortenCosts(1e16)+" EP"
         document.getElementById("eter5").innerHTML = "Time Dimensions are multiplied by your unspent time theorems"+"<br>Cost: "+shortenCosts(1e40)+" EP"
         document.getElementById("eter6").innerHTML = "Time Dimensions are multiplied by days played"+"<br>Cost: "+shortenCosts(1e50)+" EP"
+		document.getElementById("eter7").innerHTML = ""
+        document.getElementById("eter8").innerHTML = ""
+        document.getElementById("eter9").innerHTML = ""
     }
 
     if (document.getElementById("dilation").style.display == "block") {
@@ -779,7 +782,7 @@ function updateEternityChallenges() {
 
     for (var property in player.eternityChalls) {
         document.getElementById(property+"div").style.display = "inline-block"
-        if (player.eternityChalls[property] < 5) {
+        if (player.eternityChalls[property] < maxEC[property]) {
             document.getElementById(property).textContent = "Locked"
             document.getElementById(property).className = "lockedchallengesbtn"
         }
@@ -795,7 +798,7 @@ function updateEternityChallenges() {
         document.getElementById("eterctabbtn").style.display = "block"
     } else {
         for (i=1; i<13; i++) {
-            if (player.eternityChalls["eterc"+i] !== 5) {
+            if (player.eternityChalls["eterc"+i] !== maxEC[i]) {
                 document.getElementById("eterc"+i).textContent = "Locked"
                 document.getElementById("eterc"+i).className = "lockedchallengesbtn"
             }
@@ -1017,6 +1020,9 @@ function updateEternityUpgrades() {
     document.getElementById("eter4").className = (player.eternityUpgrades.includes(4)) ? "eternityupbtnbought" : (player.eternityPoints.gte(1e16)) ? "eternityupbtn" : "eternityupbtnlocked"
     document.getElementById("eter5").className = (player.eternityUpgrades.includes(5)) ? "eternityupbtnbought" : (player.eternityPoints.gte(1e40)) ? "eternityupbtn" : "eternityupbtnlocked"
     document.getElementById("eter6").className = (player.eternityUpgrades.includes(6)) ? "eternityupbtnbought" : (player.eternityPoints.gte(1e50)) ? "eternityupbtn" : "eternityupbtnlocked"
+    document.getElementById("eter7").className = (player.eternityUpgrades.includes(7)) ? "eternityupbtnbought" : (player.eternityPoints.gte(1e100)) ? "eternityupbtn" : "eternityupbtnlocked"
+    document.getElementById("eter8").className = (player.eternityUpgrades.includes(8)) ? "eternityupbtnbought" : (player.eternityPoints.gte(1e200)) ? "eternityupbtn" : "eternityupbtnlocked"
+    document.getElementById("eter9").className = (player.eternityUpgrades.includes(9)) ? "eternityupbtnbought" : (player.eternityPoints.gte(1e300)) ? "eternityupbtn" : "eternityupbtnlocked"
 }
 
 
@@ -3095,7 +3101,7 @@ function eternity(force, auto) {
         if (player.currentEternityChall !== "") {
             if (player.eternityChalls[player.currentEternityChall] === undefined) {
                 player.eternityChalls[player.currentEternityChall] = 1
-            } else if (player.eternityChalls[player.currentEternityChall] < 5) player.eternityChalls[player.currentEternityChall] += 1
+            } else if (player.eternityChalls[player.currentEternityChall] < maxEC[player.currentEternityChall]) player.eternityChalls[player.currentEternityChall] += 1
             player.etercreq = 0
             respecTimeStudies()
             if (Object.keys(player.eternityChalls).length >= 10) {
@@ -4098,7 +4104,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
             },
             timestudy: player.timestudy,
             eternityChalls: player.eternityChalls,
-            eternityChallGoal: startgoal.times(goalIncrease.pow(ECTimesCompleted(name))).max(startgoal),
+            eternityChallGoal: getECGoal(name,ECTimesCompleted(name)),
             currentEternityChall: name,
             eternityChallUnlocked: player.eternityChallUnlocked,
             etercreq: player.etercreq,
@@ -4561,41 +4567,10 @@ setInterval(function() {
         while (upgradeReplicantiGalaxy()) continue
     }
 
-    document.getElementById("eterc1goal").textContent = "Goal: "+shortenCosts(new Decimal("1e1800").times(new Decimal("1e200").pow(ECTimesCompleted("eterc1"))).max(new Decimal("1e1800"))) + " IP"
-    document.getElementById("eterc1completed").textContent = "Completed "+ECTimesCompleted("eterc1")+" times."
-
-    document.getElementById("eterc2goal").textContent = "Goal: "+shortenCosts(new Decimal("1e975").times(new Decimal("1e175").pow(ECTimesCompleted("eterc2"))).max(new Decimal("1e975"))) + " IP"
-    document.getElementById("eterc2completed").textContent = "Completed "+ECTimesCompleted("eterc2")+" times."
-
-    document.getElementById("eterc3goal").textContent = "Goal: "+shortenCosts(new Decimal("1e600").times(new Decimal("1e75").pow(ECTimesCompleted("eterc3"))).max(new Decimal("1e575"))) + " IP"
-    document.getElementById("eterc3completed").textContent = "Completed "+ECTimesCompleted("eterc3")+" times."
-
-    document.getElementById("eterc4goal").textContent = "Goal: "+shortenCosts(new Decimal("1e2750").times(new Decimal("1e550").pow(ECTimesCompleted("eterc4"))).max(new Decimal("1e2750"))) + " IP in "+Math.max((16 - (ECTimesCompleted("eterc4")*4)), 0)+" infinities or less."
-    document.getElementById("eterc4completed").textContent = "Completed "+ECTimesCompleted("eterc4")+" times."
-
-    document.getElementById("eterc5goal").textContent = "Goal: "+shortenCosts(new Decimal("1e750").times(new Decimal("1e400").pow(ECTimesCompleted("eterc5"))).max(new Decimal("1e750"))) + " IP"
-    document.getElementById("eterc5completed").textContent = "Completed "+ECTimesCompleted("eterc5")+" times."
-
-    document.getElementById("eterc6goal").textContent = "Goal: "+shortenCosts(new Decimal("1e850").times(new Decimal("1e250").pow(ECTimesCompleted("eterc6"))).max(new Decimal("1e850"))) + " IP"
-    document.getElementById("eterc6completed").textContent = "Completed "+ECTimesCompleted("eterc6")+" times."
-
-    document.getElementById("eterc7goal").textContent = "Goal: "+shortenCosts(new Decimal("1e2000").times(new Decimal("1e530").pow(ECTimesCompleted("eterc7"))).max(new Decimal("1e2000"))) + " IP"
-    document.getElementById("eterc7completed").textContent = "Completed "+ECTimesCompleted("eterc7")+" times."
-
-    document.getElementById("eterc8goal").textContent = "Goal: "+shortenCosts(new Decimal("1e1300").times(new Decimal("1e900").pow(ECTimesCompleted("eterc8"))).max(new Decimal("1e1300"))) + " IP"
-    document.getElementById("eterc8completed").textContent = "Completed "+ECTimesCompleted("eterc8")+" times."
-
-    document.getElementById("eterc9goal").textContent = "Goal: "+shortenCosts(new Decimal("1e1750").times(new Decimal("1e250").pow(ECTimesCompleted("eterc9"))).max(new Decimal("1e1750"))) + " IP"
-    document.getElementById("eterc9completed").textContent = "Completed "+ECTimesCompleted("eterc9")+" times."
-
-    document.getElementById("eterc10goal").textContent = "Goal: "+shortenCosts(new Decimal("1e3000").times(new Decimal("1e300").pow(ECTimesCompleted("eterc10"))).max(new Decimal("1e3000"))) + " IP"
-    document.getElementById("eterc10completed").textContent = "Completed "+ECTimesCompleted("eterc10")+" times."
-
-    document.getElementById("eterc11goal").textContent = "Goal: "+shortenCosts(new Decimal("1e500").times(new Decimal("1e200").pow(ECTimesCompleted("eterc11"))).max(new Decimal("1e500"))) + " IP"
-    document.getElementById("eterc11completed").textContent = "Completed "+ECTimesCompleted("eterc11")+" times."
-
-    document.getElementById("eterc12goal").textContent = "Goal: "+shortenCosts(new Decimal("1e110000").times(new Decimal("1e12000").pow(ECTimesCompleted("eterc12"))).max(new Decimal("1e110000"))) + " IP in "+(Math.max(10 - ECTimesCompleted("eterc12")*2, 1)/10) + ((ECTimesCompleted("eterc12") === 0) ? " second or less." :" seconds or less." )
-    document.getElementById("eterc12completed").textContent = "Completed "+ECTimesCompleted("eterc12")+" times."
+	for(var i=1;i<13;i++){
+		document.getElementById("eterc"+i+"goal").textContent = "Goal: "+shortenCosts(getECGoal("eterc"+i,ECTimesCompleted("eterc"+i))) + " IP"
+		document.getElementById("eterc"+i+"completed").textContent = "Completed "+ECTimesCompleted("eterc"+i)+" times."
+	}
     updateECUnlockButtons()
 
 
