@@ -1,4 +1,4 @@
-var maxEC=[0,10,7,10,6,8,5,5,5,5,5,0,0];
+var maxEC=[0,10,7,10,7,8,5,5,5,5,5,0,0];
 for(var i=0;i<13;i++){
 	maxEC["eterc"+i]=maxEC[i];
 }
@@ -15,6 +15,7 @@ function getECGoal(name,completed){
 	
 	if(name=="eterc4"&&completed<5)return Decimal.mul("1e2750",Decimal.pow("1e550",completed));
 	if(name=="eterc4"&&completed==5)return new Decimal("1e20000");
+	if(name=="eterc4"&&completed==6)return new Decimal("1e50000");
 	
 	if(name=="eterc5"&&completed<5)return Decimal.mul("1e750",Decimal.pow("1e400",completed));
 	if(name=="eterc5"&&completed<8)return Decimal.mul("1e6600",Decimal.pow("1e5000",completed-5));
@@ -37,6 +38,7 @@ function eterc4Mult(){
 	var c=ECTimesCompleted("eterc4");
 	if(c<=5)return player.infinityPoints.pow(0.003 + c*0.002).min(new Decimal("1e200"));
 	if(c==6)return player.infinityPoints.pow(0.01).min(new Decimal("1e200")).mul(player.infinityPoints.pow(0.004).min(new Decimal("1e200")));
+	if(c==7)return player.infinityPoints.pow(0.0082).min(new Decimal("1e200")).mul(player.infinityPoints.pow(0.0041).min(new Decimal("1e200"))).mul(player.infinityPoints.pow(0.002).min(new Decimal("1e200")));
 }
 function eterc5R1(){
 	var c=ECTimesCompleted("eterc5");
