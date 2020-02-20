@@ -4568,7 +4568,7 @@ setInterval(function() {
     }
 
 	for(var i=1;i<13;i++){
-		document.getElementById("eterc"+i+"goal").textContent = "Goal: "+shortenCosts(getECGoal("eterc"+i,ECTimesCompleted("eterc"+i))) + " IP"
+		document.getElementById("eterc"+i+"goal").textContent = "Goal: "+shortenCosts(getECGoal("eterc"+i,ECTimesCompleted("eterc"+i))) + " IP" + (i==4?" in "+Math.max((16 - (ECTimesCompleted("eterc4")*4)), 0)+" infinities or less.":"")+ (i==12?" in "+(Math.max(10 - ECTimesCompleted("eterc12")*2, 1)/10) + ((ECTimesCompleted("eterc12") === 0) ? " second or less." :" seconds or less." ):"")
 		document.getElementById("eterc"+i+"completed").textContent = "Completed "+ECTimesCompleted("eterc"+i)+" times."
 	}
     updateECUnlockButtons()
@@ -5210,7 +5210,7 @@ function gameLoop(diff) {
     }
 
     document.getElementById("ec1reward").textContent = "Reward: "+shortenMoney(Math.pow(Math.max(player.thisEternity*10, 1), 0.3+(ECTimesCompleted("eterc1")*0.05)))+"x on all Time Dimensions (based on time spent this Eternity)"
-    document.getElementById("ec2reward").textContent = "Reward: Infinity power affects 1st Infinity Dimension with reduced effect, Currently: "+shortenMoney(player.infinityPower.pow(1.5/(700 - ECTimesCompleted("eterc2")*100)).min(new Decimal("1e100")).max(1))+"x"
+    document.getElementById("ec2reward").textContent = "Reward: Infinity power affects 1st Infinity Dimension with reduced effect, Currently: "+shortenMoney(eterc2Mult())+"x"
     document.getElementById("ec3reward").textContent = "Reward: Increase the multiplier for buying 10 dimensions, Currently: "+getDimensionPowerMultiplier().toFixed(2)+"x"
     document.getElementById("ec4reward").textContent = "Reward: Infinity Dimension multiplier from unspent IP, Currently: "+shortenMoney(player.infinityPoints.pow(0.003 + ECTimesCompleted("eterc4")*0.002).min(new Decimal("1e200")))+"x"
     document.getElementById("ec5reward").textContent = "Reward: Galaxy cost scaling starts "+((ECTimesCompleted("eterc5")*5))+" galaxies later."
