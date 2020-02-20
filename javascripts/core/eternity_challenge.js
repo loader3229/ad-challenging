@@ -35,3 +35,11 @@ function eterc4Mult(){
 	if(c<=5)return player.infinityPoints.pow(0.003 + c*0.002).min(new Decimal("1e200"));
 	if(c==6)return player.infinityPoints.pow(0.0132).min(new Decimal("1e400"));
 }
+function eterc5R1(){
+	var c=ECTimesCompleted("eterc5");
+	return c*5;
+}
+function eterc5R2(){
+	var c=ECTimesCompleted("eterc5");
+	return 0;
+}
