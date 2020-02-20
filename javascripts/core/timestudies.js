@@ -77,9 +77,9 @@ function updateTheoremButtons() {
 
 function buyTimeStudy(name, cost, check) {
   if (shiftDown && check === undefined) studiesUntil(name);
-  else if (player.timestudy.theorem >= cost && canBuyStudy(name) && !player.timestudy.studies.includes(name)) {
+  else if (player.timestudy.theorem >= studyCostsByName[name] && canBuyStudy(name) && !player.timestudy.studies.includes(name)) {
       player.timestudy.studies.push(name)
-      player.timestudy.theorem -= cost
+      player.timestudy.theorem -= studyCostsByName[name];
       if (name == 71 || name == 81 || name == 91 || name == 101) {
           document.getElementById(""+name).className = "timestudybought normaldimstudy"
       } else if (name == 72 || name == 82 || name == 92 || name == 102) {
@@ -217,6 +217,10 @@ function canBuyDilationStudy(name) {
 
 var all = [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 201, 211, 212, 213, 214, 221, 222, 223, 224, 225, 226, 227, 228, 231, 232, 233, 234]
 var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 600, 1100, 400, 1500, 500, 500, 500, 500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500]
+var studyCostsByName = [];
+for(var i=0; i<all.length; i++) {
+	studyCostsByName[all[i]] = studyCosts[i];
+}
 function updateTimeStudyButtons() {
   for (var i=0; i<all.length; i++) {
       if (!player.timestudy.studies.includes(all[i])) {
