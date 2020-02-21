@@ -5,6 +5,7 @@ function buyWithAntimatter() {
       player.money = player.money.minus(player.timestudy.amcost)
       player.timestudy.amcost = player.timestudy.amcost.times(new Decimal("1e20000"))
       player.timestudy.theorem += 1
+	  if(player.eternityUpgrades.includes(7))player.timestudy.theorem += 1
       updateTheoremButtons()
       updateTimeStudyButtons()
       return true
@@ -43,6 +44,7 @@ function maxTheorems() {
   if (player.money.gte(player.timestudy.amcost)) {
     player.timestudy.amcost.e = Math.floor(player.money.e / 20000 + 1) * 20000
     player.timestudy.theorem += Math.floor(player.money.e / 20000) - AMowned
+	if(player.eternityUpgrades.includes(7))player.timestudy.theorem += Math.floor(player.money.e / 20000) - AMowned
     player.money = player.money.minus(Decimal.fromMantissaExponent(1, Math.floor(player.money.e / 20000) * 20000))
   }
   var IPowned = player.timestudy.ipcost.e / 100
@@ -210,13 +212,13 @@ function canBuyStudy(name) {
 }
 
 function canBuyDilationStudy(name) {
-    if (name == 1 && ECTimesCompleted("eterc11") >= 5 && ECTimesCompleted("eterc12") >= 5 && player.timestudy.amcost.log10() / 20000 + player.timestudy.ipcost.log10() / 100 + player.timestudy.epcost.log2() >= 13000) return true
+    if (name == 1 && ECTimesCompleted("eterc11") >= 5 && ECTimesCompleted("eterc12") >= 5 && player.timestudy.amcost.log10() / (player.eternityUpgrades.includes(7)?10000:20000) + player.timestudy.ipcost.log10() / 100 + player.timestudy.epcost.log2() >= 13000) return true
     if (player.dilation.studies.includes(name-1) && player.timestudy.theorem >= parseInt(document.getElementById("dilstudy"+name).textContent.split("Cost: ")[1].replace(/[, ]+/g, ""))) return true
     else return false
 }
 
-var all = [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 201, 211, 212, 213, 214, 221, 222, 223, 224, 225, 226, 227, 228, 231, 232, 233, 234]
-var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 1500, 1500, 400, 1500, 1500, 1500, 500, 500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500]
+var all = [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 201, 211, 212, 213, 214, 221, 222, 223, 224, 225, 226, 227, 228, 231, 232, 233, 234, 194]
+var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 1500, 1500, 400, 1500, 1500, 1500, 500, 500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 2100]
 var studyCostsByName = [];
 for(var i=0; i<all.length; i++) {
 	studyCostsByName[all[i]] = studyCosts[i];

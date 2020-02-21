@@ -225,8 +225,12 @@
                     <tr>
                         <td><button class="timestudy" id="181" onclick="buyTimeStudy(181, 200)">You gain 1% of your IP gained on crunch each second.<span>Cost: 200 Time Theorems</button></td>
                     </tr>
+				</table>
+                <table class="table" id="studytable">
                     <tr>
+						<td style="opacity: 0;"><button class="timestudylocked"></button></td>
                         <td><button class="eternitychallengestudy" id="ec10unl">Eternity Challenge 10<span>Requirement: 1e100 EP<span>Cost: 200 Time Theorems</button></td>
+						<td><button class="timestudy" id="194" onclick="buyTimeStudy(194, 300)">You gain 1% of your EP gained on eternity each second.<span>Cost: 2100 Time Theorems</button></td>
                     </tr>
                 </table>
                 <table class="table" id="studytable">
@@ -342,7 +346,7 @@
                     </tr>
 					<tr>
                         <td>
-                            <button id="eter7" class="eternityupbtn" onclick="buyEternityUpgrade(7, 0)"></button>
+                            <button id="eter7" class="eternityupbtn" onclick="buyEternityUpgrade(7, Number.MAX_VALUE)"></button>
                         </td>
                         <td>
                             <button id="eter8" class="eternityupbtn" onclick="buyEternityUpgrade(8, 0)"></button>
