@@ -238,6 +238,8 @@ function drawStudyTree() {
     drawTreeBranch("234", "ec12unl")
     drawTreeBranch("ec11unl", "dilstudy1")
     drawTreeBranch("ec12unl", "dilstudy1")
+	drawTreeBranch("dilstudy1", "1001")
+	drawTreeBranch("dilstudy1", "1002")
     drawTreeBranch("dilstudy1", "dilstudy2")
     drawTreeBranch("dilstudy2", "dilstudy3")
     drawTreeBranch("dilstudy3", "dilstudy4")
@@ -252,7 +254,7 @@ function drawStudyTree() {
             ctx.strokeStyle = 'black';
             ctx.lineWidth = 3;
             ctx.font = "15px Typewriter";
-            if (document.getElementById(all[i]).className.split(" ")[1] !== undefined || all[i] > 220) {
+            if (document.getElementById(all[i]).className.split(" ")[1] !== undefined || (all[i] > 220 && all[i] < 240)) {
                 var tempName = document.getElementById(all[i]).className.split(" ")[1];
                 var name;
                 console.log(all[i])
