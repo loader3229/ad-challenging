@@ -4216,8 +4216,6 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
 
 function startDilatedEternity() {
     if (!player.dilation.studies.includes(1)) return
-	alert("Unfortunately, Time Dilation in this mod is disabled.");
-	return;
     clearInterval(gameLoopIntervalId);
     if (player.dilation.active) {
         eternity(true)

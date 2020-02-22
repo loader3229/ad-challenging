@@ -114,6 +114,7 @@ function DimensionPower(tier) {
   if (mult.lt(0)) mult = new Decimal(0)
 
   if (player.dilation.active) {
+	  if (mult.lt(1)) mult = new Decimal(1)
     mult = Decimal.pow(10, Math.pow(mult.log10(), 0.75))
     if (player.dilation.upgrades.includes(9)) {
       mult = Decimal.pow(10, Math.pow(mult.log10(), 1.05))
