@@ -1,4 +1,4 @@
-var maxEC=[0,15,10,15,10,14,10,10,10,6,5,5,5];
+var maxEC=[0,15,10,15,10,15,10,10,10,6,5,5,5];
 for(var i=0;i<13;i++){
 	maxEC["eterc"+i]=maxEC[i];
 }
@@ -15,21 +15,15 @@ function getECGoal(name,completed){
 	if(name=="eterc2"&&completed==9)return new Decimal("1e25000");
 	
 	if(name=="eterc3"&&completed<5)return Decimal.mul("1e600",Decimal.pow("1e75",completed));
-	if(name=="eterc3"&&completed<10)return Decimal.mul("1e775",Decimal.pow("1e200",completed));
+	if(name=="eterc3"&&completed<10)return Decimal.mul("1e1775",Decimal.pow("1e200",completed-5));
 	if(name=="eterc3"&&completed<15)return Decimal.mul("1e12100",Decimal.pow("1e2000",completed-10));
 	
 	if(name=="eterc4"&&completed<5)return Decimal.mul("1e2750",Decimal.pow("1e550",completed));
 	if(name=="eterc4"&&completed<10)return Decimal.mul("1e20000",Decimal.pow("1e30000",completed-5));
 	
-	
 	if(name=="eterc5"&&completed<5)return Decimal.mul("1e750",Decimal.pow("1e400",completed));
-	if(name=="eterc5"&&completed<8)return Decimal.mul("1e6600",Decimal.pow("1e5000",completed-5));
-	if(name=="eterc5"&&completed==8)return new Decimal("1e40000");
-	if(name=="eterc5"&&completed==9)return new Decimal("1e50650");
-	if(name=="eterc5"&&completed==10)return new Decimal("1e548000");
-	if(name=="eterc5"&&completed==11)return new Decimal("1e638000");
-	if(name=="eterc5"&&completed==12)return new Decimal("1e728000");
-	if(name=="eterc5"&&completed==13)return new Decimal("1e818000");
+	if(name=="eterc5"&&completed<10)return Decimal.mul("1e6600",Decimal.pow("1e5000",completed-5));
+	if(name=="eterc5"&&completed<15)return Decimal.mul("1e548000",Decimal.pow("1e90000",completed-10));
 	
 	if(name=="eterc6"&&completed<5)return Decimal.mul("1e850",Decimal.pow("1e250",completed));
 	if(name=="eterc6"&&completed<10)return Decimal.mul("1e18900",Decimal.pow("1e1200",completed-5));
