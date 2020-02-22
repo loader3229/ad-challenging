@@ -6,3 +6,4 @@ Prize of time studies 19x,20x,21x,22x,23x are increased.
 If EC2,EC4 or EC9 is completed more than 5 times, then the reward cap is increased.
 
 TODO: Increase Eternity Challenge Target
+TODO: New EC2,EC5,EC9 Tier After Dilation
