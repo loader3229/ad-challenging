@@ -42,7 +42,7 @@ function getECGoal(name,completed){
 	if(name=="eterc10"&&completed<4)return Decimal.mul("1e3000",Decimal.pow("1e300",completed));
 	if(name=="eterc10"&&completed==4)return new Decimal("1e4600");
 	
-	if(name=="eterc11"&&completed<5)return Decimal.mul("1e550",Decimal.pow("1e250",completed));
+	if(name=="eterc11"&&completed<5)return Decimal.mul("1e500",Decimal.pow("1e200",completed));
 	
 	if(name=="eterc12"&&completed==0)return new Decimal("1e240000");
 	if(name=="eterc12"&&completed==1)return new Decimal("1e300000");
