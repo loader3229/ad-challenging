@@ -8,4 +8,4 @@ If EC2,EC4 or EC9 is completed more than 5 times, then the reward cap is increas
 TODO: Increase Eternity Challenge Target  
 TODO: New EC2,EC9 Tier After Dilation
 
-Soft Cap: e6e8 AM, e3e6 IP, e8e3 EP, 1.4e5 TT
+Soft Cap: e6e8 AM, e3e6 IP, e8e3 EP, 1.5e5 TT
