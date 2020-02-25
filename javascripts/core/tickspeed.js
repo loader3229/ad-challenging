@@ -15,6 +15,7 @@ function getTickSpeedMultiplier() {
       if (player.timestudy.studies.includes(132)) galaxies += player.replicanti.galaxies*0.4
       if (player.timestudy.studies.includes(225)) galaxies += Math.floor(player.replicanti.amount.e / 1000)
       if (player.timestudy.studies.includes(226)) galaxies += Math.floor(player.replicanti.gal / 15)
+	if (player.timestudy.studies.includes(1004)) galaxies += player.dilation.freeGalaxies*0.6
       galaxies += Math.min(player.replicanti.galaxies, player.replicanti.gal) * Math.max(Math.pow(Math.log10(player.infinityPower.plus(1).log10()+1), 0.03 * ECTimesCompleted("eterc8"))-1, 0)
       if (player.infinityUpgrades.includes("galaxyBoost")) perGalaxy *= 2;
       if (player.infinityUpgrades.includes("postGalaxy")) perGalaxy *= 1.5;
@@ -32,6 +33,7 @@ function getTickSpeedMultiplier() {
       if (player.timestudy.studies.includes(132)) galaxies += player.replicanti.galaxies*0.4
       if (player.timestudy.studies.includes(225)) galaxies += Math.floor(player.replicanti.amount.e / 1000)
       if (player.timestudy.studies.includes(226)) galaxies += Math.floor(player.replicanti.gal / 15)
+	if (player.timestudy.studies.includes(1004)) galaxies += player.dilation.freeGalaxies*0.6
       galaxies +=  Math.min(player.replicanti.galaxies, player.replicanti.gal) * Math.max(Math.pow(Math.log10(player.infinityPower.plus(1).log10()+1), 0.03 * ECTimesCompleted("eterc8"))-1, 0)
       if (player.infinityUpgrades.includes("galaxyBoost")) galaxies *= 2;
       if (player.infinityUpgrades.includes("postGalaxy")) galaxies *= 1.5;
