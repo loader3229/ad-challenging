@@ -240,11 +240,11 @@ function drawStudyTree() {
     drawTreeBranch("ec12unl", "dilstudy1")
 	drawTreeBranch("dilstudy1", "1001")
 	drawTreeBranch("dilstudy1", "1002")
-	drawTreeBranch("1001", "tba1")
-	drawTreeBranch("1001", "tba2")
+	drawTreeBranch("1001", "1003")
+	drawTreeBranch("1001", "1005")
 	drawTreeBranch("1002", "1004")
 	drawTreeBranch("1002", "tba0")
-	drawTreeBranch("tba1", "tba3")
+	drawTreeBranch("1003", "tba3")
 	drawTreeBranch("1004", "tba4")
 	drawTreeBranch("tba3", "tba5")
 	drawTreeBranch("tba4", "tba6")
@@ -266,6 +266,9 @@ function drawStudyTree() {
 	drawTreeBranch("dilstudy5", "tba7")
 	drawTreeBranch("dilstudy5", "tba8")
     drawTreeBranch("dilstudy5", "dilstudy6")
+	drawTreeBranch("tba7", "ec13unl")
+		drawTreeBranch("tba8", "ec14unl")
+	
     if (shiftDown && document.getElementById("eternitystore").style.display !== "none" && document.getElementById("timestudies").style.display !== "none") {
         for (i=0; i<all.length; i++) {
             var start = document.getElementById(all[i]).getBoundingClientRect();
