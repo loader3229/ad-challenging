@@ -29,10 +29,10 @@ function getECGoal(name,completed){
 	if(name=="eterc6"&&completed<10)return Decimal.mul("1e10500",Decimal.pow("1e3000",completed-5));
 	
 	if(name=="eterc7"&&completed<5)return Decimal.mul("1e2000",Decimal.pow("1e530",completed));
-	if(name=="eterc7"&&completed<10)return Decimal.mul("1e7000",Decimal.pow("1e1300",completed-5));
+	if(name=="eterc7"&&completed<10)return Decimal.mul("1e6000",Decimal.pow("1e2000",completed-5));
 	
 	if(name=="eterc8"&&completed<5)return Decimal.mul("1e1300",Decimal.pow("1e900",completed));
-	if(name=="eterc8"&&completed<10)return Decimal.mul("1e20000",Decimal.pow("1e5000",completed-5));
+	if(name=="eterc8"&&completed<10)return Decimal.mul("1e17500",Decimal.pow("1e5000",completed-5));
 	
 	if(name=="eterc9"&&completed<5)return Decimal.mul("1e1800",Decimal.pow("1e150",completed*(completed+1)));
 	if(name=="eterc9"&&completed==5)return new Decimal("1e23000");
