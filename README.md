@@ -8,4 +8,5 @@ If EC2,EC4 or EC9 is completed more than 5 times, then the reward cap is increas
 TODO: Increase Eternity Challenge Target  
 TODO: New EC2,EC9 Tier After Dilation
 
+This mod is balanced until EC10x1 is completed.
 This mod is broken.

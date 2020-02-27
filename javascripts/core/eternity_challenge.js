@@ -34,7 +34,8 @@ function getECGoal(name,completed){
 	if(name=="eterc8"&&completed<5)return Decimal.mul("1e1300",Decimal.pow("1e900",completed));
 	if(name=="eterc8"&&completed<10)return Decimal.mul("1e20000",Decimal.pow("1e5000",completed-5));
 	
-	if(name=="eterc9"&&completed<5)return Decimal.mul("1e1800",Decimal.pow("1e300",completed));
+	if(name=="eterc9"&&completed<2)return Decimal.mul("1e1800",Decimal.pow("1e300",completed));
+	if(name=="eterc9"&&completed<5)return Decimal.mul("1e2700",Decimal.pow("1e600",completed-2));
 	if(name=="eterc9"&&completed==5)return new Decimal("1e23000");
 	
 	if(name=="eterc10"&&completed<4)return Decimal.mul("1e3000",Decimal.pow("1e300",completed));
@@ -84,6 +85,6 @@ function eterc6Reward(){
 }
 function eterc9Mult(){
 	var c=ECTimesCompleted("eterc9");
-	if(c<=5)return player.timeShards.pow(c*0.1).min(new Decimal("1e400"));
-	if(c==6)return player.timeShards.pow(0.55).min(new Decimal("1e400")).mul(player.timeShards.pow(0.05).min(new Decimal("1e400")));
+	if(c<=5)return player.timeShards.pow(c*0.1).min(new Decimal("1e400")).plus(1);
+	if(c==6)return player.timeShards.pow(0.55).min(new Decimal("1e400")).mul(player.timeShards.pow(0.05).min(new Decimal("1e400"))).plus(1);
 }
