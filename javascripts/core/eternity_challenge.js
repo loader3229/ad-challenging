@@ -4,19 +4,19 @@ for(var i=0;i<13;i++){
 }
 function getECGoal(name,completed){
 	if(name=="eterc1"&&completed<5)return Decimal.mul("1e1800",Decimal.pow("1e200",completed));
-	if(name=="eterc1"&&completed<10)return Decimal.mul("1e2700",Decimal.pow("1e250",completed));
-	if(name=="eterc1"&&completed<15)return Decimal.pow("1e1000",completed);
+	if(name=="eterc1"&&completed<10)return Decimal.mul("1e2700",Decimal.pow("1e4000",completed-5));
+	//if(name=="eterc1"&&completed<15)return Decimal.pow("1e1000",completed);
 	
 	if(name=="eterc2"&&completed<5)return Decimal.mul("1e975",Decimal.pow("1e175",completed));
 	if(name=="eterc2"&&completed==5)return new Decimal("1e3750");
-	if(name=="eterc2"&&completed==6)return new Decimal("1e7650");
-	if(name=="eterc2"&&completed==7)return new Decimal("1e13300");
-	if(name=="eterc2"&&completed==8)return new Decimal("1e20000");
-	if(name=="eterc2"&&completed==9)return new Decimal("1e25000");
+	if(name=="eterc2"&&completed==6)return new Decimal("1e7500");
+	if(name=="eterc2"&&completed==7)return new Decimal("1e15000");
+	if(name=="eterc2"&&completed==8)return new Decimal("1e22500");
+	if(name=="eterc2"&&completed==9)return new Decimal("1e30000");
 	
 	if(name=="eterc3"&&completed<5)return Decimal.mul("1e600",Decimal.pow("1e75",completed));
-	if(name=="eterc3"&&completed<10)return Decimal.mul("1e1950",Decimal.pow("1e200",completed-5));
-	if(name=="eterc3"&&completed<15)return Decimal.mul("1e12100",Decimal.pow("1e2000",completed-10));
+	if(name=="eterc3"&&completed<10)return Decimal.mul("1e1950",Decimal.pow("1e2000",completed-5));
+	//if(name=="eterc3"&&completed<15)return Decimal.mul("1e12100",Decimal.pow("1e2000",completed-10));
 	
 	if(name=="eterc4"&&completed<5)return Decimal.mul("1e2750",Decimal.pow("1e550",completed));
 	if(name=="eterc4"&&completed<10)return Decimal.mul("1e20000",Decimal.pow("1e30000",completed-5));
@@ -34,8 +34,7 @@ function getECGoal(name,completed){
 	if(name=="eterc8"&&completed<5)return Decimal.mul("1e1300",Decimal.pow("1e900",completed));
 	if(name=="eterc8"&&completed<10)return Decimal.mul("1e20000",Decimal.pow("1e5000",completed-5));
 	
-	if(name=="eterc9"&&completed<2)return Decimal.mul("1e1800",Decimal.pow("1e300",completed));
-	if(name=="eterc9"&&completed<5)return Decimal.mul("1e2700",Decimal.pow("1e600",completed-2));
+	if(name=="eterc9"&&completed<5)return Decimal.mul("1e1800",Decimal.pow("1e150",completed*(completed+1)));
 	if(name=="eterc9"&&completed==5)return new Decimal("1e23000");
 	
 	if(name=="eterc10"&&completed<4)return Decimal.mul("1e3000",Decimal.pow("1e300",completed));

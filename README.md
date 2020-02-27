@@ -9,4 +9,4 @@ TODO: Increase Eternity Challenge Target
 TODO: New EC2,EC9 Tier After Dilation
 
 This mod is balanced until EC10x1 is completed.
-This mod is broken.
+This mod will make the game broken on 5th TD unlocked.
