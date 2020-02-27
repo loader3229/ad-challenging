@@ -25,7 +25,7 @@ function buyWithIP() {
 }
 
 function buyWithEP() {
-	if(player.timestudy.epcost.gte("1e20000"))return false;
+	if(player.timestudy.epcost.gte("2e308"))return false;
   if (player.timeDimension1.bought < 1) {
       alert("You need to buy at least 1 time dimension before you can purchase theorems with Eternity points.")
       return false;
@@ -73,7 +73,7 @@ function updateTheoremButtons() {
   document.getElementById("theoremam").className = player.money.gte(player.timestudy.amcost) ? "timetheorembtn" : "timetheorembtnlocked"
   document.getElementById("theoremip").className = player.infinityPoints.gte(player.timestudy.ipcost) ? "timetheorembtn" : "timetheorembtnlocked"
   document.getElementById("theoremep").className = player.eternityPoints.gte(player.timestudy.epcost) ? "timetheorembtn" : "timetheorembtnlocked"
-  if(player.timestudy.epcost.lte("1e20000"))document.getElementById("theoremep").innerHTML = "Buy Time Theorems <br>Cost: "+shortenDimensions(player.timestudy.epcost)+" EP"
+  if(player.timestudy.epcost.lte("2e308"))document.getElementById("theoremep").innerHTML = "Buy Time Theorems <br>Cost: "+shortenDimensions(player.timestudy.epcost)+" EP"
   else document.getElementById("theoremep").innerHTML = "Time Theorems from EP are maxxed.",document.getElementById("theoremep").className="timetheorembtnlocked";
   document.getElementById("theoremip").innerHTML = "Buy Time Theorems <br>Cost: "+shortenCosts(player.timestudy.ipcost)+" IP"
   document.getElementById("theoremam").innerHTML = "Buy Time Theorems <br>Cost: "+shortenCosts(player.timestudy.amcost)
@@ -235,7 +235,7 @@ function canBuyDilationStudy(name) {
 }
 
 var all = [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 201, 211, 212, 213, 214, 221, 222, 223, 224, 225, 226, 227, 228, 231, 232, 233, 234, 194, 1001, 1002,1004,1005,1003]
-var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 1500, 1500, 500, 1500, 1500, 1500, 500, 500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 2100, 52000, 61000,86000,91000,123000]
+var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 1500, 1500, 500, 1500, 1500, 1500, 500, 700, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 2100, 52000, 61000,86000,91000,123000]
 var studyCostsByName = [];
 for(var i=0; i<all.length; i++) {
 	studyCostsByName[all[i]] = studyCosts[i];
