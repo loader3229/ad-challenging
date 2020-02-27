@@ -35,7 +35,7 @@ function getECGoal(name,completed){
 	if(name=="eterc8"&&completed<10)return Decimal.mul("1e17500",Decimal.pow("1e5000",completed-5));
 	
 	if(name=="eterc9"&&completed<5)return Decimal.mul("1e1800",Decimal.pow("1e150",completed*(completed+1)));
-	if(name=="eterc9"&&completed==5)return new Decimal("1e23000");
+	if(name=="eterc9"&&completed==5)return new Decimal("1e15000");
 	
 	if(name=="eterc10"&&completed<5)return Decimal.mul("1e3000",Decimal.pow("1e400",completed));
 	
