@@ -1,4 +1,4 @@
-var maxEC=[0,10,10,10,10,10,10,10,10,6,5,5,5];
+var maxEC=[0,10,10,10,10,10,10,10,10,7,5,5,5];
 for(var i=0;i<13;i++){
 	maxEC["eterc"+i]=maxEC[i];
 }
@@ -36,6 +36,7 @@ function getECGoal(name,completed){
 	
 	if(name=="eterc9"&&completed<5)return Decimal.mul("1e1800",Decimal.pow("1e150",completed*(completed+1)));
 	if(name=="eterc9"&&completed==5)return new Decimal("1e15000");
+	if(name=="eterc9"&&completed==6)return new Decimal("1e102000");
 	
 	if(name=="eterc10"&&completed<5)return Decimal.mul("1e3000",Decimal.pow("1e400",completed));
 	
@@ -85,4 +86,5 @@ function eterc9Mult(){
 	var c=ECTimesCompleted("eterc9");
 	if(c<=5)return player.timeShards.pow(c*0.1).min(new Decimal("1e400")).plus(1);
 	if(c==6)return player.timeShards.pow(0.55).min(new Decimal("1e400")).mul(player.timeShards.pow(0.05).min(new Decimal("1e400"))).plus(1);
+	if(c==7)return player.timeShards.pow(0.64).min(new Decimal("1e600")).mul(player.timeShards.pow(0.06).min(new Decimal("1e600"))).plus(1);
 }
