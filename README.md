@@ -7,5 +7,5 @@ If EC2,EC4 or EC9 is completed more than 5 times, then the reward cap is increas
 
 TODO: New EC10 Tier.
 
-Soft Cap: e1.08e8 AM, e5.4e5 IP, e1615 EP, 22800 TT
+Soft Cap: e1.2e8 AM, e6.1e5 IP, e1800 EP, 25400 TT
 This mod will make the game broken on 5th TD unlocked (it is impossible).
