@@ -1269,8 +1269,8 @@ function updateInfCosts() {
         if (player.etercreq !== 10) document.getElementById("ec10unl").innerHTML = "Eternity Challenge 10<span>Requirement: "+shortenCosts(new Decimal("1e100").times(new Decimal("1e20").pow(ECTimesCompleted("eterc10"))))+" EP<span>Cost: 550 Time Theorems"
         else document.getElementById("ec10unl").innerHTML = "Eternity Challenge 10<span>Cost: 550 Time Theorems"
 
-        document.getElementById("ec11unl").innerHTML = "Eternity Challenge 11<span>Requirement: Use only the Normal Dimension path<span>Cost: 1 Time Theorem"
-        document.getElementById("ec12unl").innerHTML = "Eternity Challenge 12<span>Requirement: Use only the Time Dimension path<span>Cost: 1 Time Theorem"
+        document.getElementById("ec11unl").innerHTML = "Eternity Challenge 11<span>Requirement: Use only the Normal Dimension path and "+(90+ECTimesCompleted("eterc11")*2)+" ECs completed<span>Cost: 1 Time Theorem"
+        document.getElementById("ec12unl").innerHTML = "Eternity Challenge 12<span>Requirement: Use only the Time Dimension path and "+(100+ECTimesCompleted("eterc12")*2)+" ECs completed<span>Cost: 1 Time Theorem"
 
         if (player.dilation.studies.includes(1)) document.getElementById("dilstudy1").innerHTML = "Unlock time dilation<span>Cost: 5000 Time Theorems"
         else document.getElementById("dilstudy1").innerHTML = "Unlock time dilation<span>Requirement: 5 EC11 and EC12 completions and 13000 total theorems<span>Cost: 5000 Time Theorems"
@@ -3685,7 +3685,8 @@ function canUnlockEC(idx, cost, study, study2) {
     if (!player.timestudy.studies.includes(study) && (player.study2 == 0 || !player.timestudy.studies.includes(study2))) return false
     if (player.timestudy.theorem < cost) return false
     if (player.etercreq == idx && idx !== 11 && idx !== 12) return true
-
+	var timescompleted = 0;
+	for(var i=1;i<=12;i++)timescompleted += ECTimesCompleted("eterc"+i);
     switch(idx) {
         case 1:
         if (player.eternities >= 20000+(ECTimesCompleted("eterc1")*20000)) return true
@@ -3728,11 +3729,11 @@ function canUnlockEC(idx, cost, study, study2) {
         break;
 
         case 11:
-        if (player.timestudy.studies.includes(71) && !player.timestudy.studies.includes(72) && !player.timestudy.studies.includes(73)) return true
+        if (player.timestudy.studies.includes(71) && !player.timestudy.studies.includes(72) && !player.timestudy.studies.includes(73) && timescompleted >= 90+ECTimesCompleted("eterc11")*2) return true
         break;
 
         case 12:
-        if (player.timestudy.studies.includes(73) && !player.timestudy.studies.includes(71) && !player.timestudy.studies.includes(72)) return true
+        if (player.timestudy.studies.includes(73) && !player.timestudy.studies.includes(71) && !player.timestudy.studies.includes(72) && timescompleted >= 100+ECTimesCompleted("eterc12")*2) return true
         break;
     }
 }
