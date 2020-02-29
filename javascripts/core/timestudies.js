@@ -77,9 +77,9 @@ function updateTheoremButtons() {
   document.getElementById("theoremip").className = player.infinityPoints.gte(player.timestudy.ipcost) ? "timetheorembtn" : "timetheorembtnlocked"
   document.getElementById("theoremep").className = player.eternityPoints.gte(player.timestudy.epcost) ? "timetheorembtn" : "timetheorembtnlocked"
   if(player.timestudy.epcost.lte("2e308"))document.getElementById("theoremep").innerHTML = "Buy Time Theorems <br>Cost: "+shortenDimensions(player.timestudy.epcost)+" EP"
-  else document.getElementById("theoremep").innerHTML = "Time Theorems from EP are maxxed.",document.getElementById("theoremep").className="timetheorembtnlocked";
+  else document.getElementById("theoremep").innerHTML = "Time Theorems from EP are maxed out.",document.getElementById("theoremep").className="timetheorembtnlocked";
   if(player.timestudy.ipcost.lte("2e1000000"))document.getElementById("theoremip").innerHTML  = "Buy Time Theorems <br>Cost: "+shortenCosts(player.timestudy.ipcost)+" IP"
-  else document.getElementById("theoremip").innerHTML = "Time Theorems from IP are maxxed.",document.getElementById("theoremip").className="timetheorembtnlocked";
+  else document.getElementById("theoremip").innerHTML = "Time Theorems from IP are maxed out.",document.getElementById("theoremip").className="timetheorembtnlocked";
   document.getElementById("theoremam").innerHTML = "Buy Time Theorems <br>Cost: "+shortenCosts(player.timestudy.amcost)
   if (player.timestudy.theorem>99999) document.getElementById("timetheorems").innerHTML = "You have <span style='display:inline' class=\"TheoremAmount\">"+shortenMoney(player.timestudy.theorem)+"</span> Time "+"Theorems."
   else document.getElementById("timetheorems").innerHTML = "You have <span style='display:inline' class=\"TheoremAmount\">"+player.timestudy.theorem.toFixed(0)+"</span> Time "+ (player.timestudy.theorem == 1 ? "Theorem." : "Theorems.")
