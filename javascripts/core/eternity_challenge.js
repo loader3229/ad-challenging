@@ -1,4 +1,4 @@
-var maxEC=[0,10,10,10,10,10,10,10,10,10,9,5,5];
+var maxEC=[0,10,10,10,10,10,10,10,10,10,10,5,5];
 for(var i=0;i<13;i++){
 	maxEC["eterc"+i]=maxEC[i];
 }
@@ -46,6 +46,7 @@ function getECGoal(name,completed){
 	if(name=="eterc10"&&completed==6)return new Decimal("1e6500");
 	if(name=="eterc10"&&completed==7)return new Decimal("1e7500");
 	if(name=="eterc10"&&completed==8)return new Decimal("1e8500");
+	if(name=="eterc10"&&completed==9)return new Decimal("1e10000");
 	
 	if(name=="eterc11"&&completed<5)return Decimal.mul("1e600",Decimal.pow("1e200",completed));
 	
@@ -100,7 +101,7 @@ function eterc9Mult(){
 }
 function EC10Reward1(){
 	var c=ECTimesCompleted("eterc10");
-	return [0,1,2,3,4,5,7,10,14,19][c];
+	return [0,1,2,3,4,5,7,10,14,19,26][c];
 }
 function EC10Reward2(){
 	var c=ECTimesCompleted("eterc10");
