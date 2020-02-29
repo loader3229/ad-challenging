@@ -6,6 +6,7 @@ function buyWithAntimatter() {
       player.timestudy.amcost = player.timestudy.amcost.times(new Decimal("1e20000"))
       player.timestudy.theorem += 1
 	  if(player.eternityUpgrades.includes(7))player.timestudy.theorem += 1
+	  player.timestudy.theorem += dilationTTMult()
       updateTheoremButtons()
       updateTimeStudyButtons()
       return true
@@ -13,6 +14,7 @@ function buyWithAntimatter() {
 }
 
 function buyWithIP() {
+	if(player.timestudy.ipcost.gte("2e1000000"))return false;
   if (player.infinityPoints.gte(player.timestudy.ipcost)) {
       player.infinityPoints = player.infinityPoints.minus(player.timestudy.ipcost)
       player.timestudy.ipcost = player.timestudy.ipcost.times(1e100)
@@ -47,13 +49,14 @@ function maxTheorems() {
     player.timestudy.amcost.e = Math.floor(player.money.e / 20000 + 1) * 20000
     player.timestudy.theorem += Math.floor(player.money.e / 20000) - AMowned
 	if(player.eternityUpgrades.includes(7))player.timestudy.theorem += Math.floor(player.money.e / 20000) - AMowned
+	player.timestudy.theorem += (Math.floor(player.money.e / 20000) - AMowned)*dilationTTMult()
     player.money = player.money.minus(Decimal.fromMantissaExponent(1, Math.floor(player.money.e / 20000) * 20000))
   }
   var IPowned = player.timestudy.ipcost.e / 100
   if (player.infinityPoints.gte(player.timestudy.ipcost)) {
-    player.timestudy.ipcost.e = Math.floor(player.infinityPoints.e / 100 + 1) * 100
-    player.timestudy.theorem += Math.floor(player.infinityPoints.e / 100 + 1) - IPowned
-	if(player.eternityUpgrades.includes(8))player.timestudy.theorem += Math.floor(player.infinityPoints.e / 100 + 1) - IPowned
+    player.timestudy.ipcost.e = Math.floor(Math.min(player.infinityPoints.e,1000000) / 100 + 1) * 100
+    player.timestudy.theorem += Math.floor(Math.min(player.infinityPoints.e,1000000) / 100 + 1) - IPowned
+	if(player.eternityUpgrades.includes(8))player.timestudy.theorem += Math.floor(Math.min(player.infinityPoints.e,1000000) / 100 + 1) - IPowned
     player.infinityPoints = player.infinityPoints.minus(Decimal.fromMantissaExponent(1, Math.floor(player.infinityPoints.e / 100) * 100))
   }
   // this code is not really needed and I don't know math well enough to make it work
@@ -75,7 +78,8 @@ function updateTheoremButtons() {
   document.getElementById("theoremep").className = player.eternityPoints.gte(player.timestudy.epcost) ? "timetheorembtn" : "timetheorembtnlocked"
   if(player.timestudy.epcost.lte("2e308"))document.getElementById("theoremep").innerHTML = "Buy Time Theorems <br>Cost: "+shortenDimensions(player.timestudy.epcost)+" EP"
   else document.getElementById("theoremep").innerHTML = "Time Theorems from EP are maxxed.",document.getElementById("theoremep").className="timetheorembtnlocked";
-  document.getElementById("theoremip").innerHTML = "Buy Time Theorems <br>Cost: "+shortenCosts(player.timestudy.ipcost)+" IP"
+  if(player.timestudy.ipcost.lte("2e1000000"))document.getElementById("theoremip").innerHTML  = "Buy Time Theorems <br>Cost: "+shortenCosts(player.timestudy.ipcost)+" IP"
+  else document.getElementById("theoremip").innerHTML = "Time Theorems from IP are maxxed.",document.getElementById("theoremip").className="timetheorembtnlocked";
   document.getElementById("theoremam").innerHTML = "Buy Time Theorems <br>Cost: "+shortenCosts(player.timestudy.amcost)
   if (player.timestudy.theorem>99999) document.getElementById("timetheorems").innerHTML = "You have <span style='display:inline' class=\"TheoremAmount\">"+shortenMoney(player.timestudy.theorem)+"</span> Time "+"Theorems."
   else document.getElementById("timetheorems").innerHTML = "You have <span style='display:inline' class=\"TheoremAmount\">"+player.timestudy.theorem.toFixed(0)+"</span> Time "+ (player.timestudy.theorem == 1 ? "Theorem." : "Theorems.")
@@ -425,4 +429,13 @@ function studyTreeSaveButton(num) {
         importStudyTree(localStorage.getItem("studyTree"+num));
         $.notify("Study tree "+num+" loaded", "info")
     }
+}
+
+function dilationTTMult(){
+	return dilationTTMult1(player.dilation.rebuyables[20] || 0);
+}
+
+function dilationTTMult1(a){
+	if(a<=3)return a;
+	return Math.floor(Math.pow(1.414,a-3)*3);
 }
