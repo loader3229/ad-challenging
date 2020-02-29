@@ -1,4 +1,4 @@
-var maxEC=[0,10,10,10,10,10,10,10,10,8,7,5,5];
+var maxEC=[0,10,10,10,10,10,10,10,10,9,8,5,5];
 for(var i=0;i<13;i++){
 	maxEC["eterc"+i]=maxEC[i];
 }
@@ -38,15 +38,17 @@ function getECGoal(name,completed){
 	if(name=="eterc9"&&completed==5)return new Decimal("1e15000");
 	if(name=="eterc9"&&completed==6)return new Decimal("1e102000");
 	if(name=="eterc9"&&completed==7)return new Decimal("1e109000");
+	if(name=="eterc9"&&completed==8)return new Decimal("1e129000");
 	
 	if(name=="eterc10"&&completed<5)return Decimal.mul("1e3000",Decimal.pow("1e400",completed));
 	if(name=="eterc10"&&completed==5)return new Decimal("1e6000");
 	if(name=="eterc10"&&completed==6)return new Decimal("1e6500");
+	if(name=="eterc10"&&completed==7)return new Decimal("1e7500");
 	
 	if(name=="eterc11"&&completed<5)return Decimal.mul("1e600",Decimal.pow("1e200",completed));
 	
 	if(name=="eterc12"&&completed==0)return new Decimal("1e240000");
-	if(name=="eterc12"&&completed==1)return new Decimal("1e300000");
+	if(name=="eterc12"&&completed==1)return new Decimal("1e280000");
 	if(name=="eterc12"&&completed==2)return new Decimal("1e320000");
 	if(name=="eterc12"&&completed==3)return new Decimal("1e340000");
 	if(name=="eterc12"&&completed==4)return new Decimal("1e360000");
@@ -91,13 +93,18 @@ function eterc9Mult(){
 	if(c==6)return player.timeShards.pow(0.55).min(new Decimal("1e400")).mul(player.timeShards.pow(0.05).min(new Decimal("1e400"))).plus(1);
 	if(c==7)return player.timeShards.pow(0.64).min(new Decimal("1e600")).mul(player.timeShards.pow(0.06).min(new Decimal("1e600"))).plus(1);
 	if(c==8)return player.timeShards.pow(0.72).min(new Decimal("1e900")).mul(player.timeShards.pow(0.08).min(new Decimal("1e900"))).plus(1);
+	if(c==9)return player.timeShards.pow(0.8).min(new Decimal("1e1300")).mul(player.timeShards.pow(0.1).min(new Decimal("1e1300"))).plus(1);
 }
 function EC10Reward1(){
 	var c=ECTimesCompleted("eterc10");
-	return [0,1,2,3,4,5,7,10][c];
+	return [0,1,2,3,4,5,7,10,14][c];
 }
 function EC10Reward2(){
 	var c=ECTimesCompleted("eterc10");
 	if(c<=5)return 1;
 	return Decimal.pow(1.3,c-5);
+}
+function EC12Reward(){
+	var c=ECTimesCompleted("eterc12");
+	return [1,0.992,0.986,0.982,0.978,0.974][c];
 }
