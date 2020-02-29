@@ -672,7 +672,7 @@ function updateDimensions() {
         document.getElementById("eter6").innerHTML = "Time Dimensions are multiplied by days played"+"<br>Cost: "+shortenCosts(1e50)+" EP"
 		document.getElementById("eter7").innerHTML = "Time Theorems from Antimatter are doubled"+"<br>Cost: "+shortenCosts(new Decimal("1e397"))+" EP"
         document.getElementById("eter8").innerHTML = "Time Theorems from IP are doubled"+"<br>Cost: "+shortenCosts(new Decimal("1e501"))+" EP"
-        document.getElementById("eter9").innerHTML = ""
+        document.getElementById("eter9").innerHTML = "Normal Dimensions multiplier based on unspent EP (x^3+1)<br>Currently: "+shortenMoney(player.eternityPoints.pow(3).plus(1))+"x<br>Cost: "+shortenCosts(new Decimal("1e2345"))+" EP"
     }
 
     if (document.getElementById("dilation").style.display == "block") {
@@ -1022,7 +1022,7 @@ function updateEternityUpgrades() {
     document.getElementById("eter6").className = (player.eternityUpgrades.includes(6)) ? "eternityupbtnbought" : (player.eternityPoints.gte(1e50)) ? "eternityupbtn" : "eternityupbtnlocked"
     document.getElementById("eter7").className = (player.eternityUpgrades.includes(7)) ? "eternityupbtnbought" : (player.eternityPoints.gte("1e397")) ? "eternityupbtn" : "eternityupbtnlocked"
     document.getElementById("eter8").className = (player.eternityUpgrades.includes(8)) ? "eternityupbtnbought" : (player.eternityPoints.gte("1e501")) ? "eternityupbtn" : "eternityupbtnlocked"
-    document.getElementById("eter9").className = (player.eternityUpgrades.includes(9)) ? "eternityupbtnbought" : (player.eternityPoints.gte("1e550")) ? "eternityupbtn" : "eternityupbtnlocked"
+    document.getElementById("eter9").className = (player.eternityUpgrades.includes(9)) ? "eternityupbtnbought" : (player.eternityPoints.gte("1e2345")) ? "eternityupbtn" : "eternityupbtnlocked"
 }
 
 
@@ -1246,7 +1246,7 @@ function updateInfCosts() {
         document.getElementById("192desc").textContent = "You can get beyond "+shortenMoney(Number.MAX_VALUE)+" replicantis, but the interval is increased the more you have"
         document.getElementById("193desc").textContent = "Currently: "+shortenMoney(Decimal.pow(1.03, player.eternities).min("1e13000"))+"x"
         document.getElementById("212desc").textContent = "Currently: "+((Math.pow(player.timeShards.max(2).log2(), 0.005)-1)*100).toFixed(2)+"%"
-        document.getElementById("214desc").textContent = "Currently: "+shortenMoney(((calcTotalSacrificeBoost().pow(8)).min("1e46000").times(calcTotalSacrificeBoost().pow(1.1)).div(calcTotalSacrificeBoost())).max(1).min(new Decimal("1e125000")))+"x"
+        document.getElementById("214desc").textContent = "Currently: "+shortenMoney((calcTotalSacrificeBoost().pow(8)).min("1e46000").times(calcTotalSacrificeBoost().pow(1.1).min(new Decimal("1e125000"))))+"x"
 
         if (player.etercreq !== 1) document.getElementById("ec1unl").innerHTML = "Eternity Challenge 1<span>Requirement: "+(ECTimesCompleted("eterc1")+1)*20000+" Eternities<span>Cost: 30 Time Theorems"
         else document.getElementById("ec1unl").innerHTML = "Eternity Challenge 1<span>Cost: 30 Time Theorems"
