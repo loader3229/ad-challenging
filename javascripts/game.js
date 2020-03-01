@@ -1,3 +1,5 @@
+window.challengingV=1;
+
 //test
 var gameLoopIntervalId;
 var Marathon = 0;
@@ -299,6 +301,7 @@ var player = {
         }
     }
 
+,aarexModifications:{challengingV:window.challengingV}
 };
 
 
@@ -670,9 +673,12 @@ function updateDimensions() {
         document.getElementById("eter4").innerHTML = "Your achievement bonus affects Time Dimensions"+"<br>Cost: "+shortenCosts(1e16)+" EP"
         document.getElementById("eter5").innerHTML = "Time Dimensions are multiplied by your unspent time theorems"+"<br>Cost: "+shortenCosts(1e40)+" EP"
         document.getElementById("eter6").innerHTML = "Time Dimensions are multiplied by days played"+"<br>Cost: "+shortenCosts(1e50)+" EP"
-		document.getElementById("eter7").innerHTML = "Time Theorems from Antimatter are doubled"+"<br>Cost: "+shortenCosts(new Decimal("1e397"))+" EP"
-        document.getElementById("eter8").innerHTML = "Time Theorems from IP are doubled"+"<br>Cost: "+shortenCosts(new Decimal("1e501"))+" EP"
-        document.getElementById("eter9").innerHTML = "Normal Dimensions multiplier based on unspent EP (x^3+1)<br>Currently: "+shortenMoney(player.eternityPoints.pow(3).plus(1))+"x<br>Cost: "+shortenCosts(new Decimal("1e2345"))+" EP"
+		document.getElementById("eter7").innerHTML = "NG Update (NGUd) EP Upgrade 7"
+        document.getElementById("eter8").innerHTML = "NG Update (NGUd) EP Upgrade 8"
+        document.getElementById("eter9").innerHTML = "NG Update (NGUd) EP Upgrade 9"
+        document.getElementById("eter10").innerHTML = "Time Theorems from Antimatter are doubled"+"<br>Cost: "+shortenCosts(new Decimal("1e397"))+" EP"
+        document.getElementById("eter11").innerHTML = "Time Theorems from IP are doubled"+"<br>Cost: "+shortenCosts(new Decimal("1e501"))+" EP"
+        document.getElementById("eter12").innerHTML = "Normal Dimensions multiplier based on unspent EP (x^3+1)<br>Currently: "+shortenMoney(player.eternityPoints.pow(3).plus(1))+"x<br>Cost: "+shortenCosts(new Decimal("1e2345"))+" EP"
     }
 
     if (document.getElementById("dilation").style.display == "block") {
@@ -1020,9 +1026,12 @@ function updateEternityUpgrades() {
     document.getElementById("eter4").className = (player.eternityUpgrades.includes(4)) ? "eternityupbtnbought" : (player.eternityPoints.gte(1e16)) ? "eternityupbtn" : "eternityupbtnlocked"
     document.getElementById("eter5").className = (player.eternityUpgrades.includes(5)) ? "eternityupbtnbought" : (player.eternityPoints.gte(1e40)) ? "eternityupbtn" : "eternityupbtnlocked"
     document.getElementById("eter6").className = (player.eternityUpgrades.includes(6)) ? "eternityupbtnbought" : (player.eternityPoints.gte(1e50)) ? "eternityupbtn" : "eternityupbtnlocked"
-    document.getElementById("eter7").className = (player.eternityUpgrades.includes(7)) ? "eternityupbtnbought" : (player.eternityPoints.gte("1e397")) ? "eternityupbtn" : "eternityupbtnlocked"
-    document.getElementById("eter8").className = (player.eternityUpgrades.includes(8)) ? "eternityupbtnbought" : (player.eternityPoints.gte("1e501")) ? "eternityupbtn" : "eternityupbtnlocked"
-    document.getElementById("eter9").className = (player.eternityUpgrades.includes(9)) ? "eternityupbtnbought" : (player.eternityPoints.gte("1e2345")) ? "eternityupbtn" : "eternityupbtnlocked"
+    document.getElementById("eter7").className = (player.eternityUpgrades.includes(7)) ? "eternityupbtnbought" : (player.eternityPoints.gte("1e1500")) ? "eternityupbtn" : "eternityupbtnlocked"
+    document.getElementById("eter8").className = (player.eternityUpgrades.includes(8)) ? "eternityupbtnbought" : (player.eternityPoints.gte("1e2000")) ? "eternityupbtn" : "eternityupbtnlocked"
+    document.getElementById("eter9").className = (player.eternityUpgrades.includes(9)) ? "eternityupbtnbought" : (player.eternityPoints.gte("1e3000")) ? "eternityupbtn" : "eternityupbtnlocked"
+    document.getElementById("eter10").className = (player.eternityUpgrades.includes(10)) ? "eternityupbtnbought" : (player.eternityPoints.gte("1e397")) ? "eternityupbtn" : "eternityupbtnlocked"
+    document.getElementById("eter11").className = (player.eternityUpgrades.includes(11)) ? "eternityupbtnbought" : (player.eternityPoints.gte("1e501")) ? "eternityupbtn" : "eternityupbtnlocked"
+    document.getElementById("eter12").className = (player.eternityUpgrades.includes(12)) ? "eternityupbtnbought" : (player.eternityPoints.gte("1e2345")) ? "eternityupbtn" : "eternityupbtnlocked"
 }
 
 
@@ -1030,10 +1039,10 @@ function buyEternityUpgrade(name, cost) {
     if (player.eternityPoints.gte(cost) && !player.eternityUpgrades.includes(name)) {
         player.eternityUpgrades.push(name)
         player.eternityPoints = player.eternityPoints.minus(cost)
-		if(name==7){
+		if(name==10){
 			player.timestudy.theorem += (player.timestudy.amcost.e / 20000 - 1)
 		}
-		if(name==8){
+		if(name==11){
 			player.timestudy.theorem += (player.timestudy.ipcost.e / 100)
 		}
         updateEternityUpgrades()
@@ -1810,6 +1819,8 @@ function galaxyReset() {
 };
 
 document.getElementById("exportbtn").onclick = function () {
+	
+	player.aarexModifications={challengingV:window.challengingV};
     let output = document.getElementById('exportOutput');
     let parent = output.parentElement;
 
@@ -5945,4 +5956,9 @@ setInterval( function() {
     } else {
         ec10bonus = new Decimal(1)
     }
+}, 100)
+
+setInterval( function(){
+	player.aarexModifications={challengingV:window.challengingV};
+	
 }, 100)

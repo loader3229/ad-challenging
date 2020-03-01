@@ -5,7 +5,7 @@ function buyWithAntimatter() {
       player.money = player.money.minus(player.timestudy.amcost)
       player.timestudy.amcost = player.timestudy.amcost.times(new Decimal("1e20000"))
       player.timestudy.theorem += 1
-	  if(player.eternityUpgrades.includes(7))player.timestudy.theorem += 1
+	  if(player.eternityUpgrades.includes(10))player.timestudy.theorem += 1
 	  player.timestudy.theorem += dilationTTMult()
       updateTheoremButtons()
       updateTimeStudyButtons()
@@ -19,7 +19,7 @@ function buyWithIP() {
       player.infinityPoints = player.infinityPoints.minus(player.timestudy.ipcost)
       player.timestudy.ipcost = player.timestudy.ipcost.times(1e100)
       player.timestudy.theorem += 1
-	  if(player.eternityUpgrades.includes(8))player.timestudy.theorem += 1
+	  if(player.eternityUpgrades.includes(11))player.timestudy.theorem += 1
       updateTheoremButtons()
       updateTimeStudyButtons()
       return true
@@ -48,7 +48,7 @@ function maxTheorems() {
   if (player.money.gte(player.timestudy.amcost)) {
     player.timestudy.amcost.e = Math.floor(player.money.e / 20000 + 1) * 20000
     player.timestudy.theorem += Math.floor(player.money.e / 20000) - AMowned
-	if(player.eternityUpgrades.includes(7))player.timestudy.theorem += Math.floor(player.money.e / 20000) - AMowned
+	if(player.eternityUpgrades.includes(10))player.timestudy.theorem += Math.floor(player.money.e / 20000) - AMowned
 	player.timestudy.theorem += (Math.floor(player.money.e / 20000) - AMowned)*dilationTTMult()
     player.money = player.money.minus(Decimal.fromMantissaExponent(1, Math.floor(player.money.e / 20000) * 20000))
   }
@@ -56,7 +56,7 @@ function maxTheorems() {
   if (player.infinityPoints.gte(player.timestudy.ipcost)) {
     player.timestudy.ipcost.e = Math.floor(Math.min(player.infinityPoints.e,1000000) / 100 + 1) * 100
     player.timestudy.theorem += Math.floor(Math.min(player.infinityPoints.e,1000000) / 100 + 1) - IPowned
-	if(player.eternityUpgrades.includes(8))player.timestudy.theorem += Math.floor(Math.min(player.infinityPoints.e,1000000) / 100 + 1) - IPowned
+	if(player.eternityUpgrades.includes(11))player.timestudy.theorem += Math.floor(Math.min(player.infinityPoints.e,1000000) / 100 + 1) - IPowned
     player.infinityPoints = player.infinityPoints.minus(Decimal.fromMantissaExponent(1, Math.floor(player.infinityPoints.e / 100) * 100))
   }
   // this code is not really needed and I don't know math well enough to make it work
@@ -235,7 +235,7 @@ function canBuyStudy(name) {
 }
 
 function canBuyDilationStudy(name) {
-    if (name == 1 && ECTimesCompleted("eterc11") >= 5 && ECTimesCompleted("eterc12") >= 5 && player.timestudy.amcost.log10() / (player.eternityUpgrades.includes(7)?10000:20000) + player.timestudy.ipcost.log10() / (player.eternityUpgrades.includes(8)?50:100) + player.timestudy.epcost.log2() >= 13000) return true
+    if (name == 1 && ECTimesCompleted("eterc11") >= 5 && ECTimesCompleted("eterc12") >= 5 && player.timestudy.amcost.log10() / (player.eternityUpgrades.includes(10)?10000:20000) + player.timestudy.ipcost.log10() / (player.eternityUpgrades.includes(11)?50:100) + player.timestudy.epcost.log2() >= 13000) return true
     if (player.dilation.studies.includes(name-1) && player.timestudy.theorem >= parseInt(document.getElementById("dilstudy"+name).textContent.split("Cost: ")[1].replace(/[, ]+/g, ""))) return true
     else return false
 }
