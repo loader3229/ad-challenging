@@ -153,7 +153,13 @@ newsArray = [//always true
 ["Person with money likes to support this game.", "kongDimMult > 1 || kongIPMult > 1", "s3"],
 ["Whale is bad at making smart purchases.", "kongIPMult > 500 && kongDimMult < 5e307", "s4"],
 ["Whale complains that the game broke.", "kongDimMult > 5e307", "s5"],
-["Whale complains that their buying isn't doing anything.", "kongIPMult > 1.8e16", "s6"]
+["Whale complains that their buying isn't doing anything.", "kongIPMult > 1.8e16", "s6"],
+
+//ec
+["The impossible eternity challenge target is 10🎂🍦🎃🍆💩🙈⚠❓💩👍☂ IP.", "player.achievements.includes('r41') && player.achievements.includes('r123')", "ec0"],
+["What? You can complete an Eternity Challenge more than 5 times? In the original game, it is impossible.", "ECTimesCompleted('eterc1')>5 || ECTimesCompleted('eterc2')>5 || ECTimesCompleted('eterc3')>5", "ec1"],
+["You can complete an Eternity Challenge more than 10 times without dilation?", "(ECTimesCompleted('eterc1')>10 || ECTimesCompleted('eterc2')>10 || ECTimesCompleted('eterc3')>10) && (player.dilation.studies.includes(1) == false)", "ec2"]
+
 ];}
 
 var s = document.getElementById('news');
