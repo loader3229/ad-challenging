@@ -167,8 +167,9 @@ function canBuyStudy(name) {
   if (name == 213) if(player.timestudy.studies.includes(193)) return true; else return false
   if (name == 214) if(player.timestudy.studies.includes(193)) return true; else return false
   
-  if (name == 1004) if(player.timestudy.studies.includes(1002)) return true; else return false
-  if (name == 1003 || name == 1005) if(player.timestudy.studies.includes(1001)) return true; else return false
+  if (name == 1004 || name == 1006) if(player.timestudy.studies.includes(1002)) return true; else return false
+  if (name == 1005) if(player.timestudy.studies.includes(1001)) return true; else return false
+  if (name == 1003) if(player.timestudy.studies.includes(1001) && player.dilation.studies.includes(2)) return true; else return false
   switch(row) {
 
       case 1: return true
@@ -238,8 +239,8 @@ function canBuyDilationStudy(name) {
     else return false
 }
 
-var all = [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 201, 211, 212, 213, 214, 221, 222, 223, 224, 225, 226, 227, 228, 231, 232, 233, 234, 194, 1001, 1002,1004,1005,1003]
-var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 1500, 1500, 500, 2300, 1500, 1500, 500, 700, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 2100, 190000, 260000,86000,75000,123000]
+var all = [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 201, 211, 212, 213, 214, 221, 222, 223, 224, 225, 226, 227, 228, 231, 232, 233, 234, 194, 1001, 1002,1004,1005,1003,1006]
+var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 1500, 1500, 500, 2300, 1500, 1500, 500, 700, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 2100, 190000, 400000,140000,75000,800000,700000]
 var studyCostsByName = [];
 for(var i=0; i<all.length; i++) {
 	studyCostsByName[all[i]] = studyCosts[i];
@@ -438,4 +439,10 @@ function dilationTTMult(){
 function dilationTTMult1(a){
 	if(a<=3)return a;
 	return Math.floor(Math.pow(1.414,a-3)*3);
+}
+
+function DTMultEC(){
+	var m=1;
+	if (player.timestudy.studies.includes(1002))m*=3;
+	return m;
 }
