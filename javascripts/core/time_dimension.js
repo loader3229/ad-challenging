@@ -5,7 +5,9 @@ function getTimeDimensionPower(tier) {
   var dim = player["timeDimension"+tier]
   var ret = dim.power.pow(2)
 
-  if (player.timestudy.studies.includes(11) && tier == 1) ret = ret.dividedBy(player.tickspeed.dividedBy(1000).pow(0.005).times(0.95).plus(player.tickspeed.dividedBy(1000).pow(0.0003).times(0.05)).max(Decimal.fromMantissaExponent(1, -2500)))
+  if (player.timestudy.studies.includes(11) && tier == 1) ret = ret.mul(TS11Mult())
+  if (player.timestudy.studies.includes(1007) && tier == 5) ret = ret.mul(TS11Mult().pow(0.1))
+	  
   if (player.achievements.includes("r105")) ret = ret.div(player.tickspeed.div(1000).pow(0.000005))
 
   ret = ret.times(kongAllDimMult)
@@ -130,12 +132,15 @@ function buyTimeDimension(tier) {
   if (dim.cost.gte("1e1300")) {
       dim.cost = Decimal.pow(timeDimCostMults[tier]*2.2, dim.bought).times(timeDimStartCosts[tier])
   }
-  if (dim.cost.gte("1e100000")) {
-      dim.cost = Decimal.pow(timeDimCostMults[tier]*4, dim.bought).times(timeDimStartCosts[tier])
-  }
   if (tier > 4) {
     dim.cost = Decimal.pow(timeDimCostMults[tier]*100, dim.bought).times(timeDimStartCosts[tier])
   }
+  if (dim.cost.gte(tier > 4 ? "1e300000" : "1e20000")) {
+		// rather than fixed cost scaling as before, quadratic cost scaling
+		// to avoid exponential growth
+		dim.cost = dim.cost.times(Decimal.pow(new Decimal('1e1000'),
+		Math.pow(dim.cost.log(10) / 1000 - (tier > 4 ? 300 : 20), 2)));
+	}
   dim.power = dim.power.times(2)
   updateEternityUpgrades()
   return true
