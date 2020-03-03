@@ -804,7 +804,7 @@ function updateEternityChallenges() {
         document.getElementById("eterctabbtn").style.display = "block"
     } else {
         for (i=1; i<13; i++) {
-            if (player.eternityChalls["eterc"+i] !== 5) {
+            if (player.eternityChalls["eterc"+i] !== maxEC[i]) {
                 document.getElementById("eterc"+i).textContent = "未解锁"
                 document.getElementById("eterc"+i).className = "lockedchallengesbtn"
             }
