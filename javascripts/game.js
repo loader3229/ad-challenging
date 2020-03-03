@@ -1944,8 +1944,8 @@ document.getElementById("importbtn").onclick = function () {
 
 document.getElementById("reset").onclick = function () {
     if (forceHardReset) {
-        if (window.location.href.split("//")[1].length > 20) set_save('dimensionTestSave', currentSave, defaultStart);
-        else set_save('dimensionSave', currentSave, defaultStart);
+        if (window.location.href.split("//")[1].length > 20) set_save('challengingSave', currentSave, defaultStart);
+        else set_save('challengingSave', currentSave, defaultStart);
         player = defaultStart
         infDimPow = 1;
         save_game();
@@ -1969,8 +1969,8 @@ document.getElementById("reset").onclick = function () {
         updateChallenges();
         updateAutobuyers();
     } else if (confirm("Do you really want to erase all your progress?")) {
-        if (window.location.href.split("//")[1].length > 20) set_save('dimensionTestSave', currentSave, defaultStart);
-        else set_save('dimensionSave', currentSave, defaultStart);
+        if (window.location.href.split("//")[1].length > 20) set_save('challengingSave', currentSave, defaultStart);
+        else set_save('challengingSave', currentSave, defaultStart);
         player = defaultStart
         infDimPow = 1;
         save_game();
