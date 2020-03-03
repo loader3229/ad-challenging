@@ -1,4 +1,4 @@
-# Antimatter Dimensions Challenging
+# Antimatter Dimensions Challenging - Chinese Version
 
 In this mod, some Eternity Challenge can be completed more than 5 times.  
 EC9,EC10,EC11,EC12 are harder. EC12 reward is nerfed. TS232 is nerfed.  

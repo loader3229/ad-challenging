@@ -84,7 +84,7 @@ function getTimeDimensionDescription(tier) {
   let description = shortenDimensions(player['timeDimension'+tier].amount);
 
   if (tier < 8) {
-      description += '  (+' + formatValue(player.options.notation, getTimeDimensionRateOfChange(tier), 2, 2) + '%/s)';
+      description += '  (+' + formatValue(player.options.notation, getTimeDimensionRateOfChange(tier), 2, 2) + '%/秒)';
   }
 
   return description;
@@ -93,13 +93,13 @@ function getTimeDimensionDescription(tier) {
 function updateTimeDimensions() {
   if (document.getElementById("timedimensions").style.display == "block" && document.getElementById("dimensions").style.display == "block") {
     for (let tier = 1; tier <= 4; ++tier) {
-      document.getElementById("timeD"+tier).textContent = DISPLAY_NAMES[tier] + " Time Dimension x" + shortenMoney(getTimeDimensionPower(tier));
+      document.getElementById("timeD"+tier).textContent = cnwd(DISPLAY_NAMES[tier]) + " 时间维度 x" + shortenMoney(getTimeDimensionPower(tier));
       document.getElementById("timeAmount"+tier).textContent = getTimeDimensionDescription(tier);
     }
     if (player.dilation.studies.includes(2)) {
       for (let tier = 5; tier <= 8; ++tier) {
         if (player.dilation.studies.includes(tier-3)) {
-          document.getElementById("timeD"+tier).textContent = DISPLAY_NAMES[tier] + " Time Dimension x" + shortenMoney(getTimeDimensionPower(tier));
+          document.getElementById("timeD"+tier).textContent = cnwd(DISPLAY_NAMES[tier]) + " 时间维度 x" + shortenMoney(getTimeDimensionPower(tier));
           document.getElementById("timeAmount"+tier).textContent = getTimeDimensionDescription(tier);
         }
       }

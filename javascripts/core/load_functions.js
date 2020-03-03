@@ -111,7 +111,7 @@ if (player.infinitied > 0 && !player.challenges.includes("challenge1")) player.c
   if (player.options.animations === undefined) player.options.animations = {floatingText: true, bigCrunch: true, eternity: true, tachyonParticles: true}
   setTheme(player.options.theme);
 
-  sliderText.textContent = "Update rate: " + player.options.updateRate + "ms";
+  sliderText.textContent = "刷新速度: " + player.options.updateRate + "ms";
   slider.value = player.options.updateRate;
 
   if (player.secondAmount !== 0) {
@@ -230,7 +230,7 @@ if (player.infinitied > 0 && !player.challenges.includes("challenge1")) player.c
   if (player.seventhAmount !== 0|| player.eternities >= 30)
   if (player.resets > 3 && player.currentChallenge !== "challenge4") document.getElementById("eightRow").style.display = "table-row";
 
-  document.getElementById("totaltickgained").textContent = "You've gained "+shortenDimensions(player.totalTickGained)+" tickspeed upgrades."
+  document.getElementById("totaltickgained").textContent = "你获得了  "+shortenDimensions(player.totalTickGained)+" 时刻速度升级."
 
   var IPminpeak = new Decimal(0)
   var EPminpeak = new Decimal(0)
@@ -376,9 +376,9 @@ if (player.version < 5) {
   toggleEternityConf()
   toggleCommas()
   toggleCommas()
-  if (!player.replicanti.auto[0]) document.getElementById("replauto1").textContent = "Auto: OFF"
-  if (!player.replicanti.auto[1]) document.getElementById("replauto2").textContent = "Auto: OFF"
-  if (!player.replicanti.auto[2]) document.getElementById("replauto3").textContent = "Auto: OFF"
+  if (!player.replicanti.auto[0]) document.getElementById("replauto1").textContent = "自动购买: 关"
+  if (!player.replicanti.auto[1]) document.getElementById("replauto2").textContent = "自动购买: 关"
+  if (!player.replicanti.auto[2]) document.getElementById("replauto3").textContent = "自动购买: 关"
 
   loadAutoBuyerSettings();
   updateLastTenRuns()
@@ -400,14 +400,14 @@ if (player.version < 5) {
   else document.getElementById("quickReset").style.display = "none";
 
 
-  if (player.break == true) document.getElementById("break").textContent = "FIX INFINITY"
-  document.getElementById("infiMult").innerHTML = "Multiply infinity points from all sources by 2 <br>currently: "+shortenDimensions(player.infMult.times(kongIPMult)) +"x<br>Cost: "+shortenCosts(player.infMultCost)+" IP"
+  if (player.break == true) document.getElementById("break").textContent = "修复无限"
+  document.getElementById("infiMult").innerHTML = "所有来源的无限点数翻倍 <br>当前: "+shortenDimensions(player.infMult.times(kongIPMult)) +"x<br>花费: "+shortenCosts(player.infMultCost)+" 无限点数"
 
-  document.getElementById("notation").textContent = "Notation: " + player.options.notation
+  document.getElementById("notation").textContent = "数据格式: " + player.options.notation
 
-  document.getElementById("floatingTextAnimBtn").textContent = "Floating text: " + ((player.options.animations.floatingText) ? "ON" : "OFF")
-  document.getElementById("bigCrunchAnimBtn").textContent = "Big crunch: " + ((player.options.animations.bigCrunch) ? "ON" : "OFF")
-  document.getElementById("tachyonParticleAnimBtn").textContent = "Tachyon particles: " + ((player.options.animations.tachyonParticles) ? "ON" : "OFF")
+  document.getElementById("floatingTextAnimBtn").textContent = "浮动文本: " + ((player.options.animations.floatingText) ? "开启" : "关闭")
+  document.getElementById("bigCrunchAnimBtn").textContent = "Big crunch: " + ((player.options.animations.bigCrunch) ? "开启" : "关闭")
+  document.getElementById("tachyonParticleAnimBtn").textContent = "超光速粒子: " + ((player.options.animations.tachyonParticles) ? "开启" : "关闭")
 
   if (player.infinitied == 0 && player.eternities == 0) document.getElementById("infinityPoints2").style.display = "none"
 
@@ -436,7 +436,7 @@ if (player.version < 5) {
 
   clearOldAchieves()
 
-  document.getElementById("epmult").innerHTML = "You gain 5 times more EP<p>Currently: "+shortenDimensions(player.epmult)+"x<p>Cost: "+shortenDimensions(player.epmultCost)+" EP"
+  document.getElementById("epmult").innerHTML = "你获取的永恒点数倍数乘5<p>当前: "+shortenDimensions(player.epmult)+"x<p>成本: "+shortenDimensions(player.epmultCost)+" 永恒点数"
 
   for (var i=0; i<player.timestudy.studies.length; i++) {
       if (player.timestudy.studies[i] == 71 || player.timestudy.studies[i] == 81 || player.timestudy.studies[i] == 91 || player.timestudy.studies[i] == 101) {
@@ -539,9 +539,9 @@ if (player.version < 5) {
       document.getElementById("game").style.display = "none";
   }
   if (player.options.challConf) {
-      document.getElementById("challengeconfirmation").textContent = "Challenge confirmation OFF"
+      document.getElementById("challengeconfirmation").textContent = "挑战确认 关闭"
   } else {
-      document.getElementById("challengeconfirmation").textContent = "Challenge confirmation ON"
+      document.getElementById("challengeconfirmation").textContent = "挑战确认 开启"
   }
 
   document.getElementById("chartDurationInput").value = player.options.chart.duration;
@@ -573,7 +573,7 @@ if (player.version < 5) {
     document.getElementById("eightRow").style.display = "none";
 }
 
-  if (!player.options.hotkeys) document.getElementById("hotkeys").textContent = "Enable hotkeys"
+  if (!player.options.hotkeys) document.getElementById("hotkeys").textContent = "启用快捷键"
   updateAutobuyers();
   setAchieveTooltip();
   updatePriorities();
@@ -645,7 +645,7 @@ function load_game(root) {
 function save_game(changed, silent) {
   if (window.location.href.split("//")[1].length > 20) set_save('challengingSave', currentSave, player);
   else set_save('challengingSave', currentSave, player);
-  if (!silent) $.notify(changed ? "Game loaded" : "Game saved", "info")
+  if (!silent) $.notify(changed ? "游戏已加载" : "游戏已保存", "info")
 }
 
 function change_save(saveId) {
@@ -797,10 +797,10 @@ function transformSaveToDecimal() {
 function loadAutoBuyerSettings() {
   for (var i=0; i<9; i++) {
       document.getElementById("priority" + (i+1)).selectedIndex = player.autobuyers[i].priority-1
-      if (i == 8 && player.autobuyers[i].target == 10) document.getElementById("toggleBtnTickSpeed").textContent = "Buys max"
-      else if (i == 8 && player.autobuyers[i].target !== 10) document.getElementById("toggleBtnTickSpeed").textContent = "Buys singles"
-      else if (player.autobuyers[i].target > 10) document.getElementById("toggleBtn" + (i+1)).textContent = "Buys until 10"
-      else document.getElementById("toggleBtn" + (i+1)).textContent = "Buys singles"
+      if (i == 8 && player.autobuyers[i].target == 10) document.getElementById("toggleBtnTickSpeed").textContent = "购买最大"
+      else if (i == 8 && player.autobuyers[i].target !== 10) document.getElementById("toggleBtnTickSpeed").textContent = "购买单次"
+      else if (player.autobuyers[i].target > 10) document.getElementById("toggleBtn" + (i+1)).textContent = "购买10次"
+      else document.getElementById("toggleBtn" + (i+1)).textContent = "购买单次"
 
   }
   document.getElementById("priority10").value = player.autobuyers[9].priority

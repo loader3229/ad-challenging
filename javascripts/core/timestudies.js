@@ -76,13 +76,13 @@ function updateTheoremButtons() {
   document.getElementById("theoremam").className = player.money.gte(player.timestudy.amcost) ? "timetheorembtn" : "timetheorembtnlocked"
   document.getElementById("theoremip").className = player.infinityPoints.gte(player.timestudy.ipcost) ? "timetheorembtn" : "timetheorembtnlocked"
   document.getElementById("theoremep").className = player.eternityPoints.gte(player.timestudy.epcost) ? "timetheorembtn" : "timetheorembtnlocked"
-  if(player.timestudy.epcost.lte("2e308"))document.getElementById("theoremep").innerHTML = "Buy Time Theorems <br>Cost: "+shortenDimensions(player.timestudy.epcost)+" EP"
-  else document.getElementById("theoremep").innerHTML = "Time Theorems from EP are maxed out.",document.getElementById("theoremep").className="timetheorembtnlocked";
-  if(player.timestudy.ipcost.lte("2e1000000"))document.getElementById("theoremip").innerHTML  = "Buy Time Theorems <br>Cost: "+shortenCosts(player.timestudy.ipcost)+" IP"
-  else document.getElementById("theoremip").innerHTML = "Time Theorems from IP are maxed out.",document.getElementById("theoremip").className="timetheorembtnlocked";
-  document.getElementById("theoremam").innerHTML = "Buy Time Theorems <br>Cost: "+shortenCosts(player.timestudy.amcost)
-  if (player.timestudy.theorem>99999) document.getElementById("timetheorems").innerHTML = "You have <span style='display:inline' class=\"TheoremAmount\">"+shortenMoney(player.timestudy.theorem)+"</span> Time "+"Theorems."
-  else document.getElementById("timetheorems").innerHTML = "You have <span style='display:inline' class=\"TheoremAmount\">"+player.timestudy.theorem.toFixed(0)+"</span> Time "+ (player.timestudy.theorem == 1 ? "Theorem." : "Theorems.")
+  if(player.timestudy.epcost.lte("2e308"))document.getElementById("theoremep").innerHTML = "购买时间定律 <br>成本: "+shortenDimensions(player.timestudy.epcost)+" 永恒点数"
+  else document.getElementById("theoremep").innerHTML = "无法通过永恒点数购买时间定律",document.getElementById("theoremep").className="timetheorembtnlocked";
+  if(player.timestudy.ipcost.lte("2e1000000"))document.getElementById("theoremip").innerHTML  = "购买时间定律 <br>成本: "+shortenCosts(player.timestudy.ipcost)+" 无限点数"
+  else document.getElementById("theoremip").innerHTML = "无法通过无限点数购买时间定律",document.getElementById("theoremip").className="timetheorembtnlocked";
+  document.getElementById("theoremam").innerHTML = "购买时间定律 <br>成本: "+shortenCosts(player.timestudy.amcost)+" 反物质"
+  if (player.timestudy.theorem>99999) document.getElementById("timetheorems").innerHTML = "你拥有 <span style='display:inline' class=\"TheoremAmount\">"+shortenMoney(player.timestudy.theorem)+"</span> 时间定律。 "+""
+  else document.getElementById("timetheorems").innerHTML = "你拥有 <span style='display:inline' class=\"TheoremAmount\">"+player.timestudy.theorem.toFixed(0)+"</span> 时间定律。 "+ (player.timestudy.theorem == 1 ? "" : "")
 }
 
 function buyTimeStudy(name, cost, check) {
@@ -123,7 +123,7 @@ function buyDilationStudy(name, cost) {
     if (player.timestudy.theorem >= cost && canBuyDilationStudy(name) && !player.dilation.studies.includes(name)) {
         if (name === 1) {
             showEternityTab("dilation")
-            document.getElementById("dilstudy1").innerHTML = "Unlock time dilation<span>Cost: 5000 Time Theorems"
+            document.getElementById("dilstudy1").innerHTML = "解锁时间膨胀<span>成本: 5000 时间定律"
         }
         player.dilation.studies.push(name)
         player.timestudy.theorem -= cost
@@ -236,7 +236,7 @@ function canBuyStudy(name) {
 
 function canBuyDilationStudy(name) {
     if (name == 1 && ECTimesCompleted("eterc11") >= 5 && ECTimesCompleted("eterc12") >= 5 && player.timestudy.amcost.log10() / (player.eternityUpgrades.includes(10)?10000:20000) + player.timestudy.ipcost.log10() / (player.eternityUpgrades.includes(11)?50:100) + player.timestudy.epcost.log2() >= 13000) return true
-    if (player.dilation.studies.includes(name-1) && player.timestudy.theorem >= parseInt(document.getElementById("dilstudy"+name).textContent.split("Cost: ")[1].replace(/[, ]+/g, ""))) return true
+    if (player.dilation.studies.includes(name-1) && player.timestudy.theorem >= parseInt(document.getElementById("dilstudy"+name).textContent.split(": ")[1].replace(/[, ]+/g, ""))) return true
     else return false
 }
 
@@ -426,10 +426,10 @@ function importStudyTree(input) {
 function studyTreeSaveButton(num) {
     if (shiftDown) {
         localStorage.setItem("studyTree"+num, player.timestudy.studies + "|" + player.eternityChallUnlocked);
-        $.notify("Study tree "+num+" saved", "info")
+        $.notify("升级树 "+num+" 已保存", "info")
     } else if (localStorage.getItem("studyTree"+num) !== null && localStorage.getItem("studyTree"+num) !== "|0") {
         importStudyTree(localStorage.getItem("studyTree"+num));
-        $.notify("Study tree "+num+" loaded", "info")
+        $.notify("升级树 "+num+" 已加载", "info")
     }
 }
 
