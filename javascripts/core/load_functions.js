@@ -574,6 +574,10 @@ if (player.version < 5) {
 }
 
   if (!player.options.hotkeys) document.getElementById("hotkeys").textContent = "Enable hotkeys"
+  
+  if(player.challengingMatter===undefined)player.challengingMatter=[new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0)];
+  
+  
   updateAutobuyers();
   setAchieveTooltip();
   updatePriorities();
@@ -791,6 +795,10 @@ function transformSaveToDecimal() {
   player.dilation.dilatedTime = new Decimal(player.dilation.dilatedTime)
   player.dilation.totalTachyonParticles = new Decimal(player.dilation.totalTachyonParticles)
   player.dilation.nextThreshold = new Decimal(player.dilation.nextThreshold)
+  
+  for(var i=0;i<15;i++){
+	  player.challengingMatter[i]=new Decimal(player.challengingMatter[i]);
+  }
 }
 
 

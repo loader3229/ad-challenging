@@ -302,6 +302,7 @@ var player = {
     }
 
 ,aarexModifications:{challengingV:window.challengingV}
+,challengingMatter:[new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0)]
 };
 
 
@@ -447,8 +448,8 @@ function getGalaxyCostScalingStart() {
     var n = 100 + eterc5R1()
     if (player.timestudy.studies.includes(223)) n += 7
     if (player.timestudy.studies.includes(224)) n += Math.floor(player.resets/2000)
-	if(player.galaxies > 1399){ // dark matter galaxies
-		n -= Math.ceil((player.galaxies-1399)/5)
+	if(player.galaxies > 1399+eterc5R3()){ // dark matter galaxies
+		n -= Math.ceil((player.galaxies-1399-eterc5R3())/5)
 	}
     return n
 }
@@ -566,7 +567,7 @@ function updateDimensions() {
         if (player.timestudy.studies.includes(225)) extraGals += Math.floor(player.replicanti.amount.e / 1000)
         if (player.timestudy.studies.includes(226)) extraGals += Math.floor(player.replicanti.gal / 15)
         var galString = ""
-		if (player.galaxies >= 1400) galString += "Dark Matter Galaxies (";
+		if (player.galaxies >= 1400+eterc5R3()) galString += "Dark Matter Galaxies (";
         else if (player.galaxies >= 800+eterc5R2()) galString += "Remote Antimatter Galaxies (";
         else if (player.galaxies >= getGalaxyCostScalingStart() || player.currentEternityChall === "eterc5") galString += "Distant Antimatter Galaxies (";
         else galString += "Antimatter Galaxies (";
@@ -1757,7 +1758,7 @@ function galaxyReset() {
         dead: player.dead,
         dilation: player.dilation,
         why: player.why,
-        options: player.options
+        options: player.options,aarexModifications: player.aarexModifications,challengingMatter: player.challengingMatter
     };
 
     if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -2985,7 +2986,7 @@ document.getElementById("bigcrunch").onclick = function () {
             dead: player.dead,
             dilation: player.dilation,
             why: player.why,
-            options: player.options
+            options: player.options,aarexModifications: player.aarexModifications,challengingMatter: player.challengingMatter
         };
 
         if (player.bestInfinityTime <= 0.01) giveAchievement("Less than or equal to 0.001");
@@ -3125,7 +3126,7 @@ function eternity(force, auto) {
                 player.eternityChalls[player.currentEternityChall] = 1
             } else if (player.eternityChalls[player.currentEternityChall] < maxEC[player.currentEternityChall]) player.eternityChalls[player.currentEternityChall] += 1;
 			
-        if (player.currentEternityChall == "eterc6") player.dimensionMultDecrease = 10-Math.round(Math.log10(player.dimensionMultDecreaseCost/100000000)/Math.log10(5000))-eterc6Reward();
+            if (player.currentEternityChall == "eterc6") player.dimensionMultDecrease = 10-Math.round(Math.log10(player.dimensionMultDecreaseCost/100000000)/Math.log10(5000))-eterc6Reward();
 			player.etercreq = 0
             respecTimeStudies()
             if (Object.keys(player.eternityChalls).length >= 10) {
@@ -3137,6 +3138,11 @@ function eternity(force, auto) {
                     giveAchievement("5 more eternities until the update");
                 }
             }
+			
+			if(player.dilation.studies.includes(16)){
+				var ec=parseInt(player.currentEternityChall.slice(5));
+				player.challengingMatter[ec]=player.challengingMatter[ec].plus(gainedCM());
+			}
         }
         for (var i=0; i<player.challenges.length; i++) {
             if (!player.challenges[i].includes("post") && player.eternities > 1) temp.push(player.challenges[i])
@@ -3354,7 +3360,7 @@ function eternity(force, auto) {
                 rebuyables: player.dilation.rebuyables
             },
             why: player.why,
-            options: player.options
+            options: player.options,aarexModifications: player.aarexModifications,challengingMatter: player.challengingMatter
         };
         if (player.respec) respecTimeStudies()
         player.respec = false
@@ -3594,7 +3600,7 @@ function startChallenge(name, target) {
       dead: player.dead,
       dilation: player.dilation,
       why: player.why,
-      options: player.options
+      options: player.options,aarexModifications: player.aarexModifications,challengingMatter: player.challengingMatter
     };
 	if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
         player.thirdCost = new Decimal(100)
@@ -4155,7 +4161,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
                 rebuyables: player.dilation.rebuyables
             },
             why: player.why,
-            options: player.options
+            options: player.options,aarexModifications: player.aarexModifications,challengingMatter: player.challengingMatter
         };
 
         if (player.replicanti.unl) player.replicanti.amount = new Decimal(1)
@@ -4601,9 +4607,16 @@ setInterval(function() {
     if (player.eternities >= 80 && player.replicanti.auto[2] && player.currentEternityChall !== "eterc8") {
         while (upgradeReplicantiGalaxy()) continue
     }
-
+if(player.dilation.studies.includes(16))document.getElementById("challmatter").style.display = "block";
 	for(var i=1;i<13;i++){
 		document.getElementById("eterc"+i+"goal").textContent = "Goal: "+shortenCosts(getECGoal("eterc"+i,ECTimesCompleted("eterc"+i))) + " IP" + (i==4?" in "+Math.max((16 - (ECTimesCompleted("eterc4")*4)), 0)+" infinities or less.":"")+ (i==12?" in "+(Math.max(10 - ECTimesCompleted("eterc12")*2, 1)/10) + ((ECTimesCompleted("eterc12") === 0) ? " second or less." :" seconds or less." ):"")
+		if(ECTimesCompleted("eterc"+i) == 15){
+			document.getElementById("eterc"+i+"goal").textContent = "";
+			//challenging matter
+			if(player.dilation.studies.includes(16)){
+				document.getElementById("eterc"+i+"goal").textContent = "EC"+i+" Challenging Matter: "+shortenMoney(player.challengingMatter[i]);
+			}
+		}
 		document.getElementById("eterc"+i+"completed").textContent = "Completed "+ECTimesCompleted("eterc"+i)+" times."
 	}
     updateECUnlockButtons()
@@ -4961,6 +4974,9 @@ function gameLoop(diff) {
     if (gainedEternityPoints().gte(1e6)) document.getElementById("eternitybtn").innerHTML = "Gain <b>"+shortenDimensions(gainedEternityPoints())+"</b> Eternity points.<br>"+shortenDimensions(currentEPmin)+ " EP/min<br>Peaked at "+shortenDimensions(EPminpeak)+" EP/min"
     if (player.dilation.active) document.getElementById("eternitybtn").innerHTML = "Gain <b>"+shortenDimensions(gainedEternityPoints())+"</b> Eternity points.<br>"+"+"+shortenMoney(Math.round(Math.max(Math.pow(Decimal.log10(player.money) / 400, TPExponent()) * (Math.pow(3, player.dilation.rebuyables[3])) - player.dilation.totalTachyonParticles, 0) * 10)/10) +" Tachyon particles."
     if (player.currentEternityChall !== "") document.getElementById("eternitybtn").textContent = "Other challenges await.. I need to become Eternal"
+	if (player.currentEternityChall !== "" && (ECTimesCompleted(player.currentEternityChall) == 15 || ECTimesCompleted(player.currentEternityChall) == 14) && player.dilation.studies.includes(16)){
+		document.getElementById("eternitybtn").innerHTML = "Other challenges await.. I need to become Eternal<br>"+"+"+shortenMoney(gainedCM())+" EC"+player.currentEternityChall.slice(5)+" Challenging Matter."
+	}
     updateMoney();
     updateCoinPerSec();
     updateDimensions()
@@ -5252,12 +5268,22 @@ function gameLoop(diff) {
     document.getElementById("ec5reward").textContent = "Reward: Distant Galaxy cost scaling starts "+(eterc5R1())+" galaxies later. Remote Galaxy cost scaling starts "+(eterc5R2r())+" galaxies later."
     document.getElementById("ec6reward").textContent = "Reward: Further reduce the dimension cost multiplier increase, Currently: "+player.dimensionMultDecrease.toFixed(2)+"x "
     document.getElementById("ec7reward").textContent = "Reward: First Time dimension produces Eighth Infinity Dimensions, Currently: "+shortenMoney(getTimeDimensionProduction(1).pow(ECTimesCompleted("eterc7")*0.2).minus(1).max(0))+" per second. "
-    document.getElementById("ec8reward").textContent = "Reward: Infinity power powers up replicanti galaxies, Currently: " + (Math.max(Math.pow(Math.log10(player.infinityPower.plus(1).log10()+1), 0.03 * ECTimesCompleted("eterc8"))-1, 0) * 100).toFixed(2) + "%"
+    document.getElementById("ec8reward").textContent = "Reward: Infinity power powers up replicanti galaxies, Currently: " + (eterc8Reward() * 100).toFixed(2) + "%"
     document.getElementById("ec9reward").textContent = "Reward: Infinity Dimension multiplier based on time shards, Currently: "+shortenMoney(eterc9Mult())+"x "
     document.getElementById("ec10reward").textContent = "Reward: Time dimensions gain a multiplier from infinitied stat, Currently: "+shortenMoney(new Decimal(Math.max(Math.pow(getInfinitied(), 0.9) * EC10Reward1() * 0.000002+1, 1)).pow((player.timestudy.studies.includes(31)) ? 4 : 1).pow(EC10Reward2()))+"x "
     document.getElementById("ec11reward").textContent = "Reward: Further reduce the tickspeed cost multiplier increase, Currently: "+player.tickSpeedMultDecrease.toFixed(2)+"x "
     document.getElementById("ec12reward").textContent = "Reward: Infinity Dimension cost multipliers are reduced. (x^"+(EC12Reward())+")"
 
+	
+	
+	if(ECTimesCompleted("eterc2")==15 && player.dilation.studies.includes(16))document.getElementById("ec2reward").textContent = "Reward: Infinity power affects 1st Infinity Dimension with reduced effect, Currently: "+shortenMoney(eterc2Mult2())+"x -> "+shortenMoney(eterc2Mult())+"x";
+    if(ECTimesCompleted("eterc3")==15 && player.dilation.studies.includes(16))document.getElementById("ec3reward").textContent = "Reward: Increase the multiplier for buying 10 dimensions, Currently: "+getDimensionPowerMultiplier2().toFixed(2)+"x -> "+getDimensionPowerMultiplier().toFixed(2)+"x"
+    if(ECTimesCompleted("eterc4")==15 && player.dilation.studies.includes(16))document.getElementById("ec4reward").textContent = "Reward: Infinity Dimension multiplier from unspent IP, Currently: "+shortenMoney(eterc4Mult2())+"x -> "+shortenMoney(eterc4Mult())+"x"
+    if(ECTimesCompleted("eterc5")==15 && player.dilation.studies.includes(16))document.getElementById("ec5reward").textContent = "Reward: Distant Galaxy cost scaling starts "+(eterc5R1b())+" -> "+(eterc5R1())+" galaxies later. Remote Galaxy cost scaling starts "+(eterc5R2b())+" -> "+(eterc5R2r())+" galaxies later. Dark Matter Galaxy cost scaling starts 0 -> "+(eterc5R3())+" galaxies later."
+    if(ECTimesCompleted("eterc8")==15 && player.dilation.studies.includes(16))document.getElementById("ec8reward").textContent = "Reward: Infinity power powers up replicanti galaxies, Currently: " + (eterc8Reward2() * 100).toFixed(2) + "% -> "+(eterc8Reward() * 100).toFixed(2)+"%"
+	if(ECTimesCompleted("eterc9")==15 && player.dilation.studies.includes(16))document.getElementById("ec9reward").textContent = "Reward: Infinity Dimension multiplier based on time shards, Currently: "+shortenMoney(eterc9Mult2())+"x -> "+shortenMoney(eterc9Mult())+"x"
+    
+	
     // let extraGals = 0
     // if (player.timestudy.studies.includes(225)) extraGals += Math.floor(player.replicanti.amount.e / 2500)
     // if (player.timestudy.studies.includes(226)) extraGals += Math.floor(player.replicanti.gal / 40)

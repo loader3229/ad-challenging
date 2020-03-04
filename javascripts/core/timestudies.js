@@ -125,6 +125,11 @@ function buyDilationStudy(name, cost) {
             showEternityTab("dilation")
             document.getElementById("dilstudy1").innerHTML = "Unlock time dilation<span>Cost: 5000 Time Theorems"
         }
+		if (name === 16) {
+            showTab('challenges');
+			showChallengesTab('eternitychallenges');
+			document.getElementById("challmatter").style.display="block";
+        }
         player.dilation.studies.push(name)
         player.timestudy.theorem -= cost
         document.getElementById("dilstudy"+name).className = "dilationupgbought"
@@ -179,6 +184,9 @@ function canBuyStudy(name) {
   if (name == 1014) if(player.timestudy.studies.includes(1012) && player.dilation.studies.includes(5)) return true; else return false
   if (name == 1015) if(player.timestudy.studies.includes(1013) && player.timestudy.studies.includes(1009)) return true; else return false
   if (name == 1016) if(player.timestudy.studies.includes(1014) && player.timestudy.studies.includes(1010)) return true; else return false
+ if (name == 1017) if(player.timestudy.studies.includes(1013)) return true; else return false
+  if (name == 1018) if(player.timestudy.studies.includes(1014)) return true; else return false
+  if (name == 1020) if(player.timestudy.studies.includes(1016)) return true; else return false
   switch(row) {
 
       case 1: return true
@@ -245,13 +253,18 @@ function canBuyStudy(name) {
 }
 
 function canBuyDilationStudy(name) {
+	if(name == 16){
+		var timescompleted = 0;
+	    for(var i=1;i<=12;i++)timescompleted += ECTimesCompleted("eterc"+i);
+		return timescompleted>=154;
+	}
     if (name == 1 && ECTimesCompleted("eterc11") >= 5 && ECTimesCompleted("eterc12") >= 5 && player.timestudy.amcost.log10() / (player.eternityUpgrades.includes(10)?10000:20000) + player.timestudy.ipcost.log10() / (player.eternityUpgrades.includes(11)?50:100) + player.timestudy.epcost.log2() >= 13000) return true
     if (player.dilation.studies.includes(name-1) && player.timestudy.theorem >= parseInt(document.getElementById("dilstudy"+name).textContent.split("Cost: ")[1].replace(/[, ]+/g, ""))) return true
     else return false
 }
 
-var all = [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 201, 211, 212, 213, 214, 221, 222, 223, 224, 225, 226, 227, 228, 231, 232, 233, 234, 194, 1001,1002,1004,1005,1003,1006,1007,1009,1008,1010,1012,1011,1013,1014,1015,1016]
-var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 1500, 1500, 500, 2300, 1500, 1500, 500, 700, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 2100, 19e4,4e5,14e4,75e3,14e5,7e5,35e5,7e6,125e5,15e6,5e7,25e7,5e8,5e8,5e8,5e8]
+var all = [11, 21, 22, 33, 31, 32, 41, 42, 51, 61, 62, 71, 72, 73, 81, 82 ,83, 91, 92, 93, 101, 102, 103, 111, 121, 122, 123, 131, 132, 133, 141, 142, 143, 151, 161, 162, 171, 181, 191, 192, 193, 201, 211, 212, 213, 214, 221, 222, 223, 224, 225, 226, 227, 228, 231, 232, 233, 234, 194, 1001,1002,1004,1005,1003,1006,1007,1009,1008,1010,1012,1011,1013,1014,1015,1016,1017,1018,1020]
+var studyCosts = [1, 3, 2, 2, 3, 2, 4, 6, 3, 3, 3, 4, 6, 5, 4, 6, 5, 4, 5, 7, 4, 6, 6, 12, 9, 9, 9, 5, 5, 5, 4, 4, 4, 8, 7, 7, 15, 200, 1500, 1500, 500, 2300, 1500, 1500, 500, 700, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 2100, 19e4,4e5,14e4,75e3,14e5,7e5,35e5,7e6,125e5,15e6,5e7,25e7,5e8,5e8,5e8,5e8,1e9,1e9,2e9]
 var studyCostsByName = [];
 for(var i=0; i<all.length; i++) {
 	studyCostsByName[all[i]] = studyCosts[i];
@@ -305,6 +318,9 @@ function updateTimeStudyButtons() {
     else if (canBuyDilationStudy(i)) document.getElementById("dilstudy"+i).className = "dilationupg"
     else document.getElementById("dilstudy"+i).className = "timestudylocked"
   }
+  if (player.dilation.studies.includes(16)) document.getElementById("dilstudy16").className = "dilationupgbought"
+    else if (canBuyDilationStudy(16)) document.getElementById("dilstudy16").className = "dilationupg"
+    else document.getElementById("dilstudy16").className = "timestudylocked"
 }
 
 function studiesUntil(id) {
@@ -464,6 +480,7 @@ function TPExponent(){
 	var m=1.5;
 	if (player.timestudy.studies.includes(1006))m+=0.05;
 	if (player.timestudy.studies.includes(1012))m+=0.07;
+	if (player.timestudy.studies.includes(1020))m+=0.09;
 	return m;
 }
 
