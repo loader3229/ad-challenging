@@ -604,8 +604,8 @@ if (player.version < 5) {
 function load_cloud_save(saveId, cloudPlayer) {
   saves[saveId] = cloudPlayer;
 
-  if (window.location.href.split("//")[1].length > 20) set_save('challengingSave', saveId, cloudPlayer);
-  else set_save('challengingSave', saveId, cloudPlayer);
+  if (window.location.href.split("//")[1].length > 20) set_save('challengingPlusSave', saveId, cloudPlayer);
+  else set_save('challengingPlusSave', saveId, cloudPlayer);
 
   if (currentSave == saveId) {
     load_game();
@@ -616,8 +616,8 @@ function load_cloud_save(saveId, cloudPlayer) {
 
 function load_game(root) {
   if (!root) {
-    if (window.location.href.split("//")[1].length > 20) var root = get_save('challengingSave');
-    else var root = get_save('challengingSave');
+    if (window.location.href.split("//")[1].length > 20) var root = get_save('challengingPlusSave');
+    else var root = get_save('challengingPlusSave');
   }
 
   // Start: Migration for old save format
@@ -643,8 +643,8 @@ function load_game(root) {
 
 
 function save_game(changed, silent) {
-  if (window.location.href.split("//")[1].length > 20) set_save('challengingSave', currentSave, player);
-  else set_save('challengingSave', currentSave, player);
+  if (window.location.href.split("//")[1].length > 20) set_save('challengingPlusSave', currentSave, player);
+  else set_save('challengingPlusSave', currentSave, player);
   if (!silent) $.notify(changed ? "Game loaded" : "Game saved", "info")
 }
 
