@@ -266,6 +266,11 @@ function drawStudyTree() {
 	drawTreeBranch("dilstudy5", "1013")
 	drawTreeBranch("dilstudy5", "1014")
     drawTreeBranch("dilstudy5", "dilstudy6")
+	drawTreeBranch("1015", "dilstudy16")
+	drawTreeBranch("1013", "1017")
+	drawTreeBranch("1014", "1018")
+	drawTreeBranch("1016", "1020")
+	
 	
     if (shiftDown && document.getElementById("eternitystore").style.display !== "none" && document.getElementById("timestudies").style.display !== "none") {
         for (i=0; i<all.length; i++) {

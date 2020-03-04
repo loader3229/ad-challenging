@@ -183,9 +183,20 @@ function hasInfinityMult(tier) {
         if (player.infinityUpgrades.includes('dimMult')) dimMult *= 1.1;
         if (player.achievements.includes("r58")) dimMult *= 1.01;
         dimMult += ECTimesCompleted("eterc3") * 0.8
+		dimMult += Math.pow(player.challengingMatter[3].toNumber(),1.2);
         return dimMult;
     }
+    function getDimensionPowerMultiplier2(tier) {
+        let dimMult = 2;
     
+    
+        if (player.currentChallenge == "challenge9" || player.currentChallenge == "postc1") dimMult = Math.pow(10/0.30,Math.random())*0.30
+    
+        if (player.infinityUpgrades.includes('dimMult')) dimMult *= 1.1;
+        if (player.achievements.includes("r58")) dimMult *= 1.01;
+        dimMult += ECTimesCompleted("eterc3") * 0.8
+        return dimMult;
+    }
     
     function clearDimensions(amount) {
         var tiers = [ null, "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eight" ];

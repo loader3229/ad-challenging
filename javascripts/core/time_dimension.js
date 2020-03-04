@@ -7,6 +7,7 @@ function getTimeDimensionPower(tier) {
 
   if (player.timestudy.studies.includes(11) && tier == 1) ret = ret.mul(TS11Mult())
   if (player.timestudy.studies.includes(1007) && tier == 5) ret = ret.mul(TS11Mult().pow(0.1))
+  if (player.timestudy.studies.includes(1017) && tier == 6) ret = ret.mul(TS11Mult().pow(0.05))
 
 	  
   if (player.achievements.includes("r105")) ret = ret.div(player.tickspeed.div(1000).pow(0.000005))
@@ -18,6 +19,7 @@ function getTimeDimensionPower(tier) {
   if (player.eternityUpgrades.includes(6)) ret = ret.times(player.totalTimePlayed / 10 / 60 / 60 / 24)
   if (player.timestudy.studies.includes(73) && tier == 3) ret = ret.mul(TS73Mult())
 	if (player.timestudy.studies.includes(73) && player.timestudy.studies.includes(1011) && tier == 7) ret = ret.mul(TS73Mult()) 
+			if (player.timestudy.studies.includes(73) && player.timestudy.studies.includes(1017) && tier == 6) ret = ret.mul(TS73Mult().pow(0.2)) 
   if (player.timestudy.studies.includes(93)) ret = ret.times(Decimal.pow(player.totalTickGained, 0.25).max(1))
   if (player.timestudy.studies.includes(103)) ret = ret.times(Math.max(player.replicanti.galaxies, 1))
   if (player.timestudy.studies.includes(151)) ret = ret.times(1e4)
@@ -25,6 +27,7 @@ function getTimeDimensionPower(tier) {
   if (player.timestudy.studies.includes(227) && tier == 4) ret = ret.times(Math.max(Math.pow(calcTotalSacrificeBoost().log10(), 10), 1))
 	 if (player.timestudy.studies.includes(227) && player.timestudy.studies.includes(1013) && tier == 4) ret = ret.times(Decimal.max(Decimal.pow(calcTotalSacrificeBoost().log10(), 10), 1)) 
 	 if (player.timestudy.studies.includes(227) && player.timestudy.studies.includes(1013) && tier == 8) ret = ret.times(Decimal.max(Decimal.pow(calcTotalSacrificeBoost().log10(), 20), 1)) 
+     if (player.timestudy.studies.includes(227) && player.timestudy.studies.includes(1017) && tier == 6) ret = ret.times(Decimal.max(Decimal.pow(calcTotalSacrificeBoost().log10(), 20), 1)) 
   if (player.currentEternityChall == "eterc9") ret = ret.times((Decimal.pow(Math.max(player.infinityPower.log2(), 1), 4)).max(1))
   if (ECTimesCompleted("eterc1") !== 0) ret = ret.times(Math.pow(Math.max(player.thisEternity*10, 0.9), 0.3+(ECTimesCompleted("eterc1")*0.05)))
   let ec10bonus = new Decimal(1)
@@ -42,6 +45,7 @@ ec10bonus=ec10bonus.pow(EC10Reward2())
 		
     ret = ret.times(replmult.pow(0.1))
   }
+  if (player.timestudy.studies.includes(1018)) ret = ret.mul(player.dilation.dilatedTime)
   if (player.timestudy.studies.includes(1008) && tier == 6) ret = ret.mul(Decimal.pow(player.dilation.dilatedTime,20))
   if (player.timestudy.studies.includes(1014) && tier == 8) ret = ret.mul(Decimal.pow(player.dilation.dilatedTime,30))
   if (ret.lt(0)) {
