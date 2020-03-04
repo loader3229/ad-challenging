@@ -434,7 +434,7 @@ function studyTreeSaveButton(num) {
 }
 
 function dilationTTMult(){
-	return dilationTTMult1(player.dilation.rebuyables[20] || 0);
+	return dilationTTMult1(player.dilation.rebuyables[25] || 0);
 }
 
 function dilationTTMult1(a){
