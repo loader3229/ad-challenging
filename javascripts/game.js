@@ -447,6 +447,9 @@ function getGalaxyCostScalingStart() {
     var n = 100 + eterc5R1()
     if (player.timestudy.studies.includes(223)) n += 7
     if (player.timestudy.studies.includes(224)) n += Math.floor(player.resets/2000)
+	if(player.galaxies > 1399){ // dark matter galaxies
+		n -= Math.ceil((player.galaxies-1399)/5)
+	}
     return n
 }
 
@@ -563,7 +566,8 @@ function updateDimensions() {
         if (player.timestudy.studies.includes(225)) extraGals += Math.floor(player.replicanti.amount.e / 1000)
         if (player.timestudy.studies.includes(226)) extraGals += Math.floor(player.replicanti.gal / 15)
         var galString = ""
-        if (player.galaxies >= 800+eterc5R2()) galString += "Remote Antimatter Galaxies (";
+        if (player.galaxies >= 1400) galString += "Dark Matter Galaxies (";
+        else if (player.galaxies >= 800+eterc5R2()) galString += "Remote Antimatter Galaxies (";
         else if (player.galaxies >= getGalaxyCostScalingStart() || player.currentEternityChall === "eterc5") galString += "远距离反物质星系 (";
         else galString += "反物质星系 (";
         galString += player.galaxies;
@@ -1238,7 +1242,7 @@ function updateInfCosts() {
         document.getElementById("51desc").textContent = "你获取无限点数多 "+shortenCosts(1e15)+"x 倍"
         document.getElementById("71desc").textContent = "当前: "+shortenMoney(calcTotalSacrificeBoost().pow(0.25).max(1).min("1e210000"))+"x"
         document.getElementById("72desc").textContent = "当前: "+shortenMoney(calcTotalSacrificeBoost().pow(0.04).max(1).min("1e30000"))+"x"
-        document.getElementById("73desc").textContent = "当前: "+shortenMoney(calcTotalSacrificeBoost().pow(0.005).max(1).min("1e1300"))+"x"
+        document.getElementById("73desc").textContent = "当前: "+shortenMoney(TS73Mult())+"x"
         document.getElementById("82desc").textContent = "当前: "+shortenMoney(Decimal.pow(1.0000109, Decimal.pow(player.resets, 2)))+"x"
         document.getElementById("91desc").textContent = "当前: "+shortenMoney(Decimal.pow(10, Math.min(player.thisEternity, 18000)/60))+"x"
         document.getElementById("92desc").textContent = "当前: "+shortenMoney(Decimal.pow(2, 600/Math.max(player.bestEternity, 20)))+"x"
