@@ -1,4 +1,4 @@
-var maxEC=[0,15,15,15,15,15,15,15,13,15,10,5,5];
+var maxEC=[0,15,15,15,15,15,15,15,15,15,10,5,5];
 for(var i=0;i<13;i++){
 	maxEC["eterc"+i]=maxEC[i];
 }
@@ -53,6 +53,8 @@ function getECGoal(name,completed){
 	if(name=="eterc8"&&completed==10)return new Decimal("1e3300000");
 	if(name=="eterc8"&&completed==11)return new Decimal("1e4100000");
 	if(name=="eterc8"&&completed==12)return new Decimal("1e4400000");
+	if(name=="eterc8"&&completed==13)return new Decimal("1e4850000");
+	if(name=="eterc8"&&completed==14)return new Decimal("1e5150000");
 	
 	if(name=="eterc9"&&completed<5)return Decimal.mul("1e1800",Decimal.pow("1e150",completed*(completed+1)));
 	if(name=="eterc9"&&completed==5)return new Decimal("1e15000");
@@ -81,12 +83,26 @@ function getECGoal(name,completed){
 	if(name=="eterc12"&&completed==3)return new Decimal("1e340000");
 	if(name=="eterc12"&&completed==4)return new Decimal("1e326000");
 	
-	return new Decimal("1e1000000000000000");
+	return new Decimal("1e2000000");
 }
 function eterc2Mult(){
 	var c=ECTimesCompleted("eterc2");
 	if(c<=5)return player.infinityPower.pow(1.5/(700-c*100)).min(new Decimal("1e100")).plus(1);
-	if(c<=15)return player.infinityPower.pow(0.002+0.001*c).min(Decimal.pow(10,25*Math.pow(2,c-2)-100)).plus(1);
+	if(c<15)return player.infinityPower.pow(0.002+0.001*c).min(Decimal.pow(10,25*Math.pow(2,c-2)-100)).plus(1);
+	var thres=204700+player.challengingMatter[2].toNumber()*5000;
+	var mult=player.infinityPower.pow(0.017);
+	if(mult.log10()<thres){
+		return mult.plus(1);
+	}
+	return Decimal.pow(10,Math.sqrt(mult.log10()*thres)).plus(1);
+}
+function eterc2Mult2(){
+	var thres=204700;
+	var mult=player.infinityPower.pow(0.017);
+	if(mult.log10()<thres){
+		return mult.plus(1);
+	}
+	return Decimal.pow(10,Math.sqrt(mult.log10()*thres)).plus(1);
 }
 function eterc4Mult(){
 	var c=ECTimesCompleted("eterc4");
@@ -100,9 +116,27 @@ function eterc4Mult(){
 	if(c==12)return player.infinityPoints.pow(0.0005).mul(new Decimal("1e1300")).min(new Decimal("1e3600"));
 	if(c==13)return player.infinityPoints.pow(0.0007).mul(new Decimal("1e1300")).min(new Decimal("1e5400"));
 	if(c==14)return player.infinityPoints.pow(0.0009).mul(new Decimal("1e1300")).min(new Decimal("1e8100"));
-	if(c==15)return player.infinityPoints.pow(0.001).mul(new Decimal("1e1300")).min(new Decimal("1e15000"));
+	var thres=15000+player.challengingMatter[4].toNumber()*200;
+	var mult=player.infinityPoints.pow(0.001).mul(new Decimal("1e1300"));
+	if(mult.log10()<thres){
+		return mult.plus(1);
+	}
+	return Decimal.pow(10,Math.sqrt(mult.log10()*thres)).plus(1);
+}
+function eterc4Mult2(){
+	var thres=15000;
+	var mult=player.infinityPoints.pow(0.001).mul(new Decimal("1e1300"));
+	if(mult.log10()<thres){
+		return mult.plus(1);
+	}
+	return Decimal.pow(10,Math.sqrt(mult.log10()*thres)).plus(1);
 }
 function eterc5R1(){
+	var c=ECTimesCompleted("eterc5");
+	if(c==15)return c*5+Math.floor(Math.pow(player.challengingMatter[5].toNumber(),0.6)*1.5);
+	return c*5;
+}
+function eterc5R1b(){
 	var c=ECTimesCompleted("eterc5");
 	return c*5;
 }
@@ -113,7 +147,18 @@ function eterc5R2(){
 function eterc5R2r(){
 	var c=ECTimesCompleted("eterc5");
 	if(c<=10)return 0;
+	if(c==15)return 50+Math.floor(Math.pow(player.challengingMatter[5].toNumber(),0.65)*2);
 	return (c-10)*10;
+}
+function eterc5R2b(){
+	var c=ECTimesCompleted("eterc5");
+	if(c<=10)return 0;
+	return (c-10)*10;
+}
+function eterc5R3(){
+	var c=ECTimesCompleted("eterc5");
+	if(c==15)return Math.floor(Math.pow(player.challengingMatter[5].toNumber(),0.5));
+	return 0;
 }
 function eterc6Reward(){
 	var c=ECTimesCompleted("eterc6");
@@ -133,12 +178,19 @@ function eterc9Mult(){
 	if(c==13)return player.timeShards.pow(0.65).min(new Decimal("1e12000")).mul(player.timeShards.pow(0.35).min(new Decimal("1e12000"))).plus(1);
 	if(c==14)return player.timeShards.pow(0.6).min(new Decimal("1e30000")).mul(player.timeShards.pow(0.4).min(new Decimal("1e30000"))).plus(1);
 	if(c==15){
-		var thres=150000;
+		var thres=90000+player.challengingMatter[9].toNumber()*400;
 		if(player.timeShards.log10()>thres){
-			return Decimal.pow(10,Math.sqrt(player.timeShards.log10()*150000));
+			return Decimal.pow(10,Math.sqrt(player.timeShards.log10()*thres)).plus(1);
 		}
-		return player.timeShards;
+		return player.timeShards.plus(1);
 	}
+}
+function eterc9Mult2(){
+	var thres=90000;
+	if(player.timeShards.log10()>thres){
+		return Decimal.pow(10,Math.sqrt(player.timeShards.log10()*thres)).plus(1);
+	}
+	return player.timeShards.plus(1);
 }
 function EC10Reward1(){
 	var c=ECTimesCompleted("eterc10");
@@ -152,4 +204,21 @@ function EC10Reward2(){
 function EC12Reward(){
 	var c=ECTimesCompleted("eterc12");
 	return [1,0.992,0.986,0.982,0.978,0.974][c];
+}
+
+function gainedCM(){
+	var ip=player.infinityPoints;
+	var ec=parseInt(player.currentEternityChall.slice(5));
+	if(ip.lte("1e2000000"))return new Decimal(0);
+	var total=Decimal.max((Decimal.pow((ip.log10()+12989482)/20000,0.51).sub(29)).mul(4),0);
+	if(player.challengingMatter[ec].gte(total))return new Decimal(0);
+	return total.sub(player.challengingMatter[ec]);
+}
+
+function eterc8Reward(){
+	if(ECTimesCompleted("eterc8") == 15)return Math.max(Math.pow(Math.log10(player.infinityPower.plus(1).log10()+1), 0.45+Math.pow(Math.log10(player.challengingMatter[8].toNumber()+1),1.5)*0.02)-1, 0);
+	return Math.max(Math.pow(Math.log10(player.infinityPower.plus(1).log10()+1), 0.03 * ECTimesCompleted("eterc8"))-1, 0);
+}
+function eterc8Reward2(){
+	return Math.max(Math.pow(Math.log10(player.infinityPower.plus(1).log10()+1), 0.03 * ECTimesCompleted("eterc8"))-1, 0);
 }
