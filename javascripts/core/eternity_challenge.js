@@ -1,4 +1,4 @@
-var maxEC=[0,15,15,15,15,15,15,15,15,15,10,5,5];
+var maxEC=[0,15,15,15,15,15,15,15,15,15,15,5,5];
 for(var i=0;i<13;i++){
 	maxEC["eterc"+i]=maxEC[i];
 }
@@ -74,6 +74,12 @@ function getECGoal(name,completed){
 	if(name=="eterc10"&&completed==7)return new Decimal("1e7500");
 	if(name=="eterc10"&&completed==8)return new Decimal("1e8500");
 	if(name=="eterc10"&&completed==9)return new Decimal("1e10000");
+	if(name=="eterc10"&&completed==10)return new Decimal("1e76000");
+	if(name=="eterc10"&&completed==11)return new Decimal("1e77000");
+	if(name=="eterc10"&&completed==12)return new Decimal("1e78000");
+	if(name=="eterc10"&&completed==13)return new Decimal("1e79000");
+	if(name=="eterc10"&&completed==14)return new Decimal("1e80000");
+	if(name=="eterc10"&&completed==15)return new Decimal("1e80000");
 	
 	if(name=="eterc11"&&completed<5)return Decimal.mul("1e600",Decimal.pow("1e200",completed));
 	
@@ -194,9 +200,18 @@ function eterc9Mult2(){
 }
 function EC10Reward1(){
 	var c=ECTimesCompleted("eterc10");
-	return [0,1,2,3,4,5,7,10,14,19,26,36,49,63,80,100][c];
+	return [0,1,2,3,4,5,7,10,14,19,26,36,49,63,80,100][c]*(1+player.challengingMatter[10].toNumber());
 }
 function EC10Reward2(){
+	var c=ECTimesCompleted("eterc10");
+	if(c<=5)return 1;
+	return Decimal.pow(1.3,c-5)*(1+Math.sqrt(player.challengingMatter[10].toNumber()));
+}
+function EC10Reward1b(){
+	var c=ECTimesCompleted("eterc10");
+	return [0,1,2,3,4,5,7,10,14,19,26,36,49,63,80,100][c];
+}
+function EC10Reward2b(){
 	var c=ECTimesCompleted("eterc10");
 	if(c<=5)return 1;
 	return Decimal.pow(1.3,c-5);
@@ -209,6 +224,12 @@ function EC12Reward(){
 function gainedCM(){
 	var ip=player.infinityPoints;
 	var ec=parseInt(player.currentEternityChall.slice(5));
+	if(ec==10){
+		if(ip.lte("1e80000"))return new Decimal(0);
+		var total=Decimal.max((Decimal.pow((ip.log10()*75+8989482)/20000,0.51).sub(29)).mul(4),0);
+		if(player.challengingMatter[ec].gte(total))return new Decimal(0);
+		return total.sub(player.challengingMatter[ec]);
+	}
 	if(ip.lte("1e2000000"))return new Decimal(0);
 	var total=Decimal.max((Decimal.pow((ip.log10()+12989482)/20000,0.51).sub(29)).mul(4),0);
 	if(player.challengingMatter[ec].gte(total))return new Decimal(0);
@@ -221,4 +242,10 @@ function eterc8Reward(){
 }
 function eterc8Reward2(){
 	return Math.max(Math.pow(Math.log10(player.infinityPower.plus(1).log10()+1), 0.03 * ECTimesCompleted("eterc8"))-1, 0);
+}
+
+function EC6RGCostDecrease(){
+	var cm=player.challengingMatter[6].toNumber();
+	if(cm>100)Math.pow(1e10,Math.pow(0.95,2.5*Math.pow(Math.log10(cm),2)-1));
+	return Math.pow(1e10,Math.pow(0.95,Math.sqrt(cm))-1);
 }
