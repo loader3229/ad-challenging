@@ -481,6 +481,7 @@ function TPExponent(){
 	if (player.timestudy.studies.includes(1006))m+=0.05;
 	if (player.timestudy.studies.includes(1012))m+=0.07;
 	if (player.timestudy.studies.includes(1020))m+=0.09;
+	if (player.dilation.rebuyables[4])m += player.dilation.rebuyables[4]*0.2;
 	return m;
 }
 

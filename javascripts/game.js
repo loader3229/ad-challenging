@@ -1,4 +1,5 @@
 window.challengingV=1;
+window.plusV=1;
 
 //test
 var gameLoopIntervalId;
@@ -301,7 +302,7 @@ var player = {
         }
     }
 
-,aarexModifications:{challengingV:window.challengingV}
+,aarexModifications:{challengingV:window.challengingV,newGamePlusPlusVersion:window.plusV}
 ,challengingMatter:[new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0)]
 };
 
@@ -1825,7 +1826,7 @@ function galaxyReset() {
 
 document.getElementById("exportbtn").onclick = function () {
 	
-	player.aarexModifications={challengingV:window.challengingV};
+	player.aarexModifications={challengingV:window.challengingV,newGamePlusPlusVersion:window.plusV};
     let output = document.getElementById('exportOutput');
     let parent = output.parentElement;
 
@@ -4305,24 +4306,26 @@ function unlockDilation() {
                               2e12,        1e10,         1e11,
                                             1e15
 											
-,null,null,null,null,null,null,null,null,null,null,null,null,null,null,[1e13,3]]
+,[1e12,1e4],1e20,1e25,null,null,null,null,null,null,null,null,null,null,null,[1e13,3]]
 
 
 function buyDilationUpgrade(id, costInc) {
-    if (id > 3 && id != 25) { // Not rebuyable
+    if (id > 3 && id != 25 && id != 11) { // Not rebuyable
         if (player.dilation.dilatedTime < DIL_UPG_COSTS[id]) return // Not enough dilated time
         if (player.dilation.upgrades.includes(id)) return // Has the upgrade
         player.dilation.dilatedTime = player.dilation.dilatedTime.minus(DIL_UPG_COSTS[id])
-        player.dilation.upgrades.push(id)
+		if(id==12)player.dilation.upgrades.push("ngpp1")
+		else if(id==13)player.dilation.upgrades.push("ngpp2")
+		else player.dilation.upgrades.push(id)
         if (id == 4) player.dilation.freeGalaxies *= 2 // Double the current galaxies
     } else { // Is rebuyable
-        let upgAmount = player.dilation.rebuyables[id];
-		if(upgAmount === undefined)upgAmount = (player.dilation.rebuyables[id] = 0);
+        let upgAmount = player.dilation.rebuyables[id==11?4:id];
+		if(upgAmount === undefined)upgAmount = (player.dilation.rebuyables[id==11?4:id] = 0);
         let realCost = new Decimal(DIL_UPG_COSTS[id][0]).times( Decimal.pow(DIL_UPG_COSTS[id][1], (upgAmount)) )
         if (player.dilation.dilatedTime.lt(realCost)) return
 
         player.dilation.dilatedTime = player.dilation.dilatedTime.minus(realCost)
-        player.dilation.rebuyables[id] += 1
+        player.dilation.rebuyables[id==11?4:id] += 1
         if (id == 2) {
             player.dilation.dilatedTime = new Decimal(0)
             player.dilation.nextThreshold = new Decimal(1000)
@@ -4348,6 +4351,11 @@ function updateDilationUpgradeButtons() {
             document.getElementById("dil"+i).className = ( DIL_UPG_COSTS[i] > player.dilation.dilatedTime ) ? "dilationupglocked" : "dilationupg";
         }
     }
+	document.getElementById("dil11").className = ( new Decimal(DIL_UPG_COSTS[11][0]).times(Decimal.pow(DIL_UPG_COSTS[11][1],(player.dilation.rebuyables[4] || 0))).gt(player.dilation.dilatedTime) ) ? "dilationupgrebuyablelocked" : "dilationupgrebuyable";
+    document.getElementById("dil12").className = ( DIL_UPG_COSTS[12] > player.dilation.dilatedTime ) ? "dilationupglocked" : "dilationupg";
+	document.getElementById("dil13").className = ( DIL_UPG_COSTS[13] > player.dilation.dilatedTime ) ? "dilationupglocked" : "dilationupg";
+    if (player.dilation.upgrades.includes("ngpp1"))document.getElementById("dil12").className = "dilationupgbought";
+	if (player.dilation.upgrades.includes("ngpp2"))document.getElementById("dil13").className = "dilationupgbought";
 	document.getElementById("dil25").className = ( new Decimal(DIL_UPG_COSTS[25][0]).times(Decimal.pow(DIL_UPG_COSTS[25][1],(player.dilation.rebuyables[25] || 0))).gt(player.dilation.dilatedTime) ) ? "dilationupgrebuyablelocked" : "dilationupgrebuyable";
     document.getElementById("dil7desc").textContent = "Currently: "+shortenMoney(player.dilation.dilatedTime.pow(1000).max(1))+"x"
     document.getElementById("dil10desc").textContent = "Currently: "+shortenMoney(Math.floor(player.dilation.tachyonParticles.div(20000).max(1)))+"/s"
@@ -4365,7 +4373,10 @@ function updateDilationUpgradeCosts() {
     document.getElementById("dil8cost").textContent = "Cost: " + shortenCosts(DIL_UPG_COSTS[8]) + " dilated time"
     document.getElementById("dil9cost").textContent = "Cost: " + shortenCosts(DIL_UPG_COSTS[9]) + " dilated time"
     document.getElementById("dil10cost").textContent = "Cost: " + shortenCosts(DIL_UPG_COSTS[10]) + " dilated time"
-	document.getElementById("dil25cost").textContent = "Cost: " + shortenMoney( new Decimal(DIL_UPG_COSTS[25][0]).times(Decimal.pow(DIL_UPG_COSTS[25][1],(player.dilation.rebuyables[25] || 0))) ) + " dilated time"
+	document.getElementById("dil11cost").textContent = "Cost: " + shortenCosts( new Decimal(DIL_UPG_COSTS[11][0]).times(Decimal.pow(DIL_UPG_COSTS[11][1],(player.dilation.rebuyables[4] || 0))) ) + " dilated time"
+	document.getElementById("dil12cost").textContent = "Cost: " + shortenCosts(DIL_UPG_COSTS[12]) + " dilated time"
+    document.getElementById("dil13cost").textContent = "Cost: " + shortenCosts(DIL_UPG_COSTS[13]) + " dilated time"
+    document.getElementById("dil25cost").textContent = "Cost: " + shortenMoney( new Decimal(DIL_UPG_COSTS[25][0]).times(Decimal.pow(DIL_UPG_COSTS[25][1],(player.dilation.rebuyables[25] || 0))) ) + " dilated time"
     
 }
 
@@ -5995,6 +6006,6 @@ setInterval( function() {
 }, 100)
 
 setInterval( function(){
-	player.aarexModifications={challengingV:window.challengingV};
+	player.aarexModifications={challengingV:window.challengingV,newGamePlusPlusVersion:window.plusV};
 	
 }, 100)
