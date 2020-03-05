@@ -1337,8 +1337,8 @@ function upgradeReplicantiGalaxy() {
         if (player.currentEternityChall == "eterc6") player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(1e2, player.replicanti.gal)).times(1e2)
         else player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(1e5, player.replicanti.gal)).times(1e25)
         if (player.replicanti.gal >= 100) player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(1e50, player.replicanti.gal - 95))
-		if (player.replicanti.gal >= 330)if (player.currentEternityChall == "eterc6") player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(10, player.replicanti.gal*player.replicanti.gal - 100000))
-			else  player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(1e10, player.replicanti.gal*player.replicanti.gal - 100000))
+		if (player.replicanti.gal >= 330)if (player.currentEternityChall == "eterc6") player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(Math.min(1e10*EC6RGCostDecrease(),10), player.replicanti.gal*player.replicanti.gal - 100000))
+			else  player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(1e10*EC6RGCostDecrease(), player.replicanti.gal*player.replicanti.gal - 100000))
         player.replicanti.gal += 1
         if (player.currentEternityChall == "eterc8") player.eterc8repl-=1
         document.getElementById("eterc8repl").textContent = "你有 "+player.eterc8repl+" 剩余购买量."
@@ -3956,6 +3956,7 @@ document.getElementById("ec12unl").onclick = function() {
 
 function startEternityChallenge(name, startgoal, goalIncrease) {
     if (player.eternityChallUnlocked == 0 || parseInt(name.split("c")[1]) !== player.eternityChallUnlocked) return
+    clearInterval(gameLoopIntervalId);
     if((player.options.challConf) || name == "" ? true :  (confirm("你将重新开始你的时间研究,永恒的升级和成就。你需要用特殊的条件来达到一个设置的无限点。"))) {
         player = {
             money: new Decimal(10),
@@ -4236,6 +4237,9 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
 
 
     }
+	setTimeout(function() {
+            gameLoopIntervalId = setInterval(gameLoop, player.options.updateRate);
+        }, 250)
 }
 
 function startDilatedEternity() {
@@ -5280,8 +5284,10 @@ function gameLoop(diff) {
     if(ECTimesCompleted("eterc3")==15 && player.dilation.studies.includes(16))document.getElementById("ec3reward").textContent = "Reward: Increase the multiplier for buying 10 dimensions, Currently: "+getDimensionPowerMultiplier2().toFixed(2)+"x -> "+getDimensionPowerMultiplier().toFixed(2)+"x"
     if(ECTimesCompleted("eterc4")==15 && player.dilation.studies.includes(16))document.getElementById("ec4reward").textContent = "Reward: Infinity Dimension multiplier from unspent IP, Currently: "+shortenMoney(eterc4Mult2())+"x -> "+shortenMoney(eterc4Mult())+"x"
     if(ECTimesCompleted("eterc5")==15 && player.dilation.studies.includes(16))document.getElementById("ec5reward").textContent = "Reward: Distant Galaxy cost scaling starts "+(eterc5R1b())+" -> "+(eterc5R1())+" galaxies later. Remote Galaxy cost scaling starts "+(eterc5R2b())+" -> "+(eterc5R2r())+" galaxies later. Dark Matter Galaxy cost scaling starts 0 -> "+(eterc5R3())+" galaxies later."
+    if(ECTimesCompleted("eterc6")==15 && player.dilation.studies.includes(16))document.getElementById("ec6reward").textContent = "Reward: Further reduce the dimension cost multiplier increase, Currently: "+player.dimensionMultDecrease.toFixed(2)+"x. Post-330 RG cost scaling is reduced based on EC6 Challenging Matter."
     if(ECTimesCompleted("eterc8")==15 && player.dilation.studies.includes(16))document.getElementById("ec8reward").textContent = "Reward: Infinity power powers up replicanti galaxies, Currently: " + (eterc8Reward2() * 100).toFixed(2) + "% -> "+(eterc8Reward() * 100).toFixed(2)+"%"
 	if(ECTimesCompleted("eterc9")==15 && player.dilation.studies.includes(16))document.getElementById("ec9reward").textContent = "Reward: Infinity Dimension multiplier based on time shards, Currently: "+shortenMoney(eterc9Mult2())+"x -> "+shortenMoney(eterc9Mult())+"x"
+	if(ECTimesCompleted("eterc10")==15 && player.dilation.studies.includes(16))document.getElementById("ec10reward").textContent = "Reward: Time dimensions gain a multiplier from infinitied stat, Currently: "+shortenMoney(new Decimal(Math.max(Math.pow(getInfinitied(), 0.9) * EC10Reward1b() * 0.000002+1, 1)).pow((player.timestudy.studies.includes(31)) ? 4 : 1).pow(EC10Reward2b()))+"x -> "+shortenMoney(new Decimal(Math.max(Math.pow(getInfinitied(), 0.9) * EC10Reward1() * 0.000002+1, 1)).pow((player.timestudy.studies.includes(31)) ? 4 : 1).pow(EC10Reward2()))+"x "
     
 	
     // let extraGals = 0
