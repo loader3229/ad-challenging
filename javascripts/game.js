@@ -1340,6 +1340,7 @@ function upgradeReplicantiGalaxy() {
         if (player.replicanti.gal >= 100) player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(1e50, player.replicanti.gal - 95))
 		if (player.replicanti.gal >= 330)if (player.currentEternityChall == "eterc6") player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(Math.min(1e10*EC6RGCostDecrease(),10), player.replicanti.gal*player.replicanti.gal - 100000))
 			else  player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(1e10*EC6RGCostDecrease(), player.replicanti.gal*player.replicanti.gal - 100000))
+		if (player.replicanti.gal >= 400)player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(10,Decimal.pow(1.2, player.replicanti.gal - 394).floor().times(5)));
         player.replicanti.gal += 1
         if (player.currentEternityChall == "eterc8") player.eterc8repl-=1
         document.getElementById("eterc8repl").textContent = "You have "+player.eterc8repl+" purchases left."
