@@ -3309,7 +3309,7 @@ function eternity(force, auto) {
             timeDimension7: player.timeDimension7,
             timeDimension8: player.timeDimension8,
             eternityPoints: player.eternityPoints,
-            eternities: player.eternities+1,
+            eternities: player.eternities+gainEternitiedStat(),
             thisEternity: 0,
             bestEternity: player.bestEternity,
             eternityUpgrades: player.eternityUpgrades,
@@ -3451,6 +3451,8 @@ function eternity(force, auto) {
         Marathon2 = 0;
     }
 }
+
+function gainEternitiedStat() { return (player.dilation.upgrades.includes('ngpp2') ? Math.floor(Decimal.pow(player.dilation.dilatedTime, .1).toNumber()): 1); }
 
 function exitChallenge() {
     if (player.currentChallenge !== "") {
@@ -4405,6 +4407,14 @@ function updateInfPower() {
     else document.getElementById("infPowPerSec").textContent = "You are getting " +shortenDimensions(DimensionProduction(1))+" Infinity Power per second."
 }
 
+function getReplSpeed () {
+	let ret = .2;
+	if (player.dilation.upgrades.includes('ngpp1')) {
+		ret /= 1 + player.dilation.dilatedTime.max(1).log(10) / 10
+	}
+	return ret + 1;
+}
+
 function updateTimeShards() {
     if (document.getElementById("timedimensions").style.display == "block" && document.getElementById("dimensions").style.display == "block") {
         document.getElementById("timeShardAmount").textContent = shortenMoney(player.timeShards)
@@ -4418,7 +4428,7 @@ function updateDilation() {
     if (document.getElementById("dilation").style.display == "block" && document.getElementById("eternitystore").style.display == "block") {
         document.getElementById("tachyonParticleAmount").textContent = shortenMoney(player.dilation.tachyonParticles)
         document.getElementById("dilatedTimeAmount").textContent = shortenMoney(player.dilation.dilatedTime)
-        document.getElementById("dilatedTimePerSecond").textContent = "+" + shortenMoney(player.dilation.tachyonParticles.times(Decimal.pow(2, player.dilation.rebuyables[1])).times(DTMultEC())) + "/s"
+        document.getElementById("dilatedTimePerSecond").textContent = "+" + shortenMoney(player.dilation.tachyonParticles.times(Decimal.pow(2, player.dilation.rebuyables[1])).times(DTMultEC()).times(DTMultET())) + "/s"
         document.getElementById("galaxyThreshold").textContent = shortenMoney(player.dilation.nextThreshold)
         document.getElementById("dilatedGalaxies").textContent = player.dilation.freeGalaxies
     }
@@ -4908,14 +4918,14 @@ function gameLoop(diff) {
     if (player.timestudy.studies.includes(133) || player.replicanti.amount.gt(Number.MAX_VALUE)) interval *= 10
     if (player.timestudy.studies.includes(213)) interval /= 20
     if (player.replicanti.amount.lt(Number.MAX_VALUE) && player.achievements.includes("r134")) interval /= 2
-    if (player.replicanti.amount.gt(Number.MAX_VALUE)) interval = Math.max(interval * Math.pow(1.2, (player.replicanti.amount.log10() - 308)/308), interval)
+    if (player.replicanti.amount.gt(Number.MAX_VALUE)) interval = Math.max(interval * Math.pow(getReplSpeed(), (player.replicanti.amount.log10() - 308)/308), interval)
     var est = Math.log(player.replicanti.chance+1) * 1000 / interval
 
     var current = player.replicanti.amount.ln()
 
     if (player.replicanti.unl && (diff > 5 || interval < 50 || player.timestudy.studies.includes(192))) {
         var gained = Decimal.pow(Math.E, current +(diff*est/10))
-        if (player.timestudy.studies.includes(192)) gained = Decimal.pow(Math.E, current +Math.log((diff*est/10) * (Math.log10(1.2)/308)+1) / (Math.log10(1.2)/308))
+        if (player.timestudy.studies.includes(192)) gained = Decimal.pow(Math.E, current +Math.log((diff*est/10) * (Math.log10(getReplSpeed())/308)+1) / (Math.log10(getReplSpeed())/308))
         player.replicanti.amount = Decimal.min(Number.MAX_VALUE, gained)
         if (player.timestudy.studies.includes(192)) player.replicanti.amount = gained
         replicantiTicks = 0
@@ -5047,7 +5057,7 @@ function gameLoop(diff) {
         else document.getElementById("timeMax"+tier).className = "unavailablebtn"
     }
 
-    if (player.dilation.studies.includes(1)) player.dilation.dilatedTime = player.dilation.dilatedTime.plus(player.dilation.tachyonParticles*Math.pow(2, player.dilation.rebuyables[1])*diff/10*DTMultEC())
+    if (player.dilation.studies.includes(1)) player.dilation.dilatedTime = player.dilation.dilatedTime.plus(player.dilation.tachyonParticles*Math.pow(2, player.dilation.rebuyables[1])*diff/10*DTMultEC()*DTMultET())
 
 
     if (player.dilation.nextThreshold.lte(player.dilation.dilatedTime)) {

@@ -494,3 +494,8 @@ function TS73Mult(){
 	if (player.timestudy.studies.includes(1011))return calcTotalSacrificeBoost().pow(0.005).min(new Decimal("1e1300")).mul(calcTotalSacrificeBoost().pow(0.00001).min(new Decimal("1e1700")));
 	return calcTotalSacrificeBoost().pow(0.005).min(new Decimal("1e1300"));
 }
+
+function DTMultET(){
+	if (player.dilation.upgrades.includes('ngpp2')) return Math.pow(player.eternities, .1);
+	return 1;
+}
