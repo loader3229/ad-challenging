@@ -205,6 +205,7 @@ function EC10Reward1(){
 function EC10Reward2(){
 	var c=ECTimesCompleted("eterc10");
 	if(c<=5)return 1;
+	if(player.challengingMatter[10].toNumber()>10)return Decimal.pow(1.3,c-5)*(1+Math.sqrt(20*Math.log10(Math.sqrt(player.challengingMatter[10].toNumber()))));
 	return Decimal.pow(1.3,c-5)*(1+Math.sqrt(player.challengingMatter[10].toNumber()));
 }
 function EC10Reward1b(){
