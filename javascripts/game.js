@@ -5371,7 +5371,8 @@ function gameLoop(diff) {
 
 	
 	
-	if(ECTimesCompleted("eterc2")==15 && player.dilation.studies.includes(16))document.getElementById("ec2reward").textContent = "Reward: Infinity power affects 1st Infinity Dimension with reduced effect, Currently: "+shortenMoney(eterc2Mult2())+"x -> "+shortenMoney(eterc2Mult())+"x";
+	if(ECTimesCompleted("eterc1")==15 && player.dilation.studies.includes(16))document.getElementById("ec1reward").textContent = "Reward: "+shortenMoney(Math.pow(Math.max(player.thisEternity*10, 1), 0.3+(ECTimesCompleted("eterc1")*0.05)))+"x -> "+shortenMoney(eterc1Mult())+"x on all Time Dimensions (based on time spent this Eternity)"
+    if(ECTimesCompleted("eterc2")==15 && player.dilation.studies.includes(16))document.getElementById("ec2reward").textContent = "Reward: Infinity power affects 1st Infinity Dimension with reduced effect, Currently: "+shortenMoney(eterc2Mult2())+"x -> "+shortenMoney(eterc2Mult())+"x";
     if(ECTimesCompleted("eterc3")==15 && player.dilation.studies.includes(16))document.getElementById("ec3reward").textContent = "Reward: Increase the multiplier for buying 10 dimensions, Currently: "+getDimensionPowerMultiplier2().toFixed(2)+"x -> "+getDimensionPowerMultiplier().toFixed(2)+"x"
     if(ECTimesCompleted("eterc4")==15 && player.dilation.studies.includes(16))document.getElementById("ec4reward").textContent = "Reward: Infinity Dimension multiplier from unspent IP, Currently: "+shortenMoney(eterc4Mult2())+"x -> "+shortenMoney(eterc4Mult())+"x"
     if(ECTimesCompleted("eterc5")==15 && player.dilation.studies.includes(16))document.getElementById("ec5reward").textContent = "Reward: Distant Galaxy cost scaling starts "+(eterc5R1b())+" -> "+(eterc5R1())+" galaxies later. Remote Galaxy cost scaling starts "+(eterc5R2b())+" -> "+(eterc5R2r())+" galaxies later. Dark Matter Galaxy cost scaling starts 0 -> "+(eterc5R3())+" galaxies later."

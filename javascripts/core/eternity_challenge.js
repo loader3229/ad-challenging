@@ -92,6 +92,11 @@ function getECGoal(name,completed){
 	
 	return new Decimal("1e2000000");
 }
+function eterc1Mult(){
+	var c=ECTimesCompleted("eterc1");
+	if(c<15)return Math.pow(Math.max(player.thisEternity*10, 1), 0.3+(ECTimesCompleted("eterc1")*0.05));
+	return Math.pow(Math.max(player.thisEternity*10, 1), 1.05+player.challengingMatter[1].toNumber()*0.5);
+}
 function eterc2Mult(){
 	var c=ECTimesCompleted("eterc2");
 	if(c<=5)return player.infinityPower.pow(1.5/(700-c*100)).min(new Decimal("1e100")).plus(1);
