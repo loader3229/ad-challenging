@@ -5380,6 +5380,7 @@ function gameLoop(diff) {
     if(ECTimesCompleted("eterc8")==15 && player.dilation.studies.includes(16))document.getElementById("ec8reward").textContent = "Reward: Infinity power powers up replicanti galaxies, Currently: " + (eterc8Reward2() * 100).toFixed(2) + "% -> "+(eterc8Reward() * 100).toFixed(2)+"%"
 	if(ECTimesCompleted("eterc9")==15 && player.dilation.studies.includes(16))document.getElementById("ec9reward").textContent = "Reward: Infinity Dimension multiplier based on time shards, Currently: "+shortenMoney(eterc9Mult2())+"x -> "+shortenMoney(eterc9Mult())+"x"
 	if(ECTimesCompleted("eterc10")==15 && player.dilation.studies.includes(16))document.getElementById("ec10reward").textContent = "Reward: Time dimensions gain a multiplier from infinitied stat, Currently: "+shortenMoney(new Decimal(Math.max(Math.pow(getInfinitied(), 0.9) * EC10Reward1b() * 0.000002+1, 1)).pow((player.timestudy.studies.includes(31)) ? 4 : 1).pow(EC10Reward2b()))+"x -> "+shortenMoney(new Decimal(Math.max(Math.pow(getInfinitied(), 0.9) * EC10Reward1() * 0.000002+1, 1)).pow((player.timestudy.studies.includes(31)) ? 4 : 1).pow(EC10Reward2()))+"x "
+    if(ECTimesCompleted("eterc11")==15 && player.dilation.studies.includes(16))document.getElementById("ec11reward").textContent = "Reward: Further reduce the tickspeed cost multiplier increase, Currently: "+player.tickSpeedMultDecrease.toFixed(2)+"x. Meta-antimatter effect on dimension boosts is stronger based on EC11 Challenging Matter."
     
 	
     // let extraGals = 0
