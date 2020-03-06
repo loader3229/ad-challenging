@@ -471,7 +471,7 @@ function dilationTTMult(){
 function dilationTTMult1(a){
 	if(a<=3)return a;
 	if(a<=100)return Math.floor(Math.pow(1.414,a-3)*3);
-	return Math.pow(1.414,97)*Math.pow(1.52,a-100)*3;
+	return Math.pow(1.414,97)*Math.pow(2.3,a-100)*3;
 }
 
 function DTMultEC(){
