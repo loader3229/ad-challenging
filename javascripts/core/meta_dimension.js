@@ -147,9 +147,7 @@ function getDilationMetaDimensionMultiplier () {
  }
 
  function getExtraDimensionBoostPower() {
- 	return player.meta.bestAntimatter.plus(1)
-	return player.meta.bestAntimatter.pow(8).plus(1)
- 	return player.meta.bestAntimatter.pow(player.dilation.upgrades.includes("ngpp5") ? 10 : 8).plus(1)
+ 	return player.meta.bestAntimatter.pow(player.dilation.upgrades.includes("ngpp5") ? 1.2:1).plus(1)
  }
 
  function getDil14Bonus () {
