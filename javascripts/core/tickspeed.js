@@ -4,7 +4,7 @@ function canBuyTickSpeed() {
 }
 
 function getTickSpeedMultiplier() {
-  if (player.currentChallenge == "postc3") return 1;
+  if (player.currentChallenge == "postc3") return new Decimal(1);
   if (player.galaxies + player.replicanti.galaxies + player.dilation.freeGalaxies < 3) {
       let baseMultiplier = 0.9;
       if (player.galaxies == 0) baseMultiplier = 0.89
@@ -23,7 +23,7 @@ function getTickSpeedMultiplier() {
       if (player.achievements.includes("r86")) perGalaxy *= 1.01;
       if (player.timestudy.studies.includes(212)) perGalaxy *= Math.min(Math.pow(player.timeShards.max(2).log2(), 0.005), 1.1)
 
-      return Math.max(baseMultiplier-(player.galaxies*perGalaxy),0.75);
+      return new Decimal(Math.max(baseMultiplier-(player.galaxies*perGalaxy),0.75));
   } else {
       let baseMultiplier = 0.8
       if (player.currentChallenge == "challenge6" || player.currentChallenge == "postc1") baseMultiplier = 0.83
@@ -42,7 +42,7 @@ function getTickSpeedMultiplier() {
       if (player.timestudy.studies.includes(212)) galaxies *= Math.min(Math.pow(player.timeShards.max(2).log2(), 0.005), 1.1)
       if (player.timestudy.studies.includes(232)) galaxies *= Math.pow(1+player.galaxies/5000, 0.1)
 
-      return baseMultiplier * (Math.pow(perGalaxy, (galaxies-2)))
+      return new Decimal(baseMultiplier).mul(Decimal.pow(perGalaxy, (galaxies-2)))
   }
 }
 
