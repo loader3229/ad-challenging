@@ -1,5 +1,5 @@
 window.challengingV=1;
-window.plusV=2.3;
+window.plusV=2.2;
 
 //test
 var gameLoopIntervalId;
