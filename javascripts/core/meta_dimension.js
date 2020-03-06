@@ -6,7 +6,7 @@ function getDilationMetaDimensionMultiplier () {
    if (player.currentEternityChall === "eterc11") {
      return new Decimal(1);
    }
-   let multiplier = Decimal.pow(2, Math.floor(player.meta[tier].bought / 10)).times(Decimal.pow(player.dilation.upgrades.includes("ngpp4") ? 3 : 2, Math.max(0, player.meta.resets - tier + 1))).times(getDilationMetaDimensionMultiplier());
+   let multiplier = Decimal.pow(2, Math.floor(player.meta[tier].bought / 10)).times(Decimal.pow(player.dilation.upgrades.includes("ngpp4") ? 4 : 2, Math.max(0, player.meta.resets - tier + 1))).times(getDilationMetaDimensionMultiplier());
   if (player.dilation.upgrades.includes("ngpp3")) {
      multiplier = multiplier.times(getDil14Bonus());
    }
