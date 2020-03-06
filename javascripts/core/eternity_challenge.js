@@ -93,8 +93,8 @@ function getECGoal(name,completed){
 }
 function eterc1Mult(){
 	var c=ECTimesCompleted("eterc1");
-	if(c<15)return Math.pow(Math.max(player.thisEternity*10, 1), 0.3+(ECTimesCompleted("eterc1")*0.05));
-	return Math.pow(Math.max(player.thisEternity*10, 1), 1.05+player.challengingMatter[1].toNumber()*0.5);
+	if(c<15)return Decimal.pow(Math.max(player.thisEternity*10, 1), 0.3+(ECTimesCompleted("eterc1")*0.05));
+	return Decimal.pow(Math.max(player.thisEternity*10, 1), 1.05+player.challengingMatter[1].toNumber()*0.5);
 }
 function eterc2Mult(){
 	var c=ECTimesCompleted("eterc2");
