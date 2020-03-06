@@ -324,7 +324,7 @@
                     <tr>
 						<td><button class="timestudylocked" id="dilstudy16" onclick="buyDilationStudy(16, 2e9)">Unlock Challenging Matter<span>Requirement: 154 Eternity Challenges completed<span>Cost: 2,000,000,000 Time Theorems</button></td>
 						<td><button class="timestudylocked" id="1017" onclick="buyTimeStudy(1017, 1e9)">TS11, TS73 and TS227 affect TD6 at a reduced rate.<span>Cost: 1,000,000,000 Time Theorems</button></td>
-                        <td><button class="timestudylocked" id="dilstudy6" onclick="buyDilationStudy(6, 1e21)">Unlock Meta Dimensions<span>Cost: <span id="metaCost" style="display:inline;">1e24</span> Time Theorems</button></td>
+                        <td><button class="timestudylocked" id="dilstudy6" onclick="buyDilationStudy(6, 1e21)">Unlock Meta Dimensions<span>Requirement: 6 EC11 completions <span>Cost: <span id="metaCost" style="display:inline;">1e24</span> Time Theorems</button></td>
 						<td><button class="timestudylocked" id="1018" onclick="buyTimeStudy(1018, 1e9)">Time Dimensions multipliers are multiplied by dilated time<span>Cost: 1,000,000,000 Time Theorems</button></td>
                         <td><button class="timestudylocked" id="1020" onclick="buyTimeStudy(1020, 2e9)">TP gain formula is better<span>Cost: 2,000,000,000 Time Theorems</button></td>
                    </tr>
@@ -635,6 +635,7 @@
                     <td id="dtabbtn"><button class="secondarytabbtn" onclick="showDimTab('antimatterdimensions')">Dimensions</button></td>
                     <td id="idtabbtn"><button class="secondarytabbtn" onclick="showDimTab('infinitydimensions')">Infinity Dimensions</button></td>
                     <td id="tdtabbtn"><button class="secondarytabbtn" onclick="showDimTab('timedimensions')">Time Dimensions</button></td>
+                    <td id="mdtabbtn"><button class="secondarytabbtn" onclick="showDimTab('metadimensions')">Meta Dimensions</button></td>
                     <td id="prodtabbtn"><button class="secondarytabbtn" onclick="showDimTab('production')">Production</button></td>
                 </tr>
             </table>
@@ -1001,6 +1002,142 @@
                                 </td>
                             </tr>
                         </table>
+            </div>
+			<div id="metadimensions" class="dimtab">
+                  <div>
+                      <p>You have <span id="metaAntimatterAmount" style="font-size:35px; color: black">0</span> meta-antimatter.<p>
+                      <p>Your best ever meta-antimatter was <span id="metaAntimatterBest" style="font-size:35px; color: black">0</span>. Translated to <span id="metaAntimatterEffect" style="font-size:35px; color: black">0</span>x extra multiplier per dimension boost.</p>
+                  </div>
+                  <div id="metaAntimatterPerSec">You are getting 0 meta-antimatter per second.</div>
+                  <br/>
+                  <button id="metaMaxAll" class="storebtn" style="font-size: 12px">Max all</button>
+                  <br/>
+                  <table>
+                    <tbody>
+                      <tr id="1MetaRow" style="display: none; font-size: 15px">
+                          <td id="1MetaD" class="rel">
+                              First Meta Dimension
+                          </td>
+                          <td>
+                              <div id="meta1Amount" align="left">0 (0)</div>
+                          </td>
+                          <td align="right" width="10%">
+                              <button id="meta1" style="color:black; height: 25px; font-size: 10px; width: 135px" class="storebtn">Cost: 1000000</button>
+                          </td>
+                          <td align="right" width="10%">
+                              <button id="metaMax1" style="color:black; width:210px; height: 25px; font-size: 10px" class="storebtn">Cost: 10</button>
+                          </td>
+                      </tr>
+                      <tr id="2MetaRow" style="display: none; font-size: 15px">
+                          <td id="2MetaD" class="rel">
+                              Second Meta Dimension
+                          </td>
+                          <td>
+                              <div id="meta2Amount" align="left">0 (0)</div>
+                          </td>
+                          <td align="right" width="10%">
+                              <button id="meta2" style="color:black; height: 25px; font-size: 10px; width: 135px" class="storebtn">Cost: 1000000</button>
+                          </td>
+                          <td align="right" width="10%">
+                              <button id="metaMax2" style="color:black; width:210px; height: 25px; font-size: 10px" class="storebtn">Cost: 10</button>
+                          </td>
+                      </tr>
+                      <tr id="3MetaRow" style="display: none; font-size: 15px">
+                          <td id="3MetaD" class="rel">
+                              Third Meta Dimension
+                          </td>
+                          <td>
+                              <div id="meta3Amount" align="left">0 (0)</div>
+                          </td>
+                          <td align="right" width="10%">
+                              <button id="meta3" style="color:black; height: 25px; font-size: 10px; width: 135px" class="storebtn">Cost: 1000000</button>
+                          </td>
+                          <td align="right" width="10%">
+                              <button id="metaMax3" style="color:black; width:210px; height: 25px; font-size: 10px" class="storebtn">Cost: 10</button>
+                          </td>
+                      </tr>
+                      <tr id="4MetaRow" style="display: none; font-size: 15px">
+                          <td id="4MetaD" class="rel">
+                              Fourth Meta Dimension
+                          </td>
+                          <td>
+                              <div id="meta4Amount" align="left">0 (0)</div>
+                          </td>
+                          <td align="right" width="10%">
+                              <button id="meta4" style="color:black; height: 25px; font-size: 10px; width: 135px" class="storebtn">Cost: 1000000</button>
+                          </td>
+                          <td align="right" width="10%">
+                              <button id="metaMax4" style="color:black; width:210px; height: 25px; font-size: 10px" class="storebtn">Cost: 10</button>
+                          </td>
+                      </tr>
+                      <tr id="5MetaRow" style="display: none; font-size: 15px">
+                          <td id="5MetaD" class="rel">
+                              Fifth Meta Dimension
+                          </td>
+                          <td>
+                              <div id="meta5Amount" align="left">0 (0)</div>
+                          </td>
+                          <td align="right" width="10%">
+                              <button id="meta5" style="color:black; height: 25px; font-size: 10px; width: 135px" class="storebtn">Cost: 1000000</button>
+                          </td>
+                          <td align="right" width="10%">
+                              <button id="metaMax5" style="color:black; width:210px; height: 25px; font-size: 10px" class="storebtn">Cost: 10</button>
+                          </td>
+                      </tr>
+                      <tr id="6MetaRow" style="display: none; font-size: 15px">
+                          <td id="6MetaD" class="rel">
+                              Sixth Meta Dimension
+                          </td>
+                          <td>
+                              <div id="meta6Amount" align="left">0 (0)</div>
+                          </td>
+                          <td align="right" width="10%">
+                              <button id="meta6" style="color:black; height: 25px; font-size: 10px; width: 135px" class="storebtn">Cost: 1000000</button>
+                          </td>
+                          <td align="right" width="10%">
+                              <button id="metaMax6" style="color:black; width:210px; height: 25px; font-size: 10px" class="storebtn">Cost: 10</button>
+                          </td>
+                      </tr>
+                      <tr id="7MetaRow" style="display: none; font-size: 15px">
+                          <td id="7MetaD" class="rel">
+                              Seventh Meta Dimension
+                          </td>
+                          <td>
+                              <div id="meta7Amount" align="left">0 (0)</div>
+                          </td>
+                          <td align="right" width="10%">
+                              <button id="meta7" style="color:black; height: 25px; font-size: 10px; width: 135px" class="storebtn">Cost: 1000000</button>
+                          </td>
+                          <td align="right" width="10%">
+                              <button id="metaMax7" style="color:black; width:210px; height: 25px; font-size: 10px" class="storebtn">Cost: 10</button>
+                          </td>
+                      </tr>
+                      <tr id="8MetaRow" style="display: none; font-size: 15px">
+                          <td id="8MetaD" class="rel">
+                              Eighth Meta Dimension
+                          </td>
+                          <td>
+                              <div id="meta8Amount" align="left">0 (0)</div>
+                          </td>
+                          <td align="right" width="10%">
+                              <button id="meta8" style="color:black; height: 25px; font-size: 10px; width: 135px" class="storebtn">Cost: 1000000</button>
+                          </td>
+                          <td align="right" width="10%">
+                              <button id="metaMax8" style="color:black; width:210px; height: 25px; font-size: 10px" class="storebtn">Cost: 10</button>
+                          </td>
+                      </tr>
+                    </tbody>
+                </table>
+                <table style="width: 100%">
+                    <tr style="font-size: 15px">
+                      <td id="metaResetLabel">
+                          Meta-Dimension Shift: requires 20 Fourth Meta Dimensions
+                      </td>
+                      <td>
+                          <button id="metaSoftReset" style="color:black; width: 200px; height: 25px; font-size: 9px" class="storebtn">Reset the game for a new Dimension</button>
+                      </td>
+                  </tr>
+                </table>
             </div>
             <div id="production" class="dimtab">
                 <b>seconds of history:</b>
@@ -2791,6 +2928,7 @@
 <script type="text/javascript" src="javascripts/core/normal_dimension.js"></script>
 <script type="text/javascript" src="javascripts/core/infinity_dimension.js"></script>
 <script type="text/javascript" src="javascripts/core/time_dimension.js"></script>
+<script type="text/javascript" src="javascripts/core/meta_dimension.js"></script>
 <script type="text/javascript" src="javascripts/core/dimboost.js"></script>
 <script type="text/javascript" src="javascripts/core/timestudies.js"></script>
 <script type="text/javascript" src="javascripts/core/canvases.js"></script>

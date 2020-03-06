@@ -576,7 +576,10 @@ if (player.version < 5) {
   if (!player.options.hotkeys) document.getElementById("hotkeys").textContent = "Enable hotkeys"
   
   if(player.challengingMatter===undefined)player.challengingMatter=[new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0)];
-  
+  if(player.meta===undefined){
+player.meta = {resets: 0, antimatter: new Decimal(10), bestAntimatter: new Decimal(10)}
+for (dim=1;dim<9;dim++) player.meta[dim] = {amount: new Decimal(0), bought: 0, cost: initCost[dim]}
+  }
   
   updateAutobuyers();
   setAchieveTooltip();
@@ -756,6 +759,16 @@ function transformSaveToDecimal() {
   player.timeDimension6.power = new Decimal(player.timeDimension6.power)
   player.timeDimension7.power = new Decimal(player.timeDimension7.power)
   player.timeDimension8.power = new Decimal(player.timeDimension8.power)
+  
+  if (player.meta !== undefined) {
+       player.meta.antimatter = new Decimal(player.meta.antimatter);
+       player.meta.bestAntimatter = new Decimal(player.meta.bestAntimatter);
+       for (let i = 1; i <= 8; i++) {
+           player.meta[i].amount = new Decimal(player.meta[i].amount);
+           player.meta[i].cost = new Decimal(player.meta[i].cost);
+       }
+   }
+   
   player.timeShards = new Decimal(player.timeShards)
   player.eternityPoints = new Decimal(player.eternityPoints)
   player.tickThreshold = new Decimal(player.tickThreshold)

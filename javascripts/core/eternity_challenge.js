@@ -1,4 +1,4 @@
-var maxEC=[0,15,15,15,15,15,15,15,15,15,15,5,5];
+var maxEC=[0,15,15,15,15,15,15,15,15,15,15,6,5];
 for(var i=0;i<13;i++){
 	maxEC["eterc"+i]=maxEC[i];
 }
@@ -82,6 +82,7 @@ function getECGoal(name,completed){
 	if(name=="eterc10"&&completed==15)return new Decimal("1e80000");
 	
 	if(name=="eterc11"&&completed<5)return Decimal.mul("1e600",Decimal.pow("1e200",completed));
+	if(name=="eterc11"&&completed==5)return new Decimal("1e150000");// before meta dims
 	
 	if(name=="eterc12"&&completed==0)return new Decimal("1e240000");
 	if(name=="eterc12"&&completed==1)return new Decimal("1e280000");
@@ -249,4 +250,10 @@ function EC6RGCostDecrease(){
 	var cm=player.challengingMatter[6].toNumber();
 	if(cm>100)Math.pow(1e10,Math.pow(0.95,2.5*Math.pow(Math.log10(cm),2)-1));
 	return Math.pow(1e10,Math.pow(0.95,Math.sqrt(cm))-1);
+}
+
+function eterc11Reward(){
+	var c=ECTimesCompleted("eterc11");
+	if(c<=5)return 0.07*c;
+	return 0.25+0.02*c;
 }

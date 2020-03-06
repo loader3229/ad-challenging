@@ -9,6 +9,7 @@ function getDimensionBoostPower() {
   if (player.achievements.includes("r101")) ret = ret*1.01
   if (player.timestudy.studies.includes(83)) ret = Decimal.pow(1.0004, player.totalTickGained).times(ret);
   if (player.timestudy.studies.includes(231)) ret = Decimal.pow(player.resets, 0.15).times(ret)
+   if (player.dilation.studies.includes(6)) ret = getExtraDimensionBoostPower().times(ret)
   return Decimal.fromValue(ret)
 }
 
@@ -150,7 +151,7 @@ function softReset(bulk) {
       dead: player.dead,
       dilation: player.dilation,
       why: player.why,
-      options: player.options,aarexModifications: player.aarexModifications,challengingMatter: player.challengingMatter
+      options: player.options,aarexModifications: player.aarexModifications,challengingMatter: player.challengingMatter,meta:player.meta
   };
   if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
       player.thirdCost = new Decimal(100)
@@ -213,6 +214,15 @@ if (player.currentChallenge == "postc2") {
   }
 }
 
+function maxBuyDimBoosts(manual) {
+    if (player.autobuyers[9].priority > player.resets || player.overXGalaxies <= player.galaxies || getShiftRequirement(0).tier < 8 || manual == true) {
+        var r = 0;
+        while(player[TIER_NAMES[getShiftRequirement(r).tier]+"Amount"] >= getShiftRequirement(r).amount && (player.autobuyers[9].priority > player.resets+r || player.overXGalaxies <= player.galaxies || getShiftRequirement(r).tier < 8 || manual == true)) r+=1;
+
+        if (r >= 750) giveAchievement("Costco sells dimboosts now")
+        if (r > 0) softReset(r)
+    }
+}
 
 function getShiftRequirement(bulk) {
   let amount = 20;
@@ -230,6 +240,11 @@ function getShiftRequirement(bulk) {
   if (tier == 8) amount += Math.ceil((player.resets+bulk - 4) * mult);
   if (player.currentEternityChall == "eterc5") {
       amount += Math.pow(player.resets+bulk, 3) + player.resets+bulk
+  } else if (player.resets+bulk >= getSupersonicReq()){
+	  var displacement = Math.ceil((player.resets+bulk - getSupersonicReq()+1) / 5e3)
+      var offset = player.resets+bulk % 2e4 + 1
+      amount += displacement * (displacement - 1) * 4e4 + offset * displacement * 4
+      mult += displacement * 4
   }
 
   if (player.infinityUpgrades.includes("resetBoost")) amount -= 9;
@@ -251,3 +266,7 @@ document.getElementById("softReset").onclick = function () {
     if (mult > 1) floatText(name + "D", "x" + shortenDimensions(mult))
   }
 };
+
+function getSupersonicReq(){
+	return 610000;
+}
