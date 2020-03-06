@@ -242,7 +242,7 @@ function getShiftRequirement(bulk) {
       amount += Math.pow(player.resets+bulk, 3) + player.resets+bulk
   } else if (player.resets+bulk >= getSupersonicReq()){
 	  var displacement = Math.ceil((player.resets+bulk - getSupersonicReq()+1) / 5e3)
-      var offset = player.resets+bulk % 2e4 + 1
+      var offset = (player.resets+bulk) % 2e4 + 1
       amount += displacement * (displacement - 1) * 4e4 + offset * displacement * 4
       mult += displacement * 4
   }
