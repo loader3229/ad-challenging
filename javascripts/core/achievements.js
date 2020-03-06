@@ -127,6 +127,14 @@ const allAchievements = {
   s36 : "While you were away... Nothing happened.",
   s37 : "You followed the instructions",
   s38 : "Professional bodybuilder",
+  ngpp11 : "I'm so meta",
+   ngpp12 : "And still no ninth dimension...",
+   ngpp13 : "In the grim darkness of the far endgame",
+   ngpp14 : "Meta-boosting to the max",
+   ngpp15 : "The cap is a million, not a trillion",
+   ngpp16 : "It will never be enough",
+   ngpp17 : "GAS GAS GAS",
+   ngpp18 : "Universal harmony"
 };
 const secretAchievementTooltips = {
     s11 : "Click on this achievement.",
@@ -205,8 +213,11 @@ function updateAchievements() {
       var achNum = i * 10
       for (var l=0; l<8; l++) {
           achNum += 1;
-          var name = allAchievements["r"+achNum]
-          if (player.achievements.includes("r"+achNum)) {
+		  var id="r"+achNum;
+		  if(i==14)id="ngpp1"+(l+1);
+          var name = allAchievements[id];
+		  if(achNum>=140)name = allAchievements[id];
+          if (player.achievements.includes(id)) {
               n++
               document.getElementById(name).className = "achievementunlocked"
           } else {

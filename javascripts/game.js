@@ -1,5 +1,5 @@
 window.challengingV=1;
-window.plusV=2.2;
+window.plusV=2.3;
 
 //test
 var gameLoopIntervalId;
@@ -708,7 +708,7 @@ function updateDimensions() {
 
     if (document.getElementById("eternityupgrades").style.display == "block" && document.getElementById("eternitystore").style.display == "block") {
         document.getElementById("eter1").innerHTML = "Infinity Dimensions multiplier based on unspent EP (x+1)<br>Currently: "+shortenMoney(player.eternityPoints.plus(1))+"x<br>Cost: 5 EP"
-        document.getElementById("eter2").innerHTML = "Infinity Dimension multiplier based on eternities ((x/200)^log4(2x))<br>Currently: "+shortenMoney(Decimal.pow(Math.min(player.eternities, 100000)/200 + 1, Math.log(Math.min(player.eternities, 100000)*2+1)/Math.log(4)).times(new Decimal((player.eternities-100000)/200 + 1).times(Math.log((player.eternities- 100000)*2+1)/Math.log(4)).max(1)))+"x<br>Cost: 10 EP"
+        document.getElementById("eter2").innerHTML = "Infinity Dimension multiplier based on eternities ((x/200)^log4(2x))<br>Currently: "+shortenMoney(getEU2Mult())+"x<br>Cost: 10 EP"
         document.getElementById("eter3").innerHTML = "Infinity Dimensions multiplier based on sum of Infinity Challenge times<br>Currently: "+shortenMoney(Decimal.pow(2,300/Math.max(infchallengeTimes, player.achievements.includes("r112") ? 6.1 : 7.5)))+"x<br>Cost: "+shortenCosts(50e3)+" EP"
         document.getElementById("eter4").innerHTML = "Your achievement bonus affects Time Dimensions"+"<br>Cost: "+shortenCosts(1e16)+" EP"
         document.getElementById("eter5").innerHTML = "Time Dimensions are multiplied by your unspent time theorems"+"<br>Cost: "+shortenCosts(1e40)+" EP"
@@ -1383,6 +1383,8 @@ function upgradeReplicantiGalaxy() {
 			else  player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(1e10*EC6RGCostDecrease(), player.replicanti.gal*player.replicanti.gal - 100000))
 		if (player.replicanti.gal >= 400)player.replicanti.galCost = player.replicanti.galCost.times(Decimal.pow(10,Decimal.pow(1.2, player.replicanti.gal - 394).floor().times(5)));
         player.replicanti.gal += 1
+		 if(player.achievements.includes("ngpp16"))player.replicanti.galaxies= player.replicanti.gal
+		 if(player.achievements.includes("ngpp16") && player.timestudy.studies.includes(131))player.replicanti.galaxies+= Math.floor(player.replicanti.gal/2)
         if (player.currentEternityChall == "eterc8") player.eterc8repl-=1
         document.getElementById("eterc8repl").textContent = "You have "+player.eterc8repl+" purchases left."
         return true
@@ -1392,11 +1394,14 @@ function upgradeReplicantiGalaxy() {
 
 
 function replicantiGalaxy() {
+	if(player.achievements.includes("ngpp16"))player.replicanti.galaxies= player.replicanti.gal
+	if(player.achievements.includes("ngpp16") && player.timestudy.studies.includes(131))player.replicanti.galaxies+= Math.floor(player.replicanti.gal/2) 
+	if(player.achievements.includes("ngpp16"))return
     if (player.replicanti.amount.gte(Number.MAX_VALUE) && (!player.timestudy.studies.includes(131) ? player.replicanti.galaxies < player.replicanti.gal : player.replicanti.galaxies < Math.floor(player.replicanti.gal * 1.5))) {
         if (player.achievements.includes("r126")) player.replicanti.amount = player.replicanti.amount.dividedBy(Number.MAX_VALUE)
         else player.replicanti.amount = new Decimal(1)
         player.replicanti.galaxies += 1
-        player.galaxies-=1
+		player.galaxies-=1
         galaxyReset()
 
     }
@@ -2115,7 +2120,10 @@ function setAchieveTooltip() {
     let when = document.getElementById("When will it be enough?")
     let thinking = document.getElementById("Now you're thinking with dilation!")
     let thisis = document.getElementById("This is what I have to do to get rid of you.")
-
+let onlywar = document.getElementById("In the grim darkness of the far endgame")
+     let thecap = document.getElementById("The cap is a million, not a trillion")
+     let neverenough = document.getElementById("It will never be enough")
+	 
     apocAchieve.setAttribute('ach-tooltip', "Get over " + formatValue(player.options.notation, 1e80, 0, 0) + " antimatter.");
     noPointAchieve.setAttribute('ach-tooltip', "Buy a single First Dimension when you have over " + formatValue(player.options.notation, 1e150, 0, 0) + " of them. Reward: First Dimensions are 10% stronger.");
     forgotAchieve.setAttribute('ach-tooltip', "Get any Dimension multiplier over " + formatValue(player.options.notation, 1e31, 0, 0)) + ". Reward: First Dimensions are 5% stronger.";
@@ -2141,10 +2149,14 @@ function setAchieveTooltip() {
     layer.setAttribute('ach-tooltip', "Reach "+shortenMoney(Number.MAX_VALUE)+" EP.")
     fkoff.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e22000"))+" IP without any time studies. Reward: Time dimensions are multiplied by the number of studies you have.")
     minaj.setAttribute('ach-tooltip', "Have 180 times more non-bonus replicanti galaxies than normal galaxies. Reward: Replicanti galaxies divide your replicanti by "+shortenMoney(Number.MAX_VALUE)+" instead of resetting them to 1.")
-    infstuff.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e140000"))+" IP without buying IDs or IP multipliers. Reward: You start eternities with all Infinity Challenges unlocked and completed.")
+    infstuff.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal("1e140000"))+" IP without buying IDs or IP multipliers. Reward: You start eternities with all Infinity Challenges unlocked and completed, and your infinity gain is multiplied by dilated time^(1/4).")
     when.setAttribute('ach-tooltip', "Reach "+shortenCosts( new Decimal("1e20000"))+" replicanti. Reward: You gain replicanti 2 times faster under "+shortenMoney(Number.MAX_VALUE)+" replicanti.")
     thinking.setAttribute('ach-tooltip', "Eternity for "+shortenCosts( new Decimal("1e600"))+" EP in 1 minute or less while dilated.")
     thisis.setAttribute('ach-tooltip', "Reach "+shortenCosts(new Decimal('1e20000'))+" IP without any time studies while dilated.")
+	 onlywar.setAttribute('ach-tooltip', "Reach "+shortenMoney(new Decimal('1e40000'))+" EP.")
+     thecap.setAttribute('ach-tooltip', "Get "+shortenDimensions(1e12)+" eternities. Reward: Eternity upgrade 2 uses a better formula.")
+     neverenough.setAttribute('ach-tooltip', "Reach "+shortenCosts( new Decimal("1e100000"))+" replicanti. Reward: Your RGs amount is always equal to your Max RGs.")
+
 }
 
 document.getElementById("notation").onclick = function () {
@@ -2880,6 +2892,7 @@ document.getElementById("bigcrunch").onclick = function () {
         let infGain = 1;
         if (player.thisInfinityTime > 50 && player.achievements.includes("r87")) infGain = 250;
         if (player.timestudy.studies.includes(32)) infGain *= Math.max(player.resets,1);
+        if (player.achievements.includes("r133")) infGain *= Math.max(1, Math.floor(player.dilation.dilatedTime.pow(.25).toNumber()));
         if (player.currentEternityChall == "eterc4") {
             infGain = 1
             if (player.infinitied >= 16 - (ECTimesCompleted("eterc4")*4)) {
@@ -3049,6 +3062,9 @@ document.getElementById("bigcrunch").onclick = function () {
         if (player.replicanti.unl && !player.achievements.includes("r95")) player.replicanti.amount = new Decimal(1)
 
         player.replicanti.galaxies = (player.timestudy.studies.includes(33)) ? Math.floor(player.replicanti.galaxies/2) :0
+
+		 if(player.achievements.includes("ngpp16"))player.replicanti.galaxies= player.replicanti.gal
+		 if(player.achievements.includes("ngpp16") && player.timestudy.studies.includes(131))player.replicanti.galaxies+= Math.floor(player.replicanti.gal/2)
 
         setInitialDimensionPower();
 
@@ -3410,6 +3426,7 @@ function eternity(force, auto) {
         player.respec = false
         giveAchievement("Time is relative")
         if (player.eternities >= 100) giveAchievement("This mile took an Eternity");
+		if(player.eternities>=1e12)giveAchievement("The cap is a million, not a trillion");
         if (player.replicanti.unl) player.replicanti.amount = new Decimal(1)
         player.replicanti.galaxies = 0
         document.getElementById("respec").className = "storebtn"
@@ -4417,6 +4434,7 @@ function updateDilationUpgradeButtons() {
     document.getElementById("dil7desc").textContent = "Currently: "+shortenMoney(player.dilation.dilatedTime.pow(1000).max(1))+"x"
     document.getElementById("dil10desc").textContent = "Currently: "+shortenMoney(Math.floor(player.dilation.tachyonParticles.div(20000).max(1)))+"/s"
 	document.getElementById("dil14desc").textContent = "Currently: "+shortenMoney(getDil14Bonus()) + 'x';
+	document.getElementById("dil15desc").textContent = "Currently: "+shortenMoney(getDil15Bonus()) + 'x';
 	document.getElementById("dil17desc").textContent = "Currently: "+shortenMoney(getDil17Bonus()) + 'x';
 	document.getElementById("dil25desc").textContent = "Currently: +"+shortenMoney(dilationTTMult1(player.dilation.rebuyables[25] || 0))+" Next: +"+shortenMoney(dilationTTMult1((player.dilation.rebuyables[25] || 0)+1));
 }
@@ -4735,6 +4753,7 @@ if(player.dilation.studies.includes(16))document.getElementById("challmatter").s
     if (player.infinityPoints.gte(new Decimal("1e22000")) && player.timestudy.studies.length == 0) giveAchievement("What do I have to do to get rid of you")
     if (player.replicanti.galaxies >= 180*player.galaxies && player.galaxies > 0) giveAchievement("Popular music")
     if (player.eternityPoints.gte(Number.MAX_VALUE)) giveAchievement("But I wanted another prestige layer...")
+	 if (player.eternityPoints.gte("1e40000")) giveAchievement("In the grim darkness of the far endgame")
     if (player.infinityPoints.gte(1e100) && player.firstAmount.equals(0) && player.infinitied == 0 && player.resets <= 4 && player.galaxies <= 1 && player.replicanti.galaxies == 0) giveAchievement("Like feasting on a behind")
     if (player.infinityPoints.gte('9.99999e999')) giveAchievement("This achievement doesn't exist II");
     if (player.infinityPoints.gte('1e30008')) giveAchievement("Can you get infinite IP?");
@@ -4745,6 +4764,8 @@ if(player.dilation.studies.includes(16))document.getElementById("challmatter").s
     if (player.infinityPower.gt(1e6)) giveAchievement("1 million is a lot"); //TBD
     if (player.infinityPower.gt(1e260)) giveAchievement("Minute of infinity"); //TBD
     if (player.totalTickGained >= 308) giveAchievement("Infinite time");
+	if (player.totalTickGained >= 1e6) giveAchievement("GAS GAS GAS");
+	
     if (player.firstPow >= 10e30) giveAchievement("I forgot to nerf that")
     if (player.money >= 10e79) giveAchievement("Antimatter Apocalypse")
     if (player.totalTimePlayed >= 10 * 60 * 60 * 24 * 8) giveAchievement("One for each dimension")
@@ -4771,10 +4792,12 @@ if(player.dilation.studies.includes(16))document.getElementById("challmatter").s
     }
 
     if (player.replicanti.amount.gt(new Decimal("1e20000"))) giveAchievement("When will it be enough?")
+		if (player.replicanti.amount.gt(new Decimal("1e100000"))) giveAchievement("It will never be enough")
     if (player.tickspeed.e < -8296262) giveAchievement("Faster than a potato^286078")
     if (player.timestudy.studies.length == 0 && player.dilation.active && player.infinityPoints.e >= 20000) giveAchievement("This is what I have to do to get rid of you.")
     if (player.why >= 1e6) giveAchievement("Should we tell them about buy max...")
 
+		if(player.galaxies >= 700 && player.replicanti.galaxies >= 700 && player.dilation.freeGalaxies >= 700)giveAchievement( "Universal harmony");
 }, 1000)
 
 function fact(v) {

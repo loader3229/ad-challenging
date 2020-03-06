@@ -128,6 +128,7 @@ function buyDilationStudy(name, cost) {
 		if (name === 6) {
 			 showTab("dimensions")
              showDimTab("metadimensions")
+			 giveAchievement("I'm so meta")
 		}
 		if (name === 16) {
             showTab('challenges');
