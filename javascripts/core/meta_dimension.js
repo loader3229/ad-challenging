@@ -141,5 +141,5 @@ function getDilationMetaDimensionMultiplier () {
  }
 
  function getExtraDimensionBoostPower() {
- 	return player.meta.bestAntimatter.pow(4).plus(1)
+ 	return player.meta.bestAntimatter.plus(1)
  } 

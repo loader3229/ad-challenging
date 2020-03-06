@@ -5108,7 +5108,7 @@ function gameLoop(diff) {
         else document.getElementById("timeMax"+tier).className = "unavailablebtn"
     }
 
-    if (player.dilation.studies.includes(1)) player.dilation.dilatedTime = player.dilation.dilatedTime.plus(player.dilation.tachyonParticles*Math.pow(2, player.dilation.rebuyables[1])*diff/10*DTMultEC()*DTMultET())
+    if (player.dilation.studies.includes(1)) player.dilation.dilatedTime = player.dilation.dilatedTime.plus(player.dilation.tachyonParticles.times(Decimal.pow(2, player.dilation.rebuyables[1])).times(diff/10).times(DTMultEC()).times(DTMultET()))
 
 
     if (player.dilation.nextThreshold.lte(player.dilation.dilatedTime)) {

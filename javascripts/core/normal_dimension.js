@@ -76,6 +76,9 @@ function getDimensionFinalMultiplier(tier) {
   }
 
   if (player.dilation.upgrades.includes(6)) multiplier = multiplier.times(player.dilation.dilatedTime.pow(308))
+	  
+  //dimboost
+  multiplier=multiplier.times(getDimensionBoostPower().pow(player.resets - tier + 1).max(1))
   return multiplier;
 }
 

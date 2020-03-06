@@ -1,4 +1,4 @@
-var maxEC=[0,15,15,15,15,15,15,15,15,15,15,6,5];
+var maxEC=[0,15,15,15,15,15,15,15,15,15,15,10,5];
 for(var i=0;i<13;i++){
 	maxEC["eterc"+i]=maxEC[i];
 }
@@ -82,7 +82,7 @@ function getECGoal(name,completed){
 	if(name=="eterc10"&&completed==15)return new Decimal("1e80000");
 	
 	if(name=="eterc11"&&completed<5)return Decimal.mul("1e600",Decimal.pow("1e200",completed));
-	if(name=="eterc11"&&completed==5)return new Decimal("1e150000");// before meta dims
+	if(name=="eterc11"&&completed<10)return Decimal.mul("1e150000",Decimal.pow("1e60000",completed-5));
 	
 	if(name=="eterc12"&&completed==0)return new Decimal("1e240000");
 	if(name=="eterc12"&&completed==1)return new Decimal("1e280000");
