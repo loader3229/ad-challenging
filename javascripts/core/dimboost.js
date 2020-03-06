@@ -216,7 +216,23 @@ if (player.currentChallenge == "postc2") {
 
 function maxBuyDimBoosts(manual) {
     if (player.autobuyers[9].priority > player.resets || player.overXGalaxies <= player.galaxies || getShiftRequirement(0).tier < 8 || manual == true) {
-        var r = 0;
+		if(player[TIER_NAMES[getShiftRequirement(0).tier]+"Amount"] >= getShiftRequirement(0).amount && player.resets<4){
+			softReset(1);
+			return;
+		}
+        var r = 0, m = 1, p = 0;
+		while(true){
+			if(player[TIER_NAMES[getShiftRequirement(r+m-1).tier]+"Amount"] >= getShiftRequirement(r+m-1).amount && (player.autobuyers[9].priority > player.resets+r+m-1 || player.overXGalaxies <= player.galaxies || getShiftRequirement(r+m-1).tier < 8 || manual == true)){
+				r += m;
+				if(p == 0){
+					m *= 2;
+				}
+			}else{
+				p = 1;
+				m /= 2;
+				if(m < 1)break;
+			}
+		}
         while(player[TIER_NAMES[getShiftRequirement(r).tier]+"Amount"] >= getShiftRequirement(r).amount && (player.autobuyers[9].priority > player.resets+r || player.overXGalaxies <= player.galaxies || getShiftRequirement(r).tier < 8 || manual == true)) r+=1;
 
         if (r >= 750) giveAchievement("Costco sells dimboosts now")

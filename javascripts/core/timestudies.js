@@ -474,14 +474,6 @@ function dilationTTMult1(a){
 	return Math.pow(1.414,97)*Math.pow(2.3,a-100)*3;
 }
 
-function DTMultEC(){
-	var m=1;
-	if (player.timestudy.studies.includes(1002))m*=3;
-	if (player.timestudy.studies.includes(1010))m*=5;
-	if (player.timestudy.studies.includes(1016))m*=7;
-	return m;
-}
-
 function TPExponent(){
 	var m=1.5;
 	if (player.timestudy.studies.includes(1006))m+=0.05;
@@ -507,7 +499,12 @@ function TS73Mult(){
 	return calcTotalSacrificeBoost().pow(0.005).min(new Decimal("1e1300"));
 }
 
-function DTMultET(){
-	if (player.dilation.upgrades.includes('ngpp2')) return Math.pow(player.eternities, .1);
-	return 1;
+function DTMult(){
+	var m=1;
+	if (player.timestudy.studies.includes(1002))m*=3;
+	if (player.timestudy.studies.includes(1010))m*=5;
+	if (player.timestudy.studies.includes(1016))m*=7;
+	if (player.dilation.upgrades.includes('ngpp2'))m*=Math.pow(player.eternities, .1);
+	if (player.dilation.upgrades.includes('ngpp6'))m*=getDil17Bonus();
+	return m;
 }

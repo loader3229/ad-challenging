@@ -1,5 +1,5 @@
 window.challengingV=1;
-window.plusV=2;
+window.plusV=2.11;
 
 //test
 var gameLoopIntervalId;
@@ -4351,7 +4351,7 @@ function unlockDilation() {
                               2e12,        1e10,         1e11,
                                             1e15
 											
-,[1e12,1e4],1e20,1e25,null,null,null,null,null,null,null,null,null,null,null,[1e13,3]]
+,[1e12,1e4],1e20,1e25,1e70,1e80,1e90,1e100,null,null,null,null,null,null,null,[1e13,3]]
 
 
 function buyDilationUpgrade(id, costInc) {
@@ -4361,6 +4361,10 @@ function buyDilationUpgrade(id, costInc) {
         player.dilation.dilatedTime = player.dilation.dilatedTime.minus(DIL_UPG_COSTS[id])
 		if(id==12)player.dilation.upgrades.push("ngpp1")
 		else if(id==13)player.dilation.upgrades.push("ngpp2")
+		else if(id==14)player.dilation.upgrades.push("ngpp3")
+		else if(id==15)player.dilation.upgrades.push("ngpp4")
+		else if(id==16)player.dilation.upgrades.push("ngpp5")
+		else if(id==17)player.dilation.upgrades.push("ngpp6")
 		else player.dilation.upgrades.push(id)
         if (id == 4) player.dilation.freeGalaxies *= 2 // Double the current galaxies
     } else { // Is rebuyable
@@ -4399,11 +4403,21 @@ function updateDilationUpgradeButtons() {
 	document.getElementById("dil11").className = ( new Decimal(DIL_UPG_COSTS[11][0]).times(Decimal.pow(DIL_UPG_COSTS[11][1],(player.dilation.rebuyables[4] || 0))).gt(player.dilation.dilatedTime) ) ? "dilationupgrebuyablelocked" : "dilationupgrebuyable";
     document.getElementById("dil12").className = ( DIL_UPG_COSTS[12] > player.dilation.dilatedTime ) ? "dilationupglocked" : "dilationupg";
 	document.getElementById("dil13").className = ( DIL_UPG_COSTS[13] > player.dilation.dilatedTime ) ? "dilationupglocked" : "dilationupg";
+    document.getElementById("dil14").className = ( DIL_UPG_COSTS[14] > player.dilation.dilatedTime ) ? "dilationupglocked" : "dilationupg";
+    document.getElementById("dil15").className = ( DIL_UPG_COSTS[15] > player.dilation.dilatedTime ) ? "dilationupglocked" : "dilationupg";
+    document.getElementById("dil16").className = ( DIL_UPG_COSTS[16] > player.dilation.dilatedTime ) ? "dilationupglocked" : "dilationupg";
+    document.getElementById("dil17").className = ( DIL_UPG_COSTS[17] > player.dilation.dilatedTime ) ? "dilationupglocked" : "dilationupg";
     if (player.dilation.upgrades.includes("ngpp1"))document.getElementById("dil12").className = "dilationupgbought";
 	if (player.dilation.upgrades.includes("ngpp2"))document.getElementById("dil13").className = "dilationupgbought";
+	if (player.dilation.upgrades.includes("ngpp3"))document.getElementById("dil14").className = "dilationupgbought";
+	if (player.dilation.upgrades.includes("ngpp4"))document.getElementById("dil15").className = "dilationupgbought";
+	if (player.dilation.upgrades.includes("ngpp5"))document.getElementById("dil16").className = "dilationupgbought";
+	if (player.dilation.upgrades.includes("ngpp6"))document.getElementById("dil17").className = "dilationupgbought";
 	document.getElementById("dil25").className = ( new Decimal(DIL_UPG_COSTS[25][0]).times(Decimal.pow(DIL_UPG_COSTS[25][1],(player.dilation.rebuyables[25] || 0))).gt(player.dilation.dilatedTime) ) ? "dilationupgrebuyablelocked" : "dilationupgrebuyable";
     document.getElementById("dil7desc").textContent = "Currently: "+shortenMoney(player.dilation.dilatedTime.pow(1000).max(1))+"x"
     document.getElementById("dil10desc").textContent = "Currently: "+shortenMoney(Math.floor(player.dilation.tachyonParticles.div(20000).max(1)))+"/s"
+	document.getElementById("dil14desc").textContent = "Currently: "+shortenMoney(getDil14Bonus()) + 'x';
+	document.getElementById("dil17desc").textContent = "Currently: "+shortenMoney(getDil17Bonus()) + 'x';
 	document.getElementById("dil25desc").textContent = "Currently: +"+shortenMoney(dilationTTMult1(player.dilation.rebuyables[25] || 0))+" Next: +"+shortenMoney(dilationTTMult1((player.dilation.rebuyables[25] || 0)+1));
 }
 
@@ -4421,6 +4435,10 @@ function updateDilationUpgradeCosts() {
 	document.getElementById("dil11cost").textContent = "Cost: " + shortenCosts( new Decimal(DIL_UPG_COSTS[11][0]).times(Decimal.pow(DIL_UPG_COSTS[11][1],(player.dilation.rebuyables[4] || 0))) ) + " dilated time"
 	document.getElementById("dil12cost").textContent = "Cost: " + shortenCosts(DIL_UPG_COSTS[12]) + " dilated time"
     document.getElementById("dil13cost").textContent = "Cost: " + shortenCosts(DIL_UPG_COSTS[13]) + " dilated time"
+    document.getElementById("dil14cost").textContent = "Cost: " + shortenCosts(DIL_UPG_COSTS[14]) + " dilated time"
+    document.getElementById("dil15cost").textContent = "Cost: " + shortenCosts(DIL_UPG_COSTS[15]) + " dilated time"
+    document.getElementById("dil16cost").textContent = "Cost: " + shortenCosts(DIL_UPG_COSTS[16]) + " dilated time"
+    document.getElementById("dil17cost").textContent = "Cost: " + shortenCosts(DIL_UPG_COSTS[17]) + " dilated time"
     document.getElementById("dil25cost").textContent = "Cost: " + shortenMoney( new Decimal(DIL_UPG_COSTS[25][0]).times(Decimal.pow(DIL_UPG_COSTS[25][1],(player.dilation.rebuyables[25] || 0))) ) + " dilated time"
     
 }
@@ -4471,7 +4489,7 @@ function updateDilation() {
     if (document.getElementById("dilation").style.display == "block" && document.getElementById("eternitystore").style.display == "block") {
         document.getElementById("tachyonParticleAmount").textContent = shortenMoney(player.dilation.tachyonParticles)
         document.getElementById("dilatedTimeAmount").textContent = shortenMoney(player.dilation.dilatedTime)
-        document.getElementById("dilatedTimePerSecond").textContent = "+" + shortenMoney(player.dilation.tachyonParticles.times(Decimal.pow(2, player.dilation.rebuyables[1])).times(DTMultEC()).times(DTMultET())) + "/s"
+        document.getElementById("dilatedTimePerSecond").textContent = "+" + shortenMoney(player.dilation.tachyonParticles.times(Decimal.pow(2, player.dilation.rebuyables[1])).times(DTMult())) + "/s"
         document.getElementById("galaxyThreshold").textContent = shortenMoney(player.dilation.nextThreshold)
         document.getElementById("dilatedGalaxies").textContent = player.dilation.freeGalaxies
     }
@@ -4870,6 +4888,7 @@ function gameLoop(diff) {
 
     if (player.eternities > 0) document.getElementById("tdtabbtn").style.display = "inline-block"
     document.getElementById("mdtabbtn").style.display = player.dilation.studies.includes(6) ? "" : "none"
+	document.getElementById("mddilupg").style.display = player.dilation.studies.includes(6) ? "" : "none"
 	
 	if (player.meta) {
          player.meta.antimatter = player.meta.antimatter.plus(getMetaDimensionProduction(1).times(diff/10))
@@ -5108,7 +5127,7 @@ function gameLoop(diff) {
         else document.getElementById("timeMax"+tier).className = "unavailablebtn"
     }
 
-    if (player.dilation.studies.includes(1)) player.dilation.dilatedTime = player.dilation.dilatedTime.plus(player.dilation.tachyonParticles.times(Decimal.pow(2, player.dilation.rebuyables[1])).times(diff/10).times(DTMultEC()).times(DTMultET()))
+    if (player.dilation.studies.includes(1)) player.dilation.dilatedTime = player.dilation.dilatedTime.plus(player.dilation.tachyonParticles.times(Decimal.pow(2, player.dilation.rebuyables[1])).times(diff/10).times(DTMult()))
 
 
     if (player.dilation.nextThreshold.lte(player.dilation.dilatedTime)) {
