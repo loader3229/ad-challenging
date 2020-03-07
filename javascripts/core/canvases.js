@@ -271,6 +271,10 @@ function drawStudyTree() {
 	drawTreeBranch("1014", "1018")
 	drawTreeBranch("1016", "1020")
 	
+	if(player.dilation.upgrades.includes("ngpp6")){
+		document.getElementById("masteryportal").style.display="";
+		drawTreeBranch("dilstudy6", "masteryportal")
+	}
 	
     if (shiftDown && document.getElementById("eternitystore").style.display !== "none" && document.getElementById("timestudies").style.display !== "none") {
         for (i=0; i<all.length; i++) {

@@ -11,6 +11,8 @@ function getDilationMetaDimensionMultiplier () {
      multiplier = multiplier.times(getDil14Bonus());
    }
     if (player.achievements.includes("ngpp12")) multiplier = multiplier.times(1.1)
+		
+	if(ECTimesCompleted("eterc11")==15 && tier==1) multiplier = multiplier.times(player.challengingMatter[11].pow(2).plus(1));
    if (multiplier.lt(1)) multiplier = new Decimal(1)
    if (player.dilation.active) {
      multiplier = Decimal.pow(10, Math.pow(multiplier.log10(), 0.75))
@@ -147,7 +149,7 @@ function getDilationMetaDimensionMultiplier () {
  }
 
  function getExtraDimensionBoostPower() {
- 	return player.meta.bestAntimatter.pow(player.dilation.upgrades.includes("ngpp5") ? 1.2:1).plus(1)
+ 	return player.meta.bestAntimatter.pow(player.dilation.upgrades.includes("ngpp5") ? 1.25:1).plus(1)
  }
 
  function getDil14Bonus () {

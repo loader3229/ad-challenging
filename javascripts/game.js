@@ -4368,7 +4368,7 @@ function unlockDilation() {
                               2e12,        1e10,         1e11,
                                             1e15
 											
-,[1e12,1e4],1e20,1e25,1e70,1e75,1e90,1e100,null,null,null,null,null,null,null,[1e13,3],1e83]
+,[1e12,1e4],1e20,1e25,1e70,1e75,1e91,1e100,null,null,null,null,null,null,null,[1e13,3],1e83]
 
 
 function buyDilationUpgrade(id, costInc) {
@@ -4385,7 +4385,12 @@ function buyDilationUpgrade(id, costInc) {
 		else if(id==26)player.dilation.upgrades.push("challp1")
 		else player.dilation.upgrades.push(id)
         if (id == 4) player.dilation.freeGalaxies *= 2 // Double the current galaxies
+		if (id == 17){
+			drawStudyTree();
+			$.notify("Congratulations for unlocking mastery studies! You can either click 'mastery studies' button\nor 'continue to mastery studies' button in time studies.")
+		}
     } else { // Is rebuyable
+		if(id==2 && player.dilation.rebuyables[2]>=48)return
         let upgAmount = player.dilation.rebuyables[id==11?4:id];
 		if(upgAmount === undefined)upgAmount = (player.dilation.rebuyables[id==11?4:id] = 0);
         let realCost = new Decimal(DIL_UPG_COSTS[id][0]).times( Decimal.pow(DIL_UPG_COSTS[id][1], (upgAmount)) )
@@ -4440,6 +4445,8 @@ function updateDilationUpgradeButtons() {
 	document.getElementById("dil15desc").textContent = "Currently: "+shortenMoney(getDil15Bonus()) + 'x';
 	document.getElementById("dil17desc").textContent = "Currently: "+shortenMoney(getDil17Bonus()) + 'x';
 	document.getElementById("dil25desc").textContent = "Currently: +"+shortenMoney(dilationTTMult1(player.dilation.rebuyables[25] || 0))+" Next: +"+shortenMoney(dilationTTMult1((player.dilation.rebuyables[25] || 0)+1));
+	
+	if(player.dilation.rebuyables[2]>=48)document.getElementById("dil2").className = "dilationupgbought";
 }
 
 function updateDilationUpgradeCosts() {
@@ -4463,6 +4470,7 @@ function updateDilationUpgradeCosts() {
     document.getElementById("dil25cost").textContent = "Cost: " + shortenMoney( new Decimal(DIL_UPG_COSTS[25][0]).times(Decimal.pow(DIL_UPG_COSTS[25][1],(player.dilation.rebuyables[25] || 0))) ) + " dilated time"
     document.getElementById("dil26cost").textContent = "Cost: " + shortenCosts(DIL_UPG_COSTS[26]) + " dilated time"
     
+	if(player.dilation.rebuyables[2]>=48)document.getElementById("dil2cost").textContent = "Maxed Out"
 }
 
 
@@ -5157,8 +5165,9 @@ function gameLoop(diff) {
     if (player.dilation.studies.includes(1)) player.dilation.dilatedTime = player.dilation.dilatedTime.plus(player.dilation.tachyonParticles.times(Decimal.pow(2, player.dilation.rebuyables[1])).times(diff/10).times(DTMult()))
 
 
-    if (player.dilation.nextThreshold.lte(player.dilation.dilatedTime)) {
+    while (player.dilation.nextThreshold.lte(player.dilation.dilatedTime)) {
         let thresholdMult = 1.35 + 3.65 * Math.pow(0.8, player.dilation.rebuyables[2])
+		if(player.dilation.rebuyables[2]>=48)thresholdMult = 1.35
         // for (var i = 0; i < player.dilation.rebuyables[2]; i++) {
         //     thresholdMult *= Math.min( 1 - (Math.pow(0.8, i) / 10), 0.999)
         // }
@@ -5407,8 +5416,8 @@ function gameLoop(diff) {
     if(ECTimesCompleted("eterc8")==15 && player.dilation.studies.includes(16))document.getElementById("ec8reward").textContent = "Reward: Infinity power powers up replicanti galaxies, Currently: " + (eterc8Reward2() * 100).toFixed(2) + "% -> "+(eterc8Reward() * 100).toFixed(2)+"%"
 	if(ECTimesCompleted("eterc9")==15 && player.dilation.studies.includes(16))document.getElementById("ec9reward").textContent = "Reward: Infinity Dimension multiplier based on time shards, Currently: "+shortenMoney(eterc9Mult2())+"x -> "+shortenMoney(eterc9Mult())+"x"
 	if(ECTimesCompleted("eterc10")==15 && player.dilation.studies.includes(16))document.getElementById("ec10reward").textContent = "Reward: Time dimensions gain a multiplier from infinitied stat, Currently: "+shortenMoney(new Decimal(Math.max(Math.pow(getInfinitied(), 0.9) * EC10Reward1b() * 0.000002+1, 1)).pow((player.timestudy.studies.includes(31)) ? 4 : 1).pow(EC10Reward2b()))+"x -> "+shortenMoney(new Decimal(Math.max(Math.pow(getInfinitied(), 0.9) * EC10Reward1() * 0.000002+1, 1)).pow((player.timestudy.studies.includes(31)) ? 4 : 1).pow(EC10Reward2()))+"x "
-    if(ECTimesCompleted("eterc11")==15 && player.dilation.studies.includes(16))document.getElementById("ec11reward").textContent = "Reward: Further reduce the tickspeed cost multiplier increase, Currently: "+player.tickSpeedMultDecrease.toFixed(2)+"x. Meta-antimatter effect on dimension boosts is stronger based on EC11 Challenging Matter."
-    
+    if(ECTimesCompleted("eterc11")==15 && player.dilation.studies.includes(16))document.getElementById("ec11reward").textContent = "Reward: Further reduce the tickspeed cost multiplier increase, Currently: "+player.tickSpeedMultDecrease.toFixed(2)+"x. Meta-antimatter production is boosted based on EC11 Challenging Matter, Currently: "+shortenMoney(player.challengingMatter[11].pow(2).plus(1))+"x."
+    if(ECTimesCompleted("eterc12")==15 && player.dilation.studies.includes(16))document.getElementById("ec12reward").textContent = "Reward: Infinity Dimension cost multipliers are reduced. (x^"+(EC12Reward())+") Quark gained on quantum is boosted based on EC12 Challenging Matter."
 	
     // let extraGals = 0
     // if (player.timestudy.studies.includes(225)) extraGals += Math.floor(player.replicanti.amount.e / 2500)
