@@ -4368,7 +4368,7 @@ function unlockDilation() {
                               2e12,        1e10,         1e11,
                                             1e15
 											
-,[1e12,1e4],1e20,1e25,1e70,1e80,1e90,1e100,null,null,null,null,null,null,null,[1e13,3]]
+,[1e12,1e4],1e20,1e25,1e70,1e75,1e90,1e100,null,null,null,null,null,null,null,[1e13,3]]
 
 
 function buyDilationUpgrade(id, costInc) {
