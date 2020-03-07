@@ -507,5 +507,12 @@ function DTMult(){
 	if (player.timestudy.studies.includes(1016))m*=7;
 	if (player.dilation.upgrades.includes('ngpp2'))m*=Math.pow(player.eternities, .1);
 	if (player.dilation.upgrades.includes('ngpp6'))m*=getDil17Bonus();
+	if (player.dilation.upgrades.includes('challp1')){
+		var l=new Decimal(1);
+		for(var i=1;i<=14;i++){
+			l=l.plus(player.challengingMatter[i]);
+		}
+		m*=l.toNumber();
+	}
 	return m;
 }

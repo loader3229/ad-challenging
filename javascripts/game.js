@@ -4368,7 +4368,7 @@ function unlockDilation() {
                               2e12,        1e10,         1e11,
                                             1e15
 											
-,[1e12,1e4],1e20,1e25,1e70,1e75,1e90,1e100,null,null,null,null,null,null,null,[1e13,3]]
+,[1e12,1e4],1e20,1e25,1e70,1e75,1e90,1e100,null,null,null,null,null,null,null,[1e13,3],1e83]
 
 
 function buyDilationUpgrade(id, costInc) {
@@ -4382,6 +4382,7 @@ function buyDilationUpgrade(id, costInc) {
 		else if(id==15)player.dilation.upgrades.push("ngpp4")
 		else if(id==16)player.dilation.upgrades.push("ngpp5")
 		else if(id==17)player.dilation.upgrades.push("ngpp6")
+		else if(id==26)player.dilation.upgrades.push("challp1")
 		else player.dilation.upgrades.push(id)
         if (id == 4) player.dilation.freeGalaxies *= 2 // Double the current galaxies
     } else { // Is rebuyable
@@ -4431,6 +4432,8 @@ function updateDilationUpgradeButtons() {
 	if (player.dilation.upgrades.includes("ngpp5"))document.getElementById("dil16").className = "dilationupgbought";
 	if (player.dilation.upgrades.includes("ngpp6"))document.getElementById("dil17").className = "dilationupgbought";
 	document.getElementById("dil25").className = ( new Decimal(DIL_UPG_COSTS[25][0]).times(Decimal.pow(DIL_UPG_COSTS[25][1],(player.dilation.rebuyables[25] || 0))).gt(player.dilation.dilatedTime) ) ? "dilationupgrebuyablelocked" : "dilationupgrebuyable";
+    document.getElementById("dil26").className = ( DIL_UPG_COSTS[26] > player.dilation.dilatedTime ) ? "dilationupglocked" : "dilationupg";
+	if (player.dilation.upgrades.includes("challp1"))document.getElementById("dil26").className = "dilationupgbought";
     document.getElementById("dil7desc").textContent = "Currently: "+shortenMoney(player.dilation.dilatedTime.pow(1000).max(1))+"x"
     document.getElementById("dil10desc").textContent = "Currently: "+shortenMoney(Math.floor(player.dilation.tachyonParticles.div(20000).max(1)))+"/s"
 	document.getElementById("dil14desc").textContent = "Currently: "+shortenMoney(getDil14Bonus()) + 'x';
@@ -4458,6 +4461,7 @@ function updateDilationUpgradeCosts() {
     document.getElementById("dil16cost").textContent = "Cost: " + shortenCosts(DIL_UPG_COSTS[16]) + " dilated time"
     document.getElementById("dil17cost").textContent = "Cost: " + shortenCosts(DIL_UPG_COSTS[17]) + " dilated time"
     document.getElementById("dil25cost").textContent = "Cost: " + shortenMoney( new Decimal(DIL_UPG_COSTS[25][0]).times(Decimal.pow(DIL_UPG_COSTS[25][1],(player.dilation.rebuyables[25] || 0))) ) + " dilated time"
+    document.getElementById("dil26cost").textContent = "Cost: " + shortenCosts(DIL_UPG_COSTS[26]) + " dilated time"
     
 }
 
