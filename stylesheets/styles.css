@@ -1054,7 +1054,7 @@ button {
     border-top-right-radius: 7px;
 }
 
-#studyTreeCanvas, #dilationCanvas {
+#studyTreeCanvas, #studyTreeCanvas2, #dilationCanvas, #blackHoleCanvas, #quarkCanvas {
     top: 0;
     left: 0;
     position: absolute;
@@ -1805,3 +1805,9 @@ screen and (max-width: 480px) {
     100% {transform:scale(1); filter:blur(0px)}
 }
 
+.wideRow .timestudy, .wideRow .timestudylocked, .wideRow .timestudybought {
+	margin: 1px;
+	width: 120px;
+	font-size: 0.55rem;
+	padding: 3px;
+}

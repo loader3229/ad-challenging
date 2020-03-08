@@ -472,7 +472,8 @@ function dilationTTMult(){
 function dilationTTMult1(a){
 	if(a<=3)return a;
 	if(a<=100)return Math.floor(Math.pow(1.414,a-3)*3);
-	return Math.pow(1.414,97)*Math.pow(2.3,a-100)*3;
+	if(a<=240)return Math.pow(1.414,97)*Math.pow(2.3,a-100)*3;
+	return Math.pow(1.414,a-143)*Math.pow(2.3,140)*3;
 }
 
 function TPExponent(){
@@ -514,5 +515,6 @@ function DTMult(){
 		}
 		m*=l.toNumber();
 	}
+	if(ECTimesCompleted("eterc12")>5)m*=Math.pow(1.5,ECTimesCompleted("eterc12")-5);
 	return m;
 }

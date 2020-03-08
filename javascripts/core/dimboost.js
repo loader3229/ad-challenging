@@ -151,7 +151,7 @@ function softReset(bulk) {
       dead: player.dead,
       dilation: player.dilation,
       why: player.why,
-      options: player.options,aarexModifications: player.aarexModifications,challengingMatter: player.challengingMatter,meta:player.meta
+      options: player.options,aarexModifications: player.aarexModifications,challengingMatter: player.challengingMatter,meta:player.meta,masterystudies:player.masterystudies
   };
   if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
       player.thirdCost = new Decimal(100)

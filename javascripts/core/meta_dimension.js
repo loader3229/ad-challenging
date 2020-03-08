@@ -55,7 +55,7 @@ function getDilationMetaDimensionMultiplier () {
  function getMetaShiftRequirement () {
    return {
      tier: Math.min(8, player.meta.resets + 4),
-     amount: Math.max(20, -40 + 15 * player.meta.resets)
+     amount: Math.max(20, Math.max(-40 + 15 * player.meta.resets, -115 + 20 * player.meta.resets))
    }
  }
 

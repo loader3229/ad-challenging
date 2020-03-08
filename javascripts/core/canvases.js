@@ -273,6 +273,7 @@ function drawStudyTree() {
 	
 	if(player.dilation.upgrades.includes("ngpp6")){
 		document.getElementById("masteryportal").style.display="";
+		document.getElementById("masterystudyunlock").style.display="";
 		drawTreeBranch("dilstudy6", "masteryportal")
 	}
 	
@@ -305,4 +306,6 @@ function drawStudyTree() {
             }
         }
     }
+	
+	drawMasteryTree()
 }

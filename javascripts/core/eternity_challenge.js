@@ -1,4 +1,4 @@
-var maxEC=[0,15,15,15,15,15,15,15,15,15,15,15,5];
+var maxEC=[0,15,15,15,15,15,15,15,15,15,15,15,10];
 for(var i=0;i<13;i++){
 	maxEC["eterc"+i]=maxEC[i];
 }
@@ -90,6 +90,11 @@ function getECGoal(name,completed){
 	if(name=="eterc12"&&completed==2)return new Decimal("1e320000");
 	if(name=="eterc12"&&completed==3)return new Decimal("1e340000");
 	if(name=="eterc12"&&completed==4)return new Decimal("1e326000");
+	if(name=="eterc12"&&completed==5)return new Decimal("1e200000000");
+	if(name=="eterc12"&&completed==6)return new Decimal("1e220000000");
+	if(name=="eterc12"&&completed==7)return new Decimal("1e240000000");
+	if(name=="eterc12"&&completed==8)return new Decimal("1e260000000");
+	if(name=="eterc12"&&completed==9)return new Decimal("1e280000000");
 	
 	return new Decimal("1e2000000");
 }
@@ -226,7 +231,7 @@ function EC10Reward2b(){
 }
 function EC12Reward(){
 	var c=ECTimesCompleted("eterc12");
-	return [1,0.992,0.986,0.982,0.978,0.974][c];
+	return [1,0.992,0.986,0.982,0.978,0.974,0.972,0.97,0.968,0.966,0.964][c];
 }
 
 function gainedCM(){
