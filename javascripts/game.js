@@ -4384,7 +4384,16 @@ function unlockDilation() {
 function buyDilationUpgrade(id, costInc) {
     if (id > 3 && id != 25 && id != 11) { // Not rebuyable
         if (player.dilation.dilatedTime < DIL_UPG_COSTS[id]) return // Not enough dilated time
-        if (player.dilation.upgrades.includes(id)) return // Has the upgrade
+        if(id<12)if (player.dilation.upgrades.includes(id)) return // Has the upgrade
+		else if(id<18){
+			if (id == 17 && player.dilation.upgrades.includes("ngpp6")){
+				drawStudyTree();
+				$.notify("Congratulations for unlocking mastery studies! You can either click 'mastery studies' button\nor 'continue to mastery studies' button in time studies.")
+			}
+			if (player.dilation.upgrades.includes("ngpp"+(id-11))) return
+		}else if(id==26){
+			if (player.dilation.upgrades.includes("challp1") return
+		}
         player.dilation.dilatedTime = player.dilation.dilatedTime.minus(DIL_UPG_COSTS[id])
 		if(id==12)player.dilation.upgrades.push("ngpp1")
 		else if(id==13)player.dilation.upgrades.push("ngpp2")
