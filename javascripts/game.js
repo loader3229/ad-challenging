@@ -4392,7 +4392,7 @@ function buyDilationUpgrade(id, costInc) {
 			}
 			if (player.dilation.upgrades.includes("ngpp"+(id-11))) return
 		}else if(id==26){
-			if (player.dilation.upgrades.includes("challp1") return
+			if (player.dilation.upgrades.includes("challp1")) return
 		}
         player.dilation.dilatedTime = player.dilation.dilatedTime.minus(DIL_UPG_COSTS[id])
 		if(id==12)player.dilation.upgrades.push("ngpp1")
