@@ -304,7 +304,7 @@ var player = {
 
 ,aarexModifications:{challengingV:window.challengingV,newGamePlusPlusVersion:window.plusV}
 ,challengingMatter:[new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0)]
-,masterystudies:[]
+,masterystudies:[],respecMastery:false
 };
 // meta dimensions
 player.meta = {resets: 0, antimatter: new Decimal(10), bestAntimatter: new Decimal(10)}
@@ -410,10 +410,16 @@ function showTab(tabName) {
             tab.style.display = 'none';
         }
     }
-    if (document.getElementById("timestudies").style.display != "none" && document.getElementById("eternitystore").style.display != "none") document.getElementById("TTbuttons").style.display = "block";
+    if ((document.getElementById("timestudies").style.display != "none" || document.getElementById("masterystudies").style.display != "none" )&& document.getElementById("eternitystore").style.display != "none") document.getElementById("TTbuttons").style.display = "block";
     else document.getElementById("TTbuttons").style.display = "none"
     if (document.getElementById("antimatterdimensions").style.display != "none" && document.getElementById("dimensions").style.display != "none") document.getElementById("progress").style.display = "block";
     else document.getElementById("progress").style.display = "none"
+	
+		var temp1=document.getElementsByClassName("hiddenwhenshowmasterystudy")
+	for(var i=0;i<4;i++){
+		temp1[i].style.display=(document.getElementById("masterystudies").style.display != "none") ? "none" : ""
+	}
+	
     resizeCanvas();
     closeToolTip();
 }
@@ -470,8 +476,8 @@ function getGalaxyRequirement() {
     else if ((player.galaxies) >= galaxyCostScalingStart) {
         amount += Math.pow((player.galaxies)-(galaxyCostScalingStart-1),2)+(player.galaxies)-(galaxyCostScalingStart-1)
     }
-    if (player.galaxies >= 800+eterc5R2()) {
-        amount = Math.floor(amount * Math.pow(1.002, (player.galaxies-799-eterc5R2())))
+    if (player.galaxies >= 800+eterc5R2()+msRemoteScaling()) {
+        amount = Math.floor(amount * Math.pow(1.002, (player.galaxies-799-eterc5R2()-msRemoteScaling())))
     }
 
     if (player.infinityUpgrades.includes("resetBoost")) amount -= 9;
@@ -604,7 +610,7 @@ function updateDimensions() {
         if (player.timestudy.studies.includes(226)) extraGals += Math.floor(player.replicanti.gal / 15)
         var galString = ""
 		if (player.galaxies >= 1400+eterc5R3()) galString += "Dark Matter Galaxies (";
-        else if (player.galaxies >= 800+eterc5R2()) galString += "Remote Antimatter Galaxies (";
+        else if (player.galaxies >= 800+eterc5R2()+msRemoteScaling()) galString += "Remote Antimatter Galaxies (";
         else if (player.galaxies >= getGalaxyCostScalingStart() || player.currentEternityChall === "eterc5") galString += "Distant Antimatter Galaxies (";
         else galString += "Antimatter Galaxies (";
         galString += player.galaxies;
@@ -1816,7 +1822,7 @@ function galaxyReset() {
         dead: player.dead,
         dilation: player.dilation,
         why: player.why,
-        options: player.options,aarexModifications: player.aarexModifications,challengingMatter: player.challengingMatter,meta:player.meta,masterystudies:player.masterystudies
+        options: player.options,aarexModifications: player.aarexModifications,challengingMatter: player.challengingMatter,meta:player.meta,masterystudies:player.masterystudies,respecMastery:player.respecMastery
     };
 
     if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
@@ -3052,7 +3058,7 @@ document.getElementById("bigcrunch").onclick = function () {
             dead: player.dead,
             dilation: player.dilation,
             why: player.why,
-            options: player.options,aarexModifications: player.aarexModifications,challengingMatter: player.challengingMatter,meta:player.meta,masterystudies:player.masterystudies
+            options: player.options,aarexModifications: player.aarexModifications,challengingMatter: player.challengingMatter,meta:player.meta,masterystudies:player.masterystudies,respecMastery:player.respecMastery
         };
 
         if (player.bestInfinityTime <= 0.01) giveAchievement("Less than or equal to 0.001");
@@ -3430,16 +3436,19 @@ function eternity(force, auto) {
                 rebuyables: player.dilation.rebuyables
             },
             why: player.why,
-            options: player.options,aarexModifications: player.aarexModifications,challengingMatter: player.challengingMatter,meta:player.meta,masterystudies:player.masterystudies
+            options: player.options,aarexModifications: player.aarexModifications,challengingMatter: player.challengingMatter,meta:player.meta,masterystudies:player.masterystudies,respecMastery:player.respecMastery
         };
         if (player.respec) respecTimeStudies()
         player.respec = false
+		if (player.respecMastery) respecMasteryStudies()
+        player.respecMastery = false
         giveAchievement("Time is relative")
         if (player.eternities >= 100) giveAchievement("This mile took an Eternity");
 		if(player.eternities>=1e12)giveAchievement("The cap is a million, not a trillion");
         if (player.replicanti.unl) player.replicanti.amount = new Decimal(1)
         player.replicanti.galaxies = 0
         document.getElementById("respec").className = "storebtn"
+		document.getElementById("respecMastery2").className = "storebtn"
         if (player.achievements.includes("r36")) player.tickspeed = player.tickspeed.times(0.98);
         if (player.achievements.includes("r45")) player.tickspeed = player.tickspeed.times(0.98);
 
@@ -3673,7 +3682,7 @@ function startChallenge(name, target) {
       dead: player.dead,
       dilation: player.dilation,
       why: player.why,
-      options: player.options,aarexModifications: player.aarexModifications,challengingMatter: player.challengingMatter,meta:player.meta,masterystudies:player.masterystudies
+      options: player.options,aarexModifications: player.aarexModifications,challengingMatter: player.challengingMatter,meta:player.meta,masterystudies:player.masterystudies,respecMastery:player.respecMastery
     };
 	if (player.currentChallenge == "challenge10" || player.currentChallenge == "postc1") {
         player.thirdCost = new Decimal(100)
@@ -4235,7 +4244,7 @@ function startEternityChallenge(name, startgoal, goalIncrease) {
                 rebuyables: player.dilation.rebuyables
             },
             why: player.why,
-            options: player.options,aarexModifications: player.aarexModifications,challengingMatter: player.challengingMatter,meta:player.meta,masterystudies:player.masterystudies
+            options: player.options,aarexModifications: player.aarexModifications,challengingMatter: player.challengingMatter,meta:player.meta,masterystudies:player.masterystudies,respecMastery:player.respecMastery
         };
 
         if (player.replicanti.unl) player.replicanti.amount = new Decimal(1)
@@ -5863,8 +5872,15 @@ function showEternityTab(tabName, init) {
             tab.style.display = 'none';
         }
     }
-    if (tabName === 'timestudies' && !init) document.getElementById("TTbuttons").style.display = "block"
+    if ((tabName === 'timestudies'  || tabName === 'masterystudies' )&& !init) document.getElementById("TTbuttons").style.display = "block"
     else document.getElementById("TTbuttons").style.display = "none"
+	
+	var temp1=document.getElementsByClassName("hiddenwhenshowmasterystudy")
+	for(var i=0;i<4;i++){
+		temp1[i].style.display=(tabName === 'masterystudies') ? "none" : ""
+	}
+	
+	
     resizeCanvas()
 }
 

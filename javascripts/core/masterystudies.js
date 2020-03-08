@@ -103,9 +103,6 @@ function updateMasteryStudyCosts() {
 
 var types = {t:"time",ec:"ec",d:"dil"}
 function buyMasteryStudy(type, id, quick=false) {
-	if(type=="t"&id>241){
-		alert("You can't buy this mastery study. Please wait until some update.");
-	}
 	if (quick) masterystudies.costs[types[type]][id]=masterystudies.initialCosts[types[type]][id]*masterystudies.costmult
 	if (canBuyMasteryStudy(type, id)) {
 		player.timestudy.theorem-=masterystudies.costs[types[type]][id]
@@ -437,4 +434,31 @@ function updateMasteryStudyTextDisplay() {
 		document.getElementById("ds14Cost").textContent="Cost: "+shorten(1e98)+" Time Theorems"
 		document.getElementById("ds14Req").innerHTML=ghostified?"":"<br>Requirement: 'The Challenging Day' achievement"
 	}
+}
+
+function msRemoteScaling(){
+	var a=0;
+	if(player.masterystudies.includes('t251'))a+=getMTSMult(251);
+	if(player.masterystudies.includes('t252'))a+=getMTSMult(252);
+	if(player.masterystudies.includes('t253'))a+=getMTSMult(253);
+	return a;
+}
+
+function respecMasteryToggle() {
+	player.respecMastery=!player.respecMastery
+	if(player.respecMastery)document.getElementById("respecMastery2").className = "timestudybought"
+	else document.getElementById("respecMastery2").className = "storebtn"
+}
+
+function respecMasteryStudies() {
+  var respecedMS=[]
+      player.timestudy.theorem+=masterystudies.spentTT
+      for (id=0;id<player.masterystudies.length;id++) {
+          var d = player.masterystudies[id].split("d")[1]
+          if (d) respecedMS.push(player.masterystudies[id])
+      }
+  player.masterystudies=respecedMS
+      updateMasteryStudyCosts()
+	   updateMasteryStudyButtons()
+	   drawMasteryTree()
 }

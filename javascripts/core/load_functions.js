@@ -372,6 +372,8 @@ if (player.version < 5) {
   toggleCloud()
   respecToggle()
   respecToggle()
+respecMasteryToggle() 
+respecMasteryToggle() 
   toggleEternityConf()
   toggleEternityConf()
   toggleCommas()
