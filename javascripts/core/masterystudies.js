@@ -104,6 +104,9 @@ function updateMasteryStudyCosts() {
 var types = {t:"time",ec:"ec",d:"dil"}
 function buyMasteryStudy(type, id, quick=false) {
 	if (quick) masterystudies.costs[types[type]][id]=masterystudies.initialCosts[types[type]][id]*masterystudies.costmult
+	if (type=='ec') {
+		return;
+	}
 	if (canBuyMasteryStudy(type, id)) {
 		player.timestudy.theorem-=masterystudies.costs[types[type]][id]
 		if (type=='ec') {
