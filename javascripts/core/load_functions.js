@@ -580,7 +580,7 @@ if (player.version < 5) {
 player.meta = {resets: 0, antimatter: new Decimal(10), bestAntimatter: new Decimal(10)}
 for (dim=1;dim<9;dim++) player.meta[dim] = {amount: new Decimal(0), bought: 0, cost: initCost[dim]}
   }
-  
+  if(player.masterystudies===undefined)player.masterystudies=[]
   updateAutobuyers();
   setAchieveTooltip();
   updatePriorities();
