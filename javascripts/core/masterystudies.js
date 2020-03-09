@@ -107,6 +107,9 @@ function buyMasteryStudy(type, id, quick=false) {
 	if (type=='ec') {
 		return;
 	}
+	if(type=='t'&&id>260){
+		alert('This mastery study has no effect until an update.');
+	}
 	if (canBuyMasteryStudy(type, id)) {
 		player.timestudy.theorem-=masterystudies.costs[types[type]][id]
 		if (type=='ec') {
