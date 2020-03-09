@@ -4419,6 +4419,8 @@ function buyDilationUpgrade(id, costInc) {
 		}
     } else { // Is rebuyable
 		if(id==2 && player.dilation.rebuyables[2]>=48)return
+		if(id==25 && player.dilation.rebuyables[25]>=250)return; // add a limit.
+		
         let upgAmount = player.dilation.rebuyables[id==11?4:id];
 		if(upgAmount === undefined)upgAmount = (player.dilation.rebuyables[id==11?4:id] = 0);
         let realCost = new Decimal(DIL_UPG_COSTS[id][0]).times( Decimal.pow(DIL_UPG_COSTS[id][1], (upgAmount)) )
