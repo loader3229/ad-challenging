@@ -1,4 +1,4 @@
-/*global player document window all*/
+/*global player document window all console*/
 var lastTs = 0;
 var goalX = -1;
 var goalY = -1;
@@ -77,7 +77,7 @@ function drawAnimations(ts){
             particles["particle"+i].goalY += particles["particle"+i].velocityY
         }
     }
-    delta = (ts - lastTs) / 1000;
+    var delta = (ts - lastTs) / 1000;
     lastTs = ts;
     if (player.options.animations.tachyonParticles) requestAnimationFrame(drawAnimations);
 }
@@ -87,15 +87,16 @@ function drawTreeBranch(num1, num2) {
     var name1 = parseInt(num1);
     var isECName = false;
     var isDilStudyName = false;
+	var name2;
     if (num2.includes("ec")) {
         var a = num2.split("c")[1];
-        var name2 = parseInt(a.split("u")[0]);
-        var isECName = true;
+        name2 = parseInt(a.split("u")[0]);
+        isECName = true;
     } else if (num2.includes("dilstudy")) {
-        var isDilStudyName = true;
-        var name2 = parseInt(num2.split("y")[1]);
+        isDilStudyName = true;
+        name2 = parseInt(num2.split("y")[1]);
     } else {
-        var name2 = parseInt(num2)
+        name2 = parseInt(num2)
     }
     var start = document.getElementById(num1).getBoundingClientRect();
     var end = document.getElementById(num2).getBoundingClientRect();
