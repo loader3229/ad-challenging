@@ -1794,14 +1794,14 @@ screen and (max-width: 480px) {
 }
 
 @keyframes float {
-    0% { bottom: 0px; opacity: 0;}
+    0% { bottom: 0; opacity: 0;}
     50% {opacity: 1; }
     100% { bottom: 50px; opacity: 0;}
 }
 
 @keyframes implode {
-    0% {transform:scale(1); filter:blur(0px)}
+    0% {transform:scale(1); filter:blur(0)}
     50% {transform:scale(0); filter:blur(5px)}
-    100% {transform:scale(1); filter:blur(0px)}
+    100% {transform:scale(1); filter:blur(0)}
 }
 
