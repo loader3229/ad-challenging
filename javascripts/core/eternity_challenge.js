@@ -1,4 +1,4 @@
-/*global Decimal*/
+/*global Decimal player*/
 var maxEC=[0,15,15,15,15,15,15,15,15,15,15,5,5];
 for(var i=0;i<13;i++){
 	maxEC["eterc"+i]=maxEC[i];
