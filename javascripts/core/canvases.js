@@ -46,7 +46,7 @@ function drawAnimations(ts){
         ctx3.clearRect(0, 0, canvas.width, canvas.height);
         if (player.options.theme == "Dark" || player.options.theme == "Dark Metro") ctx3.fillStyle="#FFF";
         else ctx3.fillStyle="#000";
-        for (i=0; i<player.dilation.tachyonParticles.exponent+1; i++) {
+        for (var i=0; i<player.dilation.tachyonParticles.exponent+1; i++) {
             if (typeof particles["particle"+i] == "undefined") {
                 particles["particle"+i] = {}
                 particles["particle"+i].goalX = Math.ceil(Math.random() * canvas3.width);
@@ -274,7 +274,7 @@ function drawStudyTree() {
 	
 	
     if (shiftDown && document.getElementById("eternitystore").style.display !== "none" && document.getElementById("timestudies").style.display !== "none") {
-        for (i=0; i<all.length; i++) {
+        for (var i=0; i<all.length; i++) {
             var start = document.getElementById(all[i]).getBoundingClientRect();
             var x1 = start.left + (start.width / 2) + (document.documentElement.scrollLeft || document.body.scrollLeft);
             var y1 = start.top + (start.height / 2) + (document.documentElement.scrollTop || document.body.scrollTop);
