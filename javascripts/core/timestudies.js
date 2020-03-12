@@ -432,7 +432,7 @@ function exportStudyTree() {
   } catch(ex) {
       // well, we tried.
   }
-};
+}
 
 function importStudyTree(input) {
   if (typeof input !== 'string') var input = prompt()
@@ -447,7 +447,7 @@ function importStudyTree(input) {
       document.getElementById("ec"+parseInt(input.split("|")[1])+"unl").click();
       setTimeout(function(){ justImported = false; }, 100);
   }
-};
+}
 
 function studyTreeSaveButton(num) {
     if (shiftDown) {

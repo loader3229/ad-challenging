@@ -1821,7 +1821,7 @@ function galaxyReset() {
     if (player.achievements.includes("r66")) player.tickspeed = player.tickspeed.times(0.98);
     if (player.galaxies >= 540 && player.replicanti.galaxies == 0) giveAchievement("Unique snowflakes")
     updateTickSpeed();
-};
+}
 
 document.getElementById("exportbtn").onclick = function () {
 	
