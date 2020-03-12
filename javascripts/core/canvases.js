@@ -1,4 +1,4 @@
-/*global player document window*/
+/*global player document window all*/
 var lastTs = 0;
 var goalX = -1;
 var goalY = -1;
