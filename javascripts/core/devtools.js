@@ -1,3 +1,4 @@
+/*global Decimal player:true timeDimCostMults document*/
 var dev = {};
 
 dev.giveAllAchievements = function() {

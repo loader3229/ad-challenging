@@ -231,7 +231,7 @@ function EC12Reward(){
 function gainedCM(){
 	var ip=player.infinityPoints;
 	var ec=parseInt(player.currentEternityChall.slice(5));
-	if(ip.lte("1e80000") || (ec==10&&ip.lte("1e80000")))return new Decimal(0);
+	if(ip.lte("1e2000000") || (ec==10&&ip.lte("1e80000")))return new Decimal(0);
 	var total=Decimal.max((Decimal.pow((ec==10?(ip.log10()*75+8989482):(ip.log10()+12989482))/20000,0.51).sub(29)).mul(4),0);
 	if(player.challengingMatter[ec].gte(total))return new Decimal(0);
 	return total.sub(player.challengingMatter[ec]);
