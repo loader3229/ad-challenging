@@ -193,9 +193,7 @@ function canBuyStudy(name) {
   if (name == 1018) if(player.timestudy.studies.includes(1014)) return true; else return false
   if (name == 1020) if(player.timestudy.studies.includes(1016)) return true; else return false
   switch(row) {
-
       case 1: return true
-      break;
 
       case 2:
       case 5:
@@ -205,7 +203,6 @@ function canBuyStudy(name) {
       case 16:
       case 17:
       if (hasRow(row-1)) return true; else return false
-      break;
 
       case 3:
       case 4:
@@ -215,8 +212,7 @@ function canBuyStudy(name) {
       case 13:
       case 14:
       if (player.timestudy.studies.includes((row-1)*10 + col)) return true; else return false
-      break;
-
+	  
       case 12:
 	  if (player.timestudy.studies.includes(1003)) {
         return true;
@@ -226,7 +222,6 @@ function canBuyStudy(name) {
 		} else {
           if (player.timestudy.studies.filter(function(x) {return Math.floor(x / 10) == 12}).length < 2) return true; else return false
       }
-      break;
 
       case 7:
       if (player.dilation.upgrades.includes(8)) {
@@ -236,24 +231,22 @@ function canBuyStudy(name) {
       } else {
           if (player.timestudy.studies.filter(function(x) {return Math.floor(x / 10) == 7}).length < 2) return true; else return false
       }
-      break;
-
+      
       case 19:
       if (player.eternityChalls.eterc10 !== undefined && player.timestudy.studies.includes(181)) return true; else return false
-      break;
+      
 
       case 22:
 	  if (player.timestudy.studies.includes(210 + Math.round(col/2)) && player.timestudy.studies.includes(1009) ) return true;
       if (player.timestudy.studies.includes(210 + Math.round(col/2)) && ((name%2 == 0) ? !player.timestudy.studies.includes(name-1) : !player.timestudy.studies.includes(name+1))) return true; else return false
-      break;
+      
 
       case 23:
 	  if ( (player.timestudy.studies.includes(220 + Math.floor(col*2)) || player.timestudy.studies.includes(220 + Math.floor(col*2-1))) && player.timestudy.studies.includes(1015) ) return true;
       if ( (player.timestudy.studies.includes(220 + Math.floor(col*2)) || player.timestudy.studies.includes(220 + Math.floor(col*2-1))) && !player.timestudy.studies.includes((name%2 == 0) ? name-1 : name+1)) return true; else return false;
-      break;
+	  
 	  case 100:
 	  return player.dilation.studies.includes(1) && player.timestudy.studies.filter(function(x) {return Math.floor(x / 10) == 23}).length >= 1;
-	  break;
   }
 }
 
@@ -438,7 +431,7 @@ function exportStudyTree() {
   } catch(ex) {
       // well, we tried.
   }
-};
+}
 
 function importStudyTree(input) {
   if (typeof input !== 'string') var input = prompt()
@@ -453,7 +446,7 @@ function importStudyTree(input) {
       document.getElementById("ec"+parseInt(input.split("|")[1])+"unl").click();
       setTimeout(function(){ justImported = false; }, 100);
   }
-};
+}
 
 function studyTreeSaveButton(num) {
     if (shiftDown) {

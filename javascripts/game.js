@@ -1885,7 +1885,7 @@ function galaxyReset() {
     if (player.achievements.includes("r66")) player.tickspeed = player.tickspeed.times(0.98);
     if (player.galaxies >= 540 && player.replicanti.galaxies == 0) giveAchievement("Unique snowflakes")
     updateTickSpeed();
-};
+}
 
 document.getElementById("exportbtn").onclick = function () {
 	
@@ -2118,8 +2118,8 @@ function setAchieveTooltip() {
     var IPBelongs = document.getElementById("All your IP are belong to us")
     var reference = document.getElementById("Yet another infinity reference")
     let blink = document.getElementById("Blink of an eye")
-    let exist = document.getElementById("This achievement doesn't exist")
-    let exist2 = document.getElementById("This achievement doesn't exist II")
+    //let exist = document.getElementById("This achievement doesn't exist")
+    //let exist2 = document.getElementById("This achievement doesn't exist II")
     let spare = document.getElementById("I got a few to spare")
     let speed = document.getElementById("Ludicrous Speed")
     let speed2 = document.getElementById("I brake for nobody")
@@ -4036,7 +4036,7 @@ document.getElementById("ec12unl").onclick = function() {
     }
 }
 
-function startEternityChallenge(name, startgoal, goalIncrease) {
+function startEternityChallenge(name) {
     if (player.eternityChallUnlocked == 0 || parseInt(name.split("c")[1]) !== player.eternityChallUnlocked) return
     clearInterval(gameLoopIntervalId);
 	if((player.options.challConf) || name == "" ? true :  (confirm("You will start over with just your time studies, eternity upgrades and achievements. You need to reach a set IP with special conditions."))) {
