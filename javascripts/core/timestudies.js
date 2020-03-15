@@ -509,5 +509,9 @@ function DTMult(){
 		m*=l.toNumber();
 	}
 	if(ECTimesCompleted("eterc12")>5)m*=Math.pow(1.5,ECTimesCompleted("eterc12")-5);
+	if(player.eternityUpgrades.includes(7))m*=(1 + Math.log10(Math.max(1, player.money.log10())) / 40);
+	if(player.eternityUpgrades.includes(8))m*=(1 + Math.log10(Math.max(1, player.infinityPoints.log10())) / 20);
+	if(player.eternityUpgrades.includes(9))m*=(1 + Math.log10(Math.max(1, player.eternityPoints.log10())) / 10);
+	
 	return m;
 }
